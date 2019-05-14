@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JuPe - Poolparty</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/paper.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <nav class="border split-nav">
+        <div class="nav-brand">
+            <h3><a href="#">Home</a></h3>
+        </div>
+        <div class="collapsible">
+            <input id="collapsible1" type="checkbox" name="collapsible1">
+            <button>
+                <label for="collapsible1">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </label>
+            </button>
+            <div class="collapsible-body">
+                <ul class="inline">
+                    <li><a href="#">Aktuell</a></li>
+                    <li><a href="#">Anmeldung</a></li>
+                    <li><a href="#">Volunteers</a></li>
+                    <li><a href="#">Volunteers</a></li>
+                    <li><a href="#">Fotos</a></li>
+                    <li><a href="#">Archiv</a></li>
+                    <li><a href="#">Impressum</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Body -->
+    <div class="paper margin-none">
+        <h1>
+            Poolparty
+        </h1>
+        <h2 class="col background-secondary">Aktuell</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Wo?</td>
+                    <td>text</td>
+                </tr>
+                <tr>
+                    <td>Wann?</td>
+                    <td>text</td>
+                </tr>
+                <tr>
+                    <td>Was?</td>
+                    <td>text</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Anmeldung -->
+        <h2 h2 class="col background-secondary">Anmeldung</h2>
+        <table class="table-hover margin-top-large">
+            <thead>
+                <tr>
+                    <th>Benötigt</th>
+                    <th>Name</th>
+                    <th>Anzahl</th>
+                    <th>Anmeldung</th>
+                </tr>
+            </thead>
+            <tbody class="form-group">
+                <tr>
+                    <td>Text</td>
+                    <td>
+                        <input pattern=".{2,1024}" name="Name" class="input-block" placeholder="Name" type="text"
+                            value="Logge" disabled>
+                    </td>
+                    <td>
+                        <input pattern=".{2,1024}" name="Anzahl" class="input-block" placeholder="Anzahl" type="number"
+                            value="1337" disabled>
+                    </td>
+                    <td><button class="btn-small" disabled>Anmelden</button></td>
+                </tr>
+                <tr>
+                    <td>Text</td>
+                    <td>
+                        <input pattern=".{2,1024}" name="Name" class="input-block" placeholder="Name" type="text">
+                    </td>
+                    <td>
+                        <input pattern=".{2,1024}" name="Anzahl" class="input-block" placeholder="Anzahl" type="number">
+                    </td>
+                    <td><button class="btn-small">Anmelden</button></td>
+                </tr>
+                <tr>
+                    <td>Text</td>
+                    <td>
+                        <input name="Name" pattern=".{2,1024}" class="input-block" placeholder="Name" type="text">
+                    </td>
+                    <td>
+                        <input name="Anzahl" pattern=".{2,1024}" class="input-block" placeholder="Anzahl" type="number">
+                    </td>
+                    <td><button class="btn-small">Anmelden</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Volunteers -->
+        <h2 h2 class="col background-secondary">Volunteers</h2>
+
+        <table class="table-hover margin-top-large">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Von-Bis</th>
+                    <th>Anmeldung</th>
+                </tr>
+            </thead>
+            <tbody class="form-group">
+                <tr>
+                    <td>
+                        <input name="Name" pattern=".{2,1024}" class="input-block" placeholder="Name" type="text">
+                    </td>
+                    <td>
+                        <input name="helfensZeit" pattern=".{2,1024}" class="input-block" placeholder="Von - Bis"
+                            type="text">
+                    </td>
+                    <td><button class="btn-small">Anmelden</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Fotos -->
+        <h2 h2 class="col background-secondary">Fotos</h2>
+        <div id="photos">
+            <!-- Placeholder über main.js -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <input class="modal-state" id="confirmModal" type="checkbox">
+    <div class="modal">
+        <label class="modal-bg" for="confirmModal"></label>
+        <div class="modal-body">
+            <label class="btn-close" for="confirmModal">X</label>
+            <h4 class="modal-title">Anmeldung Bestätigen</h4>
+            <span class="background-success note margin-small" id="success">Erfolgreich eingetragen</span>
+            <span class="background-danger note margin-small" id="error">Fehler beim Eintragen</span>
+            <p class="modal-text">Bitte überprüfe folgende Angaben um deine Anmeldung zu bestätigen:
+                <p id="confirmationData">
+
+                </p>
+                <div class="progress margin-bottom" id="progress">
+                    <div class="bar success w-0"></div>
+                </div>
+            </p>
+            <div class="row flex-edges">
+                <button class="col" onclick="submitModal()"><span class="text-success">Anmelden</span></button>
+                <button class="col" onclick="hideModal()"><span class="text-danger">Abbrechen</span></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
