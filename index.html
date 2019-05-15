@@ -29,11 +29,10 @@
             </button>
             <div class="collapsible-body">
                 <ul class="inline">
-                    <li><a href="#">Aktuell</a></li>
-                    <li><a href="#">Anmeldung</a></li>
-                    <li><a href="#">Volunteers</a></li>
-                    <li><a href="#">Volunteers</a></li>
-                    <li><a href="#">Fotos</a></li>
+                    <li><a href="#aktuell">Aktuell</a></li>
+                    <li><a href="#anmeldung">Anmeldung</a></li>
+                    <li><a href="#volunteers">Volunteers</a></li>
+                    <li><a href="#fotos">Fotos</a></li>
                     <li><a href="#">Archiv</a></li>
                     <li><a href="#">Impressum</a></li>
                 </ul>
@@ -46,6 +45,7 @@
         <h1>
             Poolparty
         </h1>
+        <a name="aktuell"></a>
         <h2 class="col background-secondary">Aktuell</h2>
         <table>
             <tbody>
@@ -65,13 +65,14 @@
         </table>
 
         <!-- Anmeldung -->
+        <a name="anmeldung"></a>
         <h2 h2 class="col background-secondary">Anmeldung</h2>
         <table class="table-hover margin-top-large">
             <thead>
                 <tr>
                     <th>Benötigt</th>
                     <th>Name</th>
-                    <th>Anzahl</th>
+                    <th>Anzahl (1-4)</th>
                     <th>Anmeldung</th>
                 </tr>
             </thead>
@@ -80,31 +81,35 @@
                     <td>Text</td>
                     <td>
                         <input pattern=".{2,1024}" name="Name" class="input-block" placeholder="Name" type="text"
-                            value="Logge" disabled>
+                            value="Inhalt versteckt" disabled required>
                     </td>
                     <td>
-                        <input pattern=".{2,1024}" name="Anzahl" class="input-block" placeholder="Anzahl" type="number"
-                            value="1337" disabled>
+                        <input min=1 max=4 name="Anzahl" class="input-block" placeholder="Anzahl" type="number"
+                            value="3" disabled required>
                     </td>
                     <td><button class="btn-small" disabled>Anmelden</button></td>
                 </tr>
                 <tr>
                     <td>Text</td>
                     <td>
-                        <input pattern=".{2,1024}" name="Name" class="input-block" placeholder="Name" type="text">
+                        <input pattern=".{2,1024}" name="Name" class="input-block" placeholder="Name" type="text"
+                            required>
                     </td>
                     <td>
-                        <input pattern=".{2,1024}" name="Anzahl" class="input-block" placeholder="Anzahl" type="number">
+                        <input min=1 max=4 name="Anzahl" class="input-block" placeholder="Anzahl" type="number"
+                            required>
                     </td>
                     <td><button class="btn-small">Anmelden</button></td>
                 </tr>
                 <tr>
                     <td>Text</td>
                     <td>
-                        <input name="Name" pattern=".{2,1024}" class="input-block" placeholder="Name" type="text">
+                        <input name="Name" pattern=".{2,1024}" class="input-block" placeholder="Name" type="text"
+                            required>
                     </td>
                     <td>
-                        <input name="Anzahl" pattern=".{2,1024}" class="input-block" placeholder="Anzahl" type="number">
+                        <input min=1 max=4 name="Anzahl" class="input-block" placeholder="Anzahl" type="number"
+                            required>
                     </td>
                     <td><button class="btn-small">Anmelden</button></td>
                 </tr>
@@ -112,6 +117,7 @@
         </table>
 
         <!-- Volunteers -->
+        <a name="volunteers"></a>
         <h2 h2 class="col background-secondary">Volunteers</h2>
 
         <table class="table-hover margin-top-large">
@@ -125,11 +131,23 @@
             <tbody class="form-group">
                 <tr>
                     <td>
-                        <input name="Name" pattern=".{2,1024}" class="input-block" placeholder="Name" type="text">
+                        <input name="Name" pattern=".{2,1024}" class="input-block" placeholder="Name" type="text"
+                            value="Inhalt versteckt" disabled required>
                     </td>
                     <td>
                         <input name="helfensZeit" pattern=".{2,1024}" class="input-block" placeholder="Von - Bis"
-                            type="text">
+                            type="text" value="17:00-21:00 Aufbau" disabled required>
+                    </td>
+                    <td><button class="btn-small" disabled>Anmelden</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input name="Name" pattern=".{2,1024}" class="input-block" placeholder="Name" type="text"
+                            required>
+                    </td>
+                    <td>
+                        <input name="helfensZeit" pattern=".{2,1024}" class="input-block" placeholder="Von - Bis"
+                            type="text" required>
                     </td>
                     <td><button class="btn-small">Anmelden</button></td>
                 </tr>
@@ -137,6 +155,7 @@
         </table>
 
         <!-- Fotos -->
+        <a name="fotos"></a>
         <h2 h2 class="col background-secondary">Fotos</h2>
         <div id="photos">
             <!-- Placeholder über main.js -->
