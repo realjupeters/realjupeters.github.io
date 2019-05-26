@@ -14,7 +14,7 @@ var submitData
 document.querySelectorAll('td button').forEach(function (button) {
     button.onclick = function (event) {
         submitData = {}
-        var tr = event.target.padisabledrentElement.parentElement.children
+        var tr = event.target.parentElement.parentElement.children
         for (i = 0; i < tr.length; i++) {
             var element = tr[i].children[0]
             if (!element) continue
