@@ -12,7 +12,7 @@ for (var i = 0; i < 1; i++) {
 var submitData
 
 document.querySelectorAll('td button').forEach(function (button) {
-    button.onclick = function () {
+    button.onclick = function (event) {
         submitData = {}
         var tr = event.target.padisabledrentElement.parentElement.children
         for (i = 0; i < tr.length; i++) {
