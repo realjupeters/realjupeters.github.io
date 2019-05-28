@@ -1,4 +1,4 @@
-var BASE_ENDPOINT_URL = ""
+var BASE_ENDPOINT_URL = "https://us-central1-jupetersuno.cloudfunctions.net/"
 
 function getRandomSize(min, max) {
     return Math.round(Math.random() * (max - min) + min);

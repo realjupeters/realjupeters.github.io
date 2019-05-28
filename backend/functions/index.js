@@ -9,7 +9,7 @@ exports.halloWelt = functions.https.onRequest((request, response) => {
     response.send("Hallo von Firebase!");
 });
 
-// Lade alle Items die noch zu besorgen sind.
+// Lade alle Items die noch zu besorgen sind
 exports.ladeItems = functions.https.onRequest((request, response) => {
     var allVolunteers = db.collection('poolparty_items')
     allVolunteers.get().then(snapshot => {
@@ -24,10 +24,64 @@ exports.ladeItems = functions.https.onRequest((request, response) => {
     });
 });
 
+// Eintragen von neuen Volunteers
 exports.setzeVolunteer = functions.https.onRequest((request, response) => {
+    const name = request.query.name
+    const dauer = request.query.dauer 
+    if (!name) return response.json({error: "Kein Name angegeben"})
+    if (!dauer) return response.json({error: "Keine Dauer angegeben"})
 
+    // Check if User is regsitered
+    const anmeldungsRef = db.collection("poolparty_anmeldungen").doc(name)
+    const anmeldungsDoc = await anmeldungsRef.get()
+    if (!anmeldungsDoc.exists) return response.json({error: "Name noch nicht angemeldet"})
+
+    // Check if Data is already there
+    const volunteerRef = db.collection("poolparty_volunteers").doc(name)
+    const volunteerDoc = await volunteerRef.get()
+    if (volunteerDoc.exists && volunteerDoc.data().dauer == dauer) return response.json({error: "Dauer bereits für dich eingetragen"})
+
+    volunteerRef.set({
+        name: name,
+        dauer: dauer,
+        eingetragen: new Date().toLocaleDateString()
+    })
+
+    response.json({success: "Erfolgreich eingetragen"})
 })
 
-exports.setzeAnmeldung = functions.https.onRequest((request, response) => {
+// Eintragen von neuen Anmeldungen
+exports.setzeAnmeldung = functions.https.onRequest(async (request, response) => {
+    const name = request.query.name
+    const item = request.query.item 
+    const personen = request.query.personen
 
+    if (!name) return response.json({error: "Kein Name angegeben"})
+    if (!item) return response.json({error: "Kein Item angegeben"})
+    if (!personen) return response.json({error: "Keine Personenanzahl angegeben"})
+
+    if (parseInt(person) <= 0 || parseInt > 4) return response.json({error: "Ungülige Personenanzahl angegeben. Nur 1-4 mölgich."})
+
+    // Check if Data is already there
+    const userRef = db.collection("poolparty_anmeldungen").doc(name)
+    const userDoc = await userRef.get()
+    if (userDoc.exists) return response.json({error: "Name bereits eingetragen"})
+    
+    // Check if the Item is in the DB and if it's taken
+    const itemRef = db.collection("poolparty_items").doc(item)
+    const itemDoc = await itemRef.get()
+    if (!itemDoc.exists) return response.json({error: "Item existiert nicht in der Datenbank"})
+    if (itemDoc.data().person) return response.json({error: "Item bereits vergeben"})
+
+    itemRef.set({
+        person: name
+    })
+
+    userRef.set({
+        name: name,
+        item: item,
+        eingetragen: new Date().toLocaleDateString()
+    })
+
+    response.json({success: "Erfolgreich eingetragen"})
 })
