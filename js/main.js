@@ -1,3 +1,5 @@
+var BASE_ENDPOINT_URL = ""
+
 function getRandomSize(min, max) {
     return Math.round(Math.random() * (max - min) + min);
 }
