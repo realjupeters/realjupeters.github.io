@@ -25,7 +25,7 @@ exports.ladeItems = functions.https.onRequest((request, response) => {
 });
 
 // Eintragen von neuen Volunteers
-exports.setzeVolunteer = functions.https.onRequest((request, response) => {
+exports.setzeVolunteer = functions.https.onRequest(async (request, response) => {
     const name = request.query.name
     const dauer = request.query.dauer 
     if (!name) return response.json({error: "Kein Name angegeben"})
