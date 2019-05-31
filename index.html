@@ -19,9 +19,9 @@
             <h3><a href="#">Home</a></h3>
         </div>
         <div class="collapsible">
-            <input id="collapsible1" type="checkbox" name="collapsible1">
+            <input id="collapsibleMenu" type="checkbox" name="collapsibleMenu">
             <button>
-                <label for="collapsible1">
+                <label for="collapsibleMenu">
                     <div class="bar1"></div>
                     <div class="bar2"></div>
                     <div class="bar3"></div>
@@ -43,6 +43,12 @@
     <!-- Body -->
     <div class="paper margin-none">
         <h1>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 372 372">
+                <path
+                    d="M233.159 149.696c23.901 0 43.346-19.445 43.346-43.346s-19.444-43.347-43.346-43.347-43.347 19.445-43.347 43.347 19.446 43.346 43.347 43.346zm0-66.693c12.873 0 23.346 10.473 23.346 23.347 0 12.873-10.473 23.346-23.346 23.346s-23.347-10.473-23.347-23.346c.001-12.873 10.474-23.347 23.347-23.347z" />
+                <path
+                    d="M186 0C83.439 0 0 83.439 0 186c0 32.194 8.225 62.502 22.68 88.938a9.946 9.946 0 0 0 1.075 1.921C55.648 333.586 116.418 372 186 372c102.561 0 186-83.439 186-186S288.561 0 186 0zm0 20c85.566 0 156.21 65.076 165.059 148.333H168.396c-12.476-14.882-29.879-23.159-47.054-25.57v-2.899c0-5.523-4.478-10-10-10s-10 4.477-10 10v2.725c-17.596 2.166-35.572 10.483-48.367 25.743H20.941C29.79 85.076 100.434 20 186 20zm-25.27 173.433H60.641c10.204-22.949 32.322-31.43 50.045-31.43s39.84 8.481 50.044 31.43zm-140.7-5.1h21.097a82.31 82.31 0 0 0-3.943 12.988 9.999 9.999 0 0 0 9.774 12.112h54.384v47.647H37.975c-11.157-21.908-17.583-46.607-17.945-72.747zM186 352c-56.192 0-105.945-28.071-135.993-70.92h51.335v13.586h-2.243c-5.522 0-10 4.477-10 10s4.478 10 10 10h100.666c5.522 0 10-4.477 10-10s-4.478-10-10-10h-78.423V281.08h200.651C291.945 323.929 242.192 352 186 352zm79.37-135.738h83.857a164.842 164.842 0 0 1-1.228 6.004h-38.552c-5.522 0-10 4.477-10 10s4.478 10 10 10h32.73a165.109 165.109 0 0 1-8.151 18.814H121.342v-47.647h53.07a10 10 0 0 0 9.774-12.112 82.31 82.31 0 0 0-3.943-12.988H351.97a167.767 167.767 0 0 1-.297 7.928H265.37c-5.522 0-10 4.477-10 10s4.478 10.001 10 10.001z" />
+            </svg>
             Poolparty
         </h1>
         <a name="aktuell"></a>
@@ -66,100 +72,71 @@
 
         <!-- Anmeldung -->
         <a name="anmeldung"></a>
-        <h2 h2 class="col background-secondary">Anmeldung</h2>
-        <table class="table-hover margin-top-large">
-            <thead>
-                <tr>
-                    <th>Benötigt</th>
-                    <th>Name</th>
-                    <th>Anzahl (1-4)</th>
-                    <th>Anmeldung</th>
-                </tr>
-            </thead>
-            <tbody class="form-group">
-                <tr>
-                    <td>Text</td>
-                    <td>
-                        <input pattern=".{2,1024}" name="Name" class="input-block" placeholder="Name" type="text"
-                            value="Inhalt versteckt" disabled required>
-                    </td>
-                    <td>
-                        <input min=1 max=4 name="Anzahl" class="input-block" placeholder="Anzahl" type="number"
-                            value="3" disabled required>
-                    </td>
-                    <td><button class="btn-small" disabled>Anmelden</button></td>
-                </tr>
-                <tr>
-                    <td>Text</td>
-                    <td>
-                        <input pattern=".{2,1024}" name="Name" class="input-block" placeholder="Name" type="text"
-                            required>
-                    </td>
-                    <td>
-                        <input min=1 max=4 name="Anzahl" class="input-block" placeholder="Anzahl" type="number"
-                            required>
-                    </td>
-                    <td><button class="btn-small">Anmelden</button></td>
-                </tr>
-                <tr>
-                    <td>Text</td>
-                    <td>
-                        <input name="Name" pattern=".{2,1024}" class="input-block" placeholder="Name" type="text"
-                            required>
-                    </td>
-                    <td>
-                        <input min=1 max=4 name="Anzahl" class="input-block" placeholder="Anzahl" type="number"
-                            required>
-                    </td>
-                    <td><button class="btn-small">Anmelden</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <h2 class="col background-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.021 27.022">
+                <g>
+                    <g>
+                        <path d="M17.855,21.223c0-1.902,1.049-3.55,2.588-4.44c-0.963-0.308-2-0.552-3.09-0.722c2.342-1.299,3.929-3.794,3.929-6.663
+                            c0-4.207-3.41-7.617-7.617-7.617s-7.617,3.41-7.617,7.617c0,2.868,1.587,5.364,3.929,6.663C4.223,16.958,0,19.897,0,23.389h18.35
+                            C18.041,22.727,17.855,22,17.855,21.223z" />
+                    </g>
+                    <path d="M23.004,17.206c-2.218,0-4.018,1.797-4.018,4.018c0,2.219,1.8,4.017,4.018,4.017c2.219,0,4.018-1.798,4.018-4.017
+                        C27.02,19.002,25.223,17.206,23.004,17.206z M25.627,21.936h-1.909v1.91h-1.427v-1.91h-1.91v-1.429h1.91v-1.911h1.427v1.911h1.909
+                        V21.936z" />
+                </g>
+            </svg>
+            Anmeldung
+        </h2>
 
+        <div class="row">
+            <div class="sm-12 md-4">
+                <div class="form-group">
+                    <label for="mitbringenInput">Mitbringen</label>
+                    <select id="mitbringenInput" class="input-block">
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <select>
+                </div>
+            </div>
+            <div class="sm-12 md-4">
+                <div class="form-group">
+                    <label for="nameInput">Dein Name</label>
+                    <input class="input-block" type="text" placeholder="Name" id="nameInput">
+                </div>
+            </div>
+            <div class="sm-12 md-4">
+                <div class="form-group">
+                    <label for="personenInput">Anzahl Personen (1-4)</label>
+                    <input class="input-block" type="number" placeholder="Personen" id="personenInput">
+                </div>
+            </div>
+            <div class="sm-12">
+                <div class="form-group">
+                    <button class="btn-large btn-block" disabled>Absenden</button>
+                </div>
+            </div>
+        </div>
         <!-- Volunteers -->
         <a name="volunteers"></a>
-        <h2 h2 class="col background-secondary">Volunteers</h2>
+        <h2 class="col background-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 297 297">
+                <path
+                    d="M47.156 188.376c0 2.861 1.109 14.855 9.212 29.09 6.86 12.052 19.88 26.147 43.843 29.262v40.243c0 5.538 4.49 10.029 10.029 10.029 5.538 0 10.028-4.491 10.028-10.029v-49.644c0-5.538-4.49-10.029-10.028-10.029-16.487 0-28.643-6.465-36.128-19.216-5.521-9.402-6.922-17.345-6.922-20.844v-82.294c0-1.782 0-6.519 8.237-6.519 8.235 0 8.235 4.736 8.235 6.519v34.548c0 2.736 1.117 5.354 3.095 7.246a9.982 9.982 0 0 0 7.374 2.773c.024-.011 5.862.022 13.244 4.191 11.333 6.402 20.478 19.249 26.445 37.151 1.752 5.255 7.432 8.097 12.686 6.344 5.255-1.752 8.095-7.432 6.343-12.686-12.976-38.932-35.79-50.37-49.128-53.701V38.037c0-2.17 0-5.803 8.236-5.803 8.235 0 8.235 3.633 8.235 5.803v54.73c0 5.539 4.491 10.029 10.029 10.029s10.028-4.49 10.028-10.029V25.86c0-2.17 0-5.803 8.236-5.803 8.235 0 8.235 3.633 8.235 5.803v66.907c0 5.539 4.491 10.029 10.029 10.029s10.029-4.49 10.029-10.029v-54.73c0-2.17 0-5.803 8.235-5.803 8.236 0 8.236 3.633 8.236 5.803v71.278c0 5.538 4.491 10.029 10.029 10.029 5.539 0 10.029-4.491 10.029-10.029V71.849c0-1.782 0-6.519 8.236-6.519s8.244 4.736 8.244 6.519v116.402c.011.177.717 18.087-9.919 29.341-6.086 6.441-15.135 9.706-26.894 9.706-5.539 0-10.029 4.491-10.029 10.029v49.644c0 5.538 4.49 10.029 10.029 10.029 5.538 0 10.028-4.491 10.028-10.029v-40.253c12.868-1.712 23.415-6.855 31.443-15.35 15.825-16.745 15.516-40.586 15.391-43.899V71.849c0-15.647-11.636-26.577-28.294-26.577-2.912 0-5.667.342-8.236.977v-8.211c0-15.469-11.371-25.86-28.295-25.86-3.986 0-7.66.583-10.954 1.667C169.732 5.253 160.514 0 148.487 0c-12.028 0-21.245 5.253-25.575 13.844-3.294-1.084-6.968-1.667-10.954-1.667-16.924 0-28.295 10.392-28.295 25.86v41.307c-2.569-.635-5.324-.976-8.235-.976-16.66 0-28.295 10.93-28.295 26.577-.001-.001.023 61.792.023 83.431z" />
+            </svg>
+            Volunteers
+        </h2>
 
-        <table class="table-hover margin-top-large">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Von-Bis</th>
-                    <th>Anmeldung</th>
-                </tr>
-            </thead>
-            <tbody class="form-group">
-                <tr>
-                    <td>
-                        <input name="Name" pattern=".{2,1024}" class="input-block" placeholder="Name" type="text"
-                            value="Inhalt versteckt" disabled required>
-                    </td>
-                    <td>
-                        <input name="helfensZeit" pattern=".{2,1024}" class="input-block" placeholder="Von - Bis"
-                            type="text" value="17:00-21:00 Aufbau" disabled required>
-                    </td>
-                    <td><button class="btn-small" disabled>Anmelden</button></td>
-                </tr>
-                <tr>
-                    <td>
-                        <input name="Name" pattern=".{2,1024}" class="input-block" placeholder="Name" type="text"
-                            required>
-                    </td>
-                    <td>
-                        <input name="helfensZeit" pattern=".{2,1024}" class="input-block" placeholder="Von - Bis"
-                            type="text" required>
-                    </td>
-                    <td><button class="btn-small">Anmelden</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <button class="btn-large btn-block">Als Volunteer eintragen</button>
+
 
         <!-- Fotos -->
         <a name="fotos"></a>
-        <h2 h2 class="col background-secondary">Fotos</h2>
+        <h2 class="col background-secondary">Fotos</h2>
         <div id="photos">
             <!-- Placeholder über main.js -->
         </div>
+
     </div>
 
     <!-- Modal -->
@@ -185,27 +162,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Core Firebase JS SDK -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script> -->
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#config-web-app -->
-
-    <!-- 
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyBrMpvy-N6GC-sUIURCVUI65KmWdUW2V4w",
-            databaseURL: "https://jupetersuno.firebaseio.com",
-            projectId: "jupetersuno",
-            // später vielleicht: messagingSenderId: "30051599978",
-            appId: "1:30051599978:web:055a29b7e21ab3b8"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-    </script>
-    -->
     <script src="js/main.js"></script>
 </body>
 

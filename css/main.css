@@ -56,3 +56,24 @@
 span.note {
     display: none;
 }
+
+h1 svg {
+  height: 4rem;
+  position: relative;
+  top: 0.15em;
+}
+
+h2 svg {
+  height: 3rem;
+  position: relative;
+  top: 0.15em;
+  width: auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-group {
+  margin: 1rem;
+}
