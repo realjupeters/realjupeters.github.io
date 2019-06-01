@@ -4,10 +4,10 @@ function getRandomSize(min, max) {
     return Math.round(Math.random() * (max - min) + min);
 }
 
-for (var i = 0; i < 1; i++) {
+for (var i = 0; i < 10; i++) {
     var width = getRandomSize(200, 400);
     var height = getRandomSize(200, 400);
-    document.getElementById('photos').innerHTML += '<img class="" src="//www.placekitten.com/' + width + '/' + height + '" alt="pretty kitty">'
+    document.getElementById('photos').innerHTML += '<img class="" src="http://www.placekitten.com/' + width + '/' + height + '" alt="pretty kitty">'
     // ToDo Add Data SRC with hq image & lazy class on actual images
 }
 

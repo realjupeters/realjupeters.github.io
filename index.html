@@ -52,7 +52,13 @@
             Poolparty
         </h1>
         <a name="aktuell"></a>
-        <h2 class="col background-secondary">Aktuell</h2>
+        <h2 class="col background-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 372 372">
+                <path
+                    d="M88.924 305.208c5.01 21.515-8.383 43.03-29.903 48.031-21.522 5.002-43.036-8.381-48.037-29.904-5.005-21.521 8.386-43.031 29.911-48.038 21.521-5.002 43.02 8.392 48.029 29.911zM72.268 190.229l-12.883 31.059c42.648 17.685 73.57 59.36 78.771 106.146l33.412-3.711c-6.527-58.786-45.51-111.191-99.3-133.494zm17.453-98.204L75.3 122.395c80.232 38.116 137.62 116.731 149.762 205.169l33.302-4.574c-13.65-99.547-78.276-188.051-168.643-230.965zM109.646 0L95.223 30.373C214.304 86.925 296.954 203.69 310.917 335.094l33.434-3.562C329.156 188.573 239.224 61.538 109.646 0z" />
+            </svg>
+            Aktuell
+        </h2>
         <table>
             <tbody>
                 <tr>
@@ -89,7 +95,7 @@
         </h2>
 
         <div class="row">
-            <div class="sm-12 md-4">
+            <div class="sm-12 md-4 col">
                 <div class="form-group">
                     <label for="mitbringenInput">Mitbringen</label>
                     <select id="mitbringenInput" class="input-block">
@@ -99,19 +105,19 @@
                         <select>
                 </div>
             </div>
-            <div class="sm-12 md-4">
+            <div class="sm-12 md-4 col">
                 <div class="form-group">
                     <label for="nameInput">Dein Name</label>
                     <input class="input-block" type="text" placeholder="Name" id="nameInput">
                 </div>
             </div>
-            <div class="sm-12 md-4">
+            <div class="sm-12 md-4 col">
                 <div class="form-group">
                     <label for="personenInput">Anzahl Personen (1-4)</label>
                     <input class="input-block" type="number" placeholder="Personen" id="personenInput">
                 </div>
             </div>
-            <div class="sm-12">
+            <div class="col-12">
                 <div class="form-group">
                     <button class="btn-large btn-block" disabled>Absenden</button>
                 </div>
@@ -127,12 +133,39 @@
             Volunteers
         </h2>
 
-        <button class="btn-large btn-block">Als Volunteer eintragen</button>
-
+        <div class="row">
+            <div class="sm-12 md-6 col">
+                <div class="form-group">
+                    <label for="volunteerName">Dein Name</label>
+                    <input class="input-block" type="text" placeholder="Name" id="volunteerName">
+                </div>
+            </div>
+            <div class="sm-12 md-6 col">
+                <div class="form-group">
+                    <label for="volunteerDauer">Dauer</label>
+                    <input class="input-block" type="text" placeholder="Dauer" id="volunteerDauer">
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <button class="btn-large btn-block" disabled>Absenden</button>
+                </div>
+            </div>
+        </div>
 
         <!-- Fotos -->
         <a name="fotos"></a>
-        <h2 class="col background-secondary">Fotos</h2>
+        <h2 class="col background-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
+                <g fill="#231f20">
+                    <path
+                        d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z" />
+                    <path
+                        d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z" />
+                </g>
+            </svg>
+            Fotos
+        </h2>
         <div id="photos">
             <!-- Placeholder über main.js -->
         </div>
