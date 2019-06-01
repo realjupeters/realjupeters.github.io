@@ -11,36 +11,43 @@ for (var i = 0; i < 10; i++) {
     // ToDo Add Data SRC with hq image & lazy class on actual images
 }
 
+document.getElementById('anmeldungAbsenden').onclick = function (event) {
+    var mitbringen = document.getElementById('mitbringenInput')
+    var name = document.getElementById('nameInput').value
+    var personen = document.getElementById('personenInput').value
+
+    var item = mitbringen.options[mitbringen.selectedIndex].value
+
+    if (!mitbringen || !name || !item) return // Leere Inputs
+    if (name.length < 3 || name.length > 512) return // Komische Nameslänge
+    if (personen < 1 || personen > 4) return // Falsche Anzahl
+
+    sendHandler({ anmeldung: "anmelden", name: name, personen: personen, item: item })
+}
+
+document.getElementById('volunteerAbsenden').onclick = function (event) {
+    var name = document.getElementById('volunteerName').value
+    var dauer = document.getElementById('volunteerDauer').value
+
+    if (!name || !dauer) return// Leere Inputs
+    if (name.length < 3 || name.length > 512) return // Komische Nameslänge
+    if (dauer.length < 3 || dauer.length > 512) return // Komische Dauerlänge
+
+    sendHandler({ anmeldung: "volunteer", name: name, dauer: dauer })
+}
+
 var submitData
 
-document.querySelectorAll('td button').forEach(function (button) {
-    button.onclick = function (event) {
-        submitData = {}
-        var tr = event.target.parentElement.parentElement.children
-        for (i = 0; i < tr.length; i++) {
-            var element = tr[i].children[0]
-            if (!element) continue
-            if (element.nodeName === "INPUT") {
+sendHandler = function (data) {
+    submitData = data
 
-                // Validierung
-                if (element.pattern && !element.value.match(element.pattern))
-                    return element.setCustomValidity('Zu lang / kurz');
-                if (element.min && (element.value <= element.min || element.max <= element.value))
-                    return element.setCustomValidity('Zu viele / wenige');
-                element.setCustomValidity('');
-
-                submitData[element.name] = element.value
-            }
-        }
-
-        var str = ""
-        for (key in submitData) {
-            str += key + ': ' + submitData[key] + '\n'
-        }
-        document.getElementById('confirmationData').innerText = str
-        showModal()
+    var str = ""
+    for (key in submitData) {
+        str += key + ': ' + submitData[key] + '\n'
     }
-})
+    document.getElementById('confirmationData').innerText = str
+    showModal()
+}
 
 var modal = document.getElementById('confirmModal')
 
@@ -61,18 +68,31 @@ function submitModal() {
     alert('Daten in DB eintragen: ' + JSON.stringify(submitData))
     progress.style.visibility = 'visible'
     progress.children[0].style.width = '100%'
-    setTimeout(function () {
-        response(null)
-    }, 3000)
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", BASE_ENDPOINT_URL + 'setzeAnmeldung', true);
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+    xhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            try {
+                response(JSON.parse(this.responseText))
+            }
+            catch (e) {
+                console.error(e)
+            }
+        }
+    };
+    xhttp.send();
 }
 
 // Answer from Backend
-function response(responseError) {
-    if (responseError) {
+function response(data) {
+    if (data.error) {
         error.style.display = 'block'
-        error.innerText = responseError
+        error.innerText = data.error
     } else {
         success.style.display = 'block'
+        success.innerText = data.success
     }
     setTimeout(function () {
         progress.style.visibility = 'hidden'

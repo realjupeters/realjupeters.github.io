@@ -114,12 +114,12 @@
             <div class="sm-12 md-4 col">
                 <div class="form-group">
                     <label for="personenInput">Anzahl Personen (1-4)</label>
-                    <input class="input-block" type="number" placeholder="Personen" id="personenInput">
+                    <input class="input-block" type="number" min=1 max=4 placeholder="Personen" id="personenInput">
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-group">
-                    <button class="btn-large btn-block" disabled>Absenden</button>
+                    <button class="btn-large btn-block" type="submit" id="anmeldungAbsenden">Absenden</button>
                 </div>
             </div>
         </div>
@@ -148,7 +148,7 @@
             </div>
             <div class="col-12">
                 <div class="form-group">
-                    <button class="btn-large btn-block" disabled>Absenden</button>
+                    <button class="btn-large btn-block" type="submit" id="volunteerAbsenden">Absenden</button>
                 </div>
             </div>
         </div>
