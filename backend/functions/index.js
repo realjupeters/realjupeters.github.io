@@ -13,7 +13,7 @@ exports.halloWelt = functions.https.onRequest((request, response) => {
 
 // Lade alle Items die noch zu besorgen sind
 exports.ladeItems = functions.https.onRequest((request, response) => {
-    return cors(request, response, async () => {  
+    return cors(request, response, async () => {
         var allVolunteers = db.collection('poolparty_items')
         allVolunteers.get().then(snapshot => {
             volunteers = snapshot.docs.map(doc => {
@@ -30,7 +30,7 @@ exports.ladeItems = functions.https.onRequest((request, response) => {
 
 // Eintragen von neuen Volunteers
 exports.setzeVolunteer = functions.https.onRequest(async (request, response) => {
-        return cors(request, response, async () => {  
+    return cors(request, response, async () => {
         const name = request.query.name
         const dauer = request.query.dauer
         if (!name) return response.json({ error: "Kein Name angegeben" })
@@ -58,7 +58,7 @@ exports.setzeVolunteer = functions.https.onRequest(async (request, response) => 
 
 // Eintragen von neuen Anmeldungen
 exports.setzeAnmeldung = functions.https.onRequest(async (request, response) => {
-    return cors(request, response, async () => {  
+    return cors(request, response, async () => {
         const name = request.query.name
         const item = request.query.item
         const personen = request.query.personen
@@ -81,7 +81,8 @@ exports.setzeAnmeldung = functions.https.onRequest(async (request, response) => 
         if (itemDoc.data().person) return response.json({ error: "Item bereits vergeben" })
 
         itemRef.set({
-            person: name
+            person: name,
+            name: item
         })
 
         userRef.set({

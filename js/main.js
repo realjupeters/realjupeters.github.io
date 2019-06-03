@@ -85,14 +85,28 @@ sendHandler = function (data) {
     showModal()
 }
 
-var modal = document.getElementById('confirmModal')
+var modalState = document.getElementById('confirmModal')
+var closeTimer
+
+modalState.addEventListener('change', function (e) {
+    if (!event.target.checked) {
+        console.log('not checked')
+        hideModal()
+    }
+})
 
 function hideModal() {
-    modal.checked = false
+    if (closeTimer) clearInterval(closeTimer)
+    modalState.checked = false
+    progress.style.visibility = 'hidden'
+    success.style.display = 'none'
+    error.style.display = 'none'
+    progress.children[0].className = 'bar success w-0'
+    progress.children[0].style.width = '0%'
 }
 
 function showModal() {
-    modal.checked = true
+    modalState.checked = true
 }
 
 var progress = document.getElementById('progress')
@@ -139,13 +153,8 @@ function response(data) {
         success.style.display = 'block'
         success.innerText = data.success
     }
-    setTimeout(function () {
-        progress.style.visibility = 'hidden'
-        success.style.display = 'none'
-        error.style.display = 'none'
+    closeTimer = setTimeout(function () {
         hideModal()
-        progress.children[0].className = 'bar success w-0'
-        progress.children[0].style.width = '0%'
     }, 3000)
 
 }
