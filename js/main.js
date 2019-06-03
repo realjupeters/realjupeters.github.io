@@ -1,7 +1,7 @@
 var BASE_ENDPOINT_URL = "https://us-central1-jupetersuno.cloudfunctions.net/"
 
 function getRandomSize(min, max) {
-    return Math.round(Math.random() * (max - min) + min);
+    return Math.round(Math.random() * (max - min) + min)
 }
 
 function jsonToQS(json) {
@@ -24,7 +24,7 @@ function fillSelect(elements) {
     }
 }
 
-var xhttp = new XMLHttpRequest();
+var xhttp = new XMLHttpRequest()
 xhttp.open("GET", BASE_ENDPOINT_URL + 'ladeItems', true)
 xhttp.setRequestHeader('Access-Control-Allow-Origin', '*')
 xhttp.onreadystatechange = function () {
@@ -105,7 +105,15 @@ function submitModal() {
     progress.style.visibility = 'visible'
     progress.children[0].style.width = '100%'
     var xhttp = new XMLHttpRequest()
-    xhttp.open("GET", BASE_ENDPOINT_URL + 'setzeAnmeldung' + jsonToQS(submitData), true)
+    if (submitData.anmeldung == "anmeldung") {
+        xhttp.open("GET", BASE_ENDPOINT_URL + 'setzeAnmeldung' + jsonToQS(submitData), true)
+    }
+    else if (submitData.anmeldung == "volunteer") {
+        xhttp.open("GET", BASE_ENDPOINT_URL + 'setzeVolunteer' + jsonToQS(submitData), true)
+    }
+    else {
+        return alert("Fehler keiner Methode ausgewählt!")
+    }
     xhttp.setRequestHeader('Content-Type', 'application/json')
     xhttp.setRequestHeader('Access-Control-Allow-Origin', '*')
     xhttp.onreadystatechange = function () {
@@ -117,7 +125,7 @@ function submitModal() {
                 console.error(e)
             }
         }
-    };
+    }
     xhttp.send()
 }
 
@@ -150,17 +158,17 @@ if ("IntersectionObserver" in window) {
         entries.forEach(function (entry) {
             if (entry.isIntersecting) {
                 let lazyImage = entry.target
-                lazyImage.src = lazyImage.dataset.src;
-                lazyImage.srcset = lazyImage.dataset.srcset;
-                lazyImage.classList.remove("lazy");
-                lazyImageObserver.unobserve(lazyImage);
+                lazyImage.src = lazyImage.dataset.src
+                lazyImage.srcset = lazyImage.dataset.srcset
+                lazyImage.classList.remove("lazy")
+                lazyImageObserver.unobserve(lazyImage)
             }
-        });
-    });
+        })
+    })
 
     lazyImages.forEach(function (lazyImage) {
-        lazyImageObserver.observe(lazyImage);
-    });
+        lazyImageObserver.observe(lazyImage)
+    })
 } else {
     console.log("LL not supported")
 }
