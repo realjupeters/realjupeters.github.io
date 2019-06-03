@@ -1,9 +1,5 @@
 var BASE_ENDPOINT_URL = "https://us-central1-jupetersuno.cloudfunctions.net/"
 
-function getRandomSize(min, max) {
-    return Math.round(Math.random() * (max - min) + min)
-}
-
 function jsonToQS(json) {
     var qs = []
     for (element in json) {
@@ -39,12 +35,44 @@ xhttp.onreadystatechange = function () {
 }
 xhttp.send()
 
+window.onload = function () {
 
-for (var i = 0; i < 10; i++) {
-    var width = getRandomSize(200, 400)
-    var height = getRandomSize(200, 400)
-    document.getElementById('photos').innerHTML += '<img class="" src="http://www.placekitten.com/' + width + '/' + height + '" alt="pretty kitty">'
-    // ToDo Add Data SRC with hq image & lazy class on actual images
+    var photos = document.getElementById('photos')
+    for (i = 1; i <= 7; i++) {
+        `
+        <div class="image-container" data-large="https://assets.imgix.net/unsplash/bear.jpg?w=1000">
+            <img class="placeholder" src="https://assets.imgix.net/unsplash/bear.jpg?w=50" class="img-small">
+        </div>
+    
+        `
+
+        var container = document.createElement('div')
+        container.setAttribute('data-large', 'img/full/img' + i + '.jpg')
+        container.className = 'image-container'
+
+        var small = new Image()
+        small.src = 'img/svg/loader_img' + i + '.svg'
+        small.className = 'img-small placeholder'
+        small.onload = function () {
+            this.classList.add("loaded")
+
+            var imgLarge = new Image()
+            imgLarge.src = this.parentElement.dataset.large
+            imgLarge.onload = function () {
+                setTimeout(function () {
+                    this.classList.add('loaded');
+                }.bind(this), Math.random() * 3000)
+            }
+            imgLarge.classList.add('picture');
+
+            this.parentElement.appendChild(imgLarge)
+        }
+
+        container.append(small)
+
+        photos.append(container)
+
+    }
 }
 
 document.getElementById('anmeldungAbsenden').onclick = function (event) {
