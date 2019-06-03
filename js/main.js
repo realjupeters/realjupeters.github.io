@@ -146,7 +146,7 @@ function response(data) {
         hideModal()
         progress.children[0].className = 'bar success w-0'
         progress.children[0].style.width = '0%'
-    }, 10000)
+    }, 3000)
 
 }
 
