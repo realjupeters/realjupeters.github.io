@@ -105,7 +105,7 @@ function submitModal() {
     progress.style.visibility = 'visible'
     progress.children[0].style.width = '100%'
     var xhttp = new XMLHttpRequest()
-    if (submitData.anmeldung == "anmeldung") {
+    if (submitData.anmeldung == "anmelden") {
         xhttp.open("GET", BASE_ENDPOINT_URL + 'setzeAnmeldung' + jsonToQS(submitData), true)
     }
     else if (submitData.anmeldung == "volunteer") {
