@@ -52,7 +52,7 @@ exports.setzeVolunteer = functions.https.onRequest(async (request, response) => 
             eingetragen: new Date().toLocaleDateString()
         })
 
-        response.json({ success: "Erfolgreich eingetragen" })
+        response.status(200).json({ success: "Erfolgreich eingetragen" })
     })
 })
 
@@ -75,12 +75,18 @@ exports.setzeAnmeldung = functions.https.onRequest(async (request, response) => 
         if (userDoc.exists) return response.json({ error: "Name bereits eingetragen" })
 
         // Check if the Item is in the DB and if it's taken
-        const itemRef = db.collection("poolparty_items").doc(item)
-        const itemDoc = await itemRef.get()
-        if (!itemDoc.exists) return response.json({ error: "Item existiert nicht in der Datenbank" })
-        if (itemDoc.data().person) return response.json({ error: "Item bereits vergeben" })
+        const itemRef = db.collection("poolparty_items").where("name", "==", item)
+        const itemSnapshot = await itemRef.get()
+        if (itemSnapshot.empty) return response.json({ error: "Item existiert nicht in der Datenbank" })
+        let zielDoc = false
+        itemSnapshot.forEach(doc => {
+            if (!doc.data().person) {
+                zielDoc = doc.id
+            }
+        })
+        if (!zielDoc) return response.json({ error: "Item bereits vergeben" })
 
-        itemRef.set({
+        db.collection("poolparty_items").doc(zielDoc).set({
             person: name,
             name: item
         })
@@ -92,6 +98,6 @@ exports.setzeAnmeldung = functions.https.onRequest(async (request, response) => 
             personen: personen
         })
 
-        response.json({ success: "Erfolgreich eingetragen" })
+        response.status(200).json({ success: "Erfolgreich eingetragen" })
     })
 })
