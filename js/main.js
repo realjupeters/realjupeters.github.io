@@ -61,7 +61,7 @@ window.onload = function () {
             imgLarge.onload = function () {
                 setTimeout(function () {
                     this.classList.add('loaded');
-                }.bind(this), Math.random() * 3000)
+                }.bind(this), Math.random() * 5000)
             }
             imgLarge.classList.add('picture');
 
