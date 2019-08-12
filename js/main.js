@@ -38,7 +38,7 @@ xhttp.send()
 window.onload = function () {
 
     var photos = document.getElementById('photos')
-    for (i = 1; i <= 7; i++) {
+    for (i = 1; i <= 18; i++) {
         `
         <div class="image-container" data-large="https://assets.imgix.net/unsplash/bear.jpg?w=1000">
             <img class="placeholder" src="https://assets.imgix.net/unsplash/bear.jpg?w=50" class="img-small">
@@ -51,7 +51,7 @@ window.onload = function () {
         container.className = 'image-container'
 
         var small = new Image()
-        small.src = 'img/svg/loader_img' + i + '.svg'
+        small.src = 'img/svg/img' + i + '.svg'
         small.className = 'img-small placeholder'
         small.onload = function () {
             this.classList.add("loaded")
