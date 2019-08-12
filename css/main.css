@@ -103,3 +103,7 @@ h2 svg {
 .picture.loaded {
   opacity: 1;
 }
+
+.hidden {
+  display: none !important;
+}
