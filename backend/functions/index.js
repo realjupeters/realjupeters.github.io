@@ -31,6 +31,10 @@ exports.ladeItems = functions.https.onRequest((request, response) => {
 // Eintragen von neuen Volunteers
 exports.setzeVolunteer = functions.https.onRequest(async (request, response) => {
     return cors(request, response, async () => {
+
+        // Anmeldung deaktiviert!
+        return response.json({ error: "Hoppla, da bist du wohl zu spät dran! Anmeldung geschlossen!" })
+
         const name = request.query.name
         const dauer = request.query.dauer
         if (!name) return response.json({ error: "Kein Name angegeben" })
@@ -59,6 +63,10 @@ exports.setzeVolunteer = functions.https.onRequest(async (request, response) => 
 // Eintragen von neuen Anmeldungen
 exports.setzeAnmeldung = functions.https.onRequest(async (request, response) => {
     return cors(request, response, async () => {
+
+        // Anmeldung deaktiviert!
+        return response.json({ error: "Hoppla, da bist du wohl zu spät dran! Anmeldung geschlossen!" })
+
         const name = request.query.name
         const item = request.query.item
         const personen = request.query.personen
