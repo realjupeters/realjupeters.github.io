@@ -20,6 +20,23 @@ function fillSelect(elements) {
     }
 }
 
+var token = localStorage.getItem('token')
+var email
+if (token) {
+    try {
+        var userObj = JSON.parse(atob(token.split('.')[1]))
+        email = userObj.email
+        document.getElementById('personName').innerText = 'Du bist derzeit als ' + userObj.name + ' angemeldet.'
+        document.body.className = 'signedIn'
+    }
+    catch (e) {
+        // Clear broken token
+        console.error(e)
+        localStorage.setItem('token', null)
+        alert('Ungültiger Token bitte erneut anmelden')
+    }
+}
+
 var xhttp = new XMLHttpRequest()
 xhttp.open("GET", BASE_ENDPOINT_URL + 'ladeItems', true)
 xhttp.setRequestHeader('Access-Control-Allow-Origin', '*')
@@ -35,44 +52,60 @@ xhttp.onreadystatechange = function () {
 }
 xhttp.send()
 
-window.onload = function () {
-
-    var photos = document.getElementById('photos')
-    for (i = 1; i <= 18; i++) {
+function createPhotos(year, count) {
+    var photos = document.getElementById('photos' + year)
+    for (i = 1; i <= count; i++) {
         `
-        <div class="image-container" data-large="https://assets.imgix.net/unsplash/bear.jpg?w=1000">
-            <img class="placeholder" src="https://assets.imgix.net/unsplash/bear.jpg?w=50" class="img-small">
+        <div class="image-container" data-large="">
+            <img class="placeholder" src="" class="img-small">
         </div>
     
         `
 
         var container = document.createElement('div')
-        container.setAttribute('data-large', 'img/full/img' + i + '.jpg')
+        container.setAttribute('data-large', 'img/' + year + '/full/img' + i + '.jpg')
         container.className = 'image-container'
 
+        var a = document.createElement('a')
+        a.target = '_blank'
+        a.href = 'img/' + year + '/full/img' + i + '.jpg'
+
         var small = new Image()
-        small.src = 'img/svg/img' + i + '.svg'
+        small.src = 'img/' + year + '/svg/img' + i + '.svg'
         small.className = 'img-small placeholder'
         small.onload = function () {
             this.classList.add("loaded")
 
             var imgLarge = new Image()
-            imgLarge.src = this.parentElement.dataset.large
+            imgLarge.src = this.parentElement.parentElement.dataset.large
             imgLarge.onload = function () {
                 setTimeout(function () {
                     this.classList.add('loaded');
-                }.bind(this), Math.random() * 5000)
+                }.bind(this), Math.random() * 3000)
             }
             imgLarge.classList.add('picture');
 
             this.parentElement.appendChild(imgLarge)
         }
 
-        container.append(small)
+        a.append(small)
+        container.append(a)
 
         photos.append(container)
 
     }
+}
+
+var authHost = 'http://' + window.location.hostname + ':3000'
+
+function cloudAuth() {
+    window.location = authHost + '/login.html?permissions=IDENTIFY;MODIFY&service=' + window.location.host + '/login.html'
+}
+
+
+window.onload = function () {
+    createPhotos(2019, 18)
+    createPhotos(2018, 7)
 }
 
 document.getElementById('anmeldungAbsenden').onclick = function (event) {
