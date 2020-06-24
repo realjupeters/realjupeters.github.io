@@ -1,4 +1,4 @@
-var BASE_ENDPOINT_URL = "https://us-central1-jupetersuno.cloudfunctions.net/"
+var BASE_ENDPOINT_URL = "http://localhost:3000/api/"
 
 function jsonToQS(json) {
     var qs = []
@@ -21,13 +21,32 @@ function fillSelect(elements) {
 }
 
 var token = localStorage.getItem('token')
-var email
+var email, name
 if (token) {
     try {
         var userObj = JSON.parse(atob(token.split('.')[1]))
         email = userObj.email
+        name = userObj.name
         document.getElementById('personName').innerText = 'Du bist derzeit als ' + userObj.name + ' angemeldet.'
         document.body.className = 'signedIn'
+
+
+        // Load Items
+        var xhttp = new XMLHttpRequest()
+        xhttp.open("GET", BASE_ENDPOINT_URL + 'private/poolparty/ladeItems', true)
+        xhttp.setRequestHeader('Authorization', token);
+        xhttp.setRequestHeader('Access-Control-Allow-Origin', '*')
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                try {
+                    fillSelect(JSON.parse(this.responseText))
+                }
+                catch (e) {
+                    console.error(e)
+                }
+            }
+        }
+        xhttp.send()
     }
     catch (e) {
         // Clear broken token
@@ -36,21 +55,6 @@ if (token) {
         alert('Ungültiger Token bitte erneut anmelden')
     }
 }
-
-var xhttp = new XMLHttpRequest()
-xhttp.open("GET", BASE_ENDPOINT_URL + 'ladeItems', true)
-xhttp.setRequestHeader('Access-Control-Allow-Origin', '*')
-xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-        try {
-            fillSelect(JSON.parse(this.responseText))
-        }
-        catch (e) {
-            console.error(e)
-        }
-    }
-}
-xhttp.send()
 
 function createPhotos(year, count) {
     var photos = document.getElementById('photos' + year)
@@ -181,16 +185,17 @@ function submitModal() {
     progress.children[0].style.width = '100%'
     var xhttp = new XMLHttpRequest()
     if (submitData.anmeldung == "anmelden") {
-        xhttp.open("GET", BASE_ENDPOINT_URL + 'setzeAnmeldung' + jsonToQS(submitData), true)
+        xhttp.open("POST", BASE_ENDPOINT_URL + 'private/poolparty/setzeAnmeldung' + jsonToQS(submitData), true)
     }
     else if (submitData.anmeldung == "volunteer") {
-        xhttp.open("GET", BASE_ENDPOINT_URL + 'setzeVolunteer' + jsonToQS(submitData), true)
+        xhttp.open("POST", BASE_ENDPOINT_URL + 'private/poolparty/setzeVolunteer' + jsonToQS(submitData), true)
     }
     else {
         return alert("Fehler keiner Methode ausgewählt!")
     }
     xhttp.setRequestHeader('Content-Type', 'application/json')
     xhttp.setRequestHeader('Access-Control-Allow-Origin', '*')
+    xhttp.setRequestHeader('Authorization', token);
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             try {

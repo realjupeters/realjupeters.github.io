@@ -29,7 +29,7 @@ BASE_ENDPOINT_URL = 'http://localhost:3000/'
 
 progress.style.width = '60%'
 var xhttp = new XMLHttpRequest()
-xhttp.open("POST", BASE_ENDPOINT_URL + 'api/test', true)
+xhttp.open("GET", BASE_ENDPOINT_URL + 'api/private/test', true)
 xhttp.setRequestHeader('Authorization', code);
 xhttp.setRequestHeader('Access-Control-Allow-Origin', '*')
 xhttp.onreadystatechange = function () {
