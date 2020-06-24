@@ -1,4 +1,3 @@
-# jupe
-PaperCSS personal homepage
+# Official Poolparty Homepage
 
-Single page application
+Powered by PaperCSS and GitHub Pages
