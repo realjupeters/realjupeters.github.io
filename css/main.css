@@ -4,14 +4,34 @@ a {
 }
 
 #palm-wrapper {
-  background-image: linear-gradient(to bottom, white, white, white, white, rgb(0, 195, 255), white);
+  background-image: linear-gradient(to bottom, #f6f6f6, #f6f6f6, white, white, rgb(0, 195, 255), #0010ff);
   display: flex;
   align-items: center;
+  flex-direction: column;
 }
 
 #palm-wrapper svg {
   max-width: 500px;
   margin: auto;
+  display: flex;
+}
+
+#palm-wrapper span {
+  text-align: center;
+  width: 100%;
+}
+
+.background-secondary {
+  background-color: #a3d1ff;
+}
+
+nav {
+  background-color: #dfdfdf;
+}
+
+.paper {
+  background-color: #f6f6f6;
+  border: 0px solid;
 }
 
 #photos {
@@ -147,3 +167,4 @@ td svg {
 .signedIn .hideForUser {
   display: none;
 }
+
