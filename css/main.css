@@ -6,10 +6,22 @@
   padding-bottom: 100px;
 }
 
+.logo {
+  max-width: 400px;
+  position: relative;
+  border: 0 solid;
+  display: inline;
+}
+
 #palm-wrapper svg {
   max-width: 500px;
   margin: auto;
   display: flex;
+}
+
+div.row {
+  align-items: center;
+  justify-content: left;
 }
 
 #palm-wrapper span {
