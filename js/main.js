@@ -14,11 +14,14 @@ function fillSelect(elements) {
     for (i = 0; i < elements.length; i++) {
         if (!elements[i]) continue
         var option = document.createElement('option')
-        option.setAttribute('value', elements[i].name)
+        option.setAttribute('value', elements[i]._id)
         option.innerText = elements[i].name
         input.append(option)
     }
 }
+
+let itemNames = {}
+let userNames = {}
 
 var token = localStorage.getItem('token')
 var email, name
@@ -29,7 +32,182 @@ if (token) {
         name = userObj.name
         document.getElementById('personName').innerText = 'Du bist derzeit als ' + userObj.name + ' angemeldet.'
         document.body.className = 'signedIn'
+        //Nutzer ist Admin
+        if (userObj.roles.includes('admin')) {
 
+            function loadAdminContent() {
+
+                function removeElement(element, _id, _rev) {
+                    fetch(BASE_ENDPOINT_URL + 'admin/poolparty/removeElement', {
+                        method: 'post',
+                        headers: new Headers({
+                            'Authorization': token,
+                        }),
+                        body: new URLSearchParams(jsonToQS({ element, _id, _rev })),
+                    }).then(res => res.json().then(json => loadAdminContent(alert(JSON.stringify(json))))).catch(console.error)
+                }
+
+                document.body.className += ' admin'
+                fetch(BASE_ENDPOINT_URL + 'admin/poolparty/ladeAnmeldungen', {
+                    method: 'get',
+                    headers: new Headers({
+                        'Authorization': token,
+                    })
+                }).then(response =>
+                    response.json().then(json => {
+                        const { items, anmeldungen, volunteers, users } = json.data
+
+                        for (let i = 0; i < items.length; i++) {
+                            itemNames[items[i]._id] = items[i].name
+                        }
+
+                        for (let i = 0; i < users.length; i++) {
+                            userNames[users[i]._id] = users[i].name
+                        }
+
+                        // Item handling
+                        const itemList = document.getElementById('itemList')
+                        itemList.innerHTML = ''
+                        for (let i = 0; i < items.length; i++) {
+                            const item = items[i]
+                            const tr = document.createElement('tr')
+                            let td
+                            td = document.createElement('td')
+                            td.innerText = item._id
+                            tr.append(td)
+
+                            td = document.createElement('td')
+                            td.innerText = item.name
+                            tr.append(td)
+
+                            td = document.createElement('td')
+                            td.innerText = item.userID
+                            tr.append(td)
+
+                            td = document.createElement('td')
+                            if (item.userID) {
+                                td.innerText = userNames[item.userID]
+                            }
+                            else {
+                                td.innerText = null
+                            }
+                            tr.append(td)
+
+                            td = document.createElement('td')
+                            const a = document.createElement('button')
+                            a.innerText = "X"
+                            //a.href = '#admin'
+                            a.onclick = () => {
+                                a.className = 'btn-danger'
+                                a.onclick = () => removeElement("item", item._id, item._rev)
+                            }
+                            td.append(a)
+                            tr.append(td)
+
+                            itemList.append(tr)
+                        }
+
+                        // Anmeldung handling
+                        const anmeldungList = document.getElementById('anmeldungList')
+                        anmeldungList.innerHTML = ''
+                        for (let i = 0; i < anmeldungen.length; i++) {
+                            const anmeldung = anmeldungen[i]
+                            const tr = document.createElement('tr')
+                            let td
+                            td = document.createElement('td')
+                            td.innerText = anmeldung.userID
+                            tr.append(td)
+
+                            td = document.createElement('td')
+                            td.innerText = userNames[anmeldung.userID]
+                            tr.append(td)
+
+                            td = document.createElement('td')
+                            td.innerText = anmeldung.personen
+                            tr.append(td)
+
+                            td = document.createElement('td')
+                            td.innerText = itemNames[anmeldung.itemID]
+                            tr.append(td)
+
+                            td = document.createElement('td')
+                            td.innerText = anmeldung.date
+                            tr.append(td)
+
+                            td = document.createElement('td')
+                            const a = document.createElement('button')
+                            a.innerText = "X"
+                            //a.href = '#admin'
+                            a.onclick = () => {
+                                a.className = 'btn-danger'
+                                a.onclick = () => removeElement("anmeldung", anmeldung._id, anmeldung._rev)
+                            }
+                            td.append(a)
+                            tr.append(td)
+
+                            anmeldungList.append(tr)
+                        }
+
+                        // Volunteer handling
+                        const volunteerList = document.getElementById('volunteerList')
+                        volunteerList.innerHTML = ''
+                        for (let i = 0; i < volunteers.length; i++) {
+                            const volunteer = volunteers[i]
+                            const tr = document.createElement('tr')
+                            let td
+                            td = document.createElement('td')
+                            td.innerText = volunteer.userID
+                            tr.append(td)
+
+                            td = document.createElement('td')
+                            td.innerText = userNames[volunteer.userID]
+                            tr.append(td)
+
+                            td = document.createElement('td')
+                            td.innerText = volunteer.dauer
+                            tr.append(td)
+
+                            td = document.createElement('td')
+                            td.innerText = volunteer.date
+                            tr.append(td)
+
+                            td = document.createElement('td')
+                            const a = document.createElement('button')
+                            a.innerText = "X"
+                            //a.href = '#admin'
+                            a.onclick = () => {
+                                a.className = 'btn-danger'
+                                a.onclick = () => removeElement("volunteer", volunteer._id, volunteer._rev)
+                            }
+                            td.append(a)
+                            tr.append(td)
+
+                            volunteerList.append(tr)
+                        }
+
+                    })
+                ).catch(console.error)
+            }
+            loadAdminContent()
+
+            var itemInput = document.getElementById('setzeItem')
+            function setzeItem() {
+                var name = itemInput.value
+                if (!name) return alert('Kein Itemname eingetragen')
+                fetch(BASE_ENDPOINT_URL + 'admin/poolparty/setzeItem', {
+                    method: 'post',
+                    body: new URLSearchParams(jsonToQS({ name })),
+                    headers: new Headers({
+                        'Authorization': token,
+                    }),
+                }).then(response =>
+                    response.json().then(json => {
+                        console.log(json)
+                        loadAdminContent()
+                    })
+                ).catch(console.error)
+            }
+        }
 
         // Load Items
         var xhttp = new XMLHttpRequest()
@@ -39,7 +217,7 @@ if (token) {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 try {
-                    fillSelect(JSON.parse(this.responseText))
+                    fillSelect(JSON.parse(this.responseText).data)
                 }
                 catch (e) {
                     console.error(e)
@@ -51,7 +229,7 @@ if (token) {
     catch (e) {
         // Clear broken token
         console.error(e)
-        localStorage.setItem('token', null)
+        localStorage.rermoveItem('token')
         alert('Ungültiger Token bitte erneut anmelden')
     }
 }
@@ -81,10 +259,11 @@ function createPhotos(year, count) {
             this.classList.add("loaded")
 
             var imgLarge = new Image()
-            imgLarge.src = this.parentElement.parentElement.dataset.large
+            imgLarge.src = this.parentElement.href
             imgLarge.onload = function () {
                 setTimeout(function () {
                     this.classList.add('loaded');
+                    small.className = 'hidden'
                 }.bind(this), Math.random() * 3000)
             }
             imgLarge.classList.add('picture');
@@ -114,27 +293,31 @@ window.onload = function () {
 
 document.getElementById('anmeldungAbsenden').onclick = function (event) {
     var mitbringen = document.getElementById('mitbringenInput')
-    var name = document.getElementById('nameInput').value
     var personen = document.getElementById('personenInput').value
 
-    var item = mitbringen.options[mitbringen.selectedIndex].value
+    var item = mitbringen.options[mitbringen.selectedIndex].innerText
+    var itemID = mitbringen.options[mitbringen.selectedIndex].value
 
     if (!mitbringen || !name || !item) return // Leere Inputs
     if (name.length < 3 || name.length > 512) return // Komische Nameslänge
     if (personen < 1 || personen > 4) return // Falsche Anzahl
 
-    sendHandler({ anmeldung: "anmelden", name: name, personen: personen, item: item })
+    sendHandler({
+        path: 'private/poolparty/setzeAnmeldung',
+        data: { name: userObj.name, userID: userObj._id, personen, item, itemID }
+    })
 }
 
 document.getElementById('volunteerAbsenden').onclick = function (event) {
-    var name = document.getElementById('volunteerName').value
     var dauer = document.getElementById('volunteerDauer').value
 
-    if (!name || !dauer) return// Leere Inputs
-    if (name.length < 3 || name.length > 512) return // Komische Nameslänge
+    if (!dauer) return// Leere Inputs
     if (dauer.length < 3 || dauer.length > 512) return // Komische Dauerlänge
 
-    sendHandler({ anmeldung: "volunteer", name: name, dauer: dauer })
+    sendHandler({
+        path: 'private/poolparty/setzeVolunteer',
+        data: { userID: userObj._id, dauer: dauer }
+    })
 }
 
 var submitData
@@ -143,8 +326,8 @@ sendHandler = function (data) {
     submitData = data
 
     var str = ""
-    for (key in submitData) {
-        str += key + ': ' + submitData[key] + '\n'
+    for (key in submitData.data) {
+        str += key + ': ' + submitData.data[key] + '\n'
     }
     document.getElementById('confirmationData').innerText = str
     showModal()
@@ -180,37 +363,24 @@ var error = document.getElementById('error')
 
 // Send Data to Backend
 function submitModal() {
-    console.log('Daten in DB eintragen: ' + JSON.stringify(submitData))
+    console.log('Daten in DB eintragen: ' + JSON.stringify(submitData.data))
     progress.style.visibility = 'visible'
     progress.children[0].style.width = '100%'
-    var xhttp = new XMLHttpRequest()
-    if (submitData.anmeldung == "anmelden") {
-        xhttp.open("POST", BASE_ENDPOINT_URL + 'private/poolparty/setzeAnmeldung' + jsonToQS(submitData), true)
-    }
-    else if (submitData.anmeldung == "volunteer") {
-        xhttp.open("POST", BASE_ENDPOINT_URL + 'private/poolparty/setzeVolunteer' + jsonToQS(submitData), true)
-    }
-    else {
-        return alert("Fehler keiner Methode ausgewählt!")
-    }
-    xhttp.setRequestHeader('Content-Type', 'application/json')
-    xhttp.setRequestHeader('Access-Control-Allow-Origin', '*')
-    xhttp.setRequestHeader('Authorization', token);
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            try {
-                response(JSON.parse(this.responseText))
-            }
-            catch (e) {
-                console.error(e)
-            }
-        }
-    }
-    xhttp.send()
+    fetch(BASE_ENDPOINT_URL + submitData.path, {
+        method: 'post',
+        headers: new Headers({
+            'Authorization': token,
+        }),
+        body: new URLSearchParams(jsonToQS(submitData.data)),
+    }).then(response =>
+        response.json().then(json => {
+            modalFeedback(json)
+        })
+    ).catch(console.error)
 }
 
 // Answer from Backend
-function response(data) {
+function modalFeedback(data) {
     if (data.error) {
         error.style.display = 'block'
         error.innerText = data.error
@@ -222,7 +392,6 @@ function response(data) {
     closeTimer = setTimeout(function () {
         hideModal()
     }, 3000)
-
 }
 
 // Lazy Loading

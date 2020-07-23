@@ -182,3 +182,10 @@ td svg {
   display: none;
 }
 
+.hideForNonAdmin {
+  display: none !important;
+}
+
+.admin .hideForNonAdmin {
+  display: initial !important;
+}
