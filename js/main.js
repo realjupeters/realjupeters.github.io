@@ -1,4 +1,4 @@
-var AUTH_DOMAIN = "http://poolparty-dev.logge.top"
+var AUTH_DOMAIN = "https://poolparty-dev.logge.top"
 var BASE_ENDPOINT_URL = AUTH_DOMAIN + "/api/"
 
 function jsonToQS(json) {
