@@ -25,7 +25,7 @@ function jsonToQS(json) {
     return "?" + qs.join("&")
 }
 
-BASE_ENDPOINT_URL = 'http://localhost:3000/'
+BASE_ENDPOINT_URL = window.location.hostname
 
 progress.style.width = '60%'
 var xhttp = new XMLHttpRequest()

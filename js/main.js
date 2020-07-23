@@ -1,4 +1,5 @@
-var BASE_ENDPOINT_URL = "http://poolparty-dev.logge.top/api/"
+var AUTH_DOMAIN = "http://poolparty-dev.logge.top"
+var BASE_ENDPOINT_URL = AUTH_DOMAIN + "/api/"
 
 function jsonToQS(json) {
     var qs = []
@@ -279,11 +280,8 @@ function createPhotos(year, count) {
     }
 }
 
-//var authHost = 'http://' + window.location.hostname + ':3000'
-var authHost = 'http://poolparty-dev.logge.top/'
-
 function cloudAuth() {
-    window.location = authHost + '/login.html?permissions=IDENTIFY;MODIFY&service=' + window.location.host + '/login.html'
+    window.location = AUTH_DOMAIN + '/login.html?permissions=IDENTIFY;MODIFY&service=' + window.location.host + '/login.html'
 }
 
 
