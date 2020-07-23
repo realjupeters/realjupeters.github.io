@@ -1,4 +1,4 @@
-var BASE_ENDPOINT_URL = "http://localhost:3000/api/"
+var BASE_ENDPOINT_URL = "http://poolparty-dev.logge.top/api/"
 
 function jsonToQS(json) {
     var qs = []
