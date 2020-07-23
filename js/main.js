@@ -279,7 +279,8 @@ function createPhotos(year, count) {
     }
 }
 
-var authHost = 'http://' + window.location.hostname + ':3000'
+//var authHost = 'http://' + window.location.hostname + ':3000'
+var authHost = 'http://poolparty-dev.logge.top/'
 
 function cloudAuth() {
     window.location = authHost + '/login.html?permissions=IDENTIFY;MODIFY&service=' + window.location.host + '/login.html'
