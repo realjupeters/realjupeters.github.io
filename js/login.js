@@ -1,4 +1,4 @@
-var AUTH_DOMAIN = "http://poolparty-dev.logge.top"
+var AUTH_DOMAIN = "https://poolparty-dev.logge.top"
 
 var emoji = [...'☻😊🙃🤪🤓🤯😴💩👻👽🤖👾👐🖖✌️🤟🤘🤙👋🐭🦕🦖🐉']
 var randEmoji = emoji[Math.floor(emoji.length * Math.random())]
