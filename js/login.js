@@ -1,3 +1,5 @@
+BASE_ENDPOINT_URL = "https://" + window.location.hostname
+
 var emoji = [...'☻😊🙃🤪🤓🤯😴💩👻👽🤖👾👐🖖✌️🤟🤘🤙👋🐭🦕🦖🐉']
 var randEmoji = emoji[Math.floor(emoji.length * Math.random())]
 if (randEmoji) document.querySelector('.spin').innerText = randEmoji
@@ -25,11 +27,9 @@ function jsonToQS(json) {
     return "?" + qs.join("&")
 }
 
-BASE_ENDPOINT_URL = window.location.hostname
-
 progress.style.width = '60%'
 var xhttp = new XMLHttpRequest()
-xhttp.open("GET", BASE_ENDPOINT_URL + 'api/private/test', true)
+xhttp.open("GET", BASE_ENDPOINT_URL + '/api/private/test', true)
 xhttp.setRequestHeader('Authorization', code);
 xhttp.setRequestHeader('Access-Control-Allow-Origin', '*')
 xhttp.onreadystatechange = function () {
