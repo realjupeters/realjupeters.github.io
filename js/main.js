@@ -132,7 +132,7 @@ if (token) {
                             tr.append(td)
 
                             td = document.createElement('td')
-                            td.innerText = anmeldung.date
+                            td.innerText = new Date(anmeldungen.date).toLocaleDateString()
                             tr.append(td)
 
                             td = document.createElement('td')
@@ -169,7 +169,7 @@ if (token) {
                             tr.append(td)
 
                             td = document.createElement('td')
-                            td.innerText = volunteer.date
+                            td.innerText = new Date(volunteer.date).toLocaleDateString()
                             tr.append(td)
 
                             td = document.createElement('td')
