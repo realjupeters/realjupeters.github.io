@@ -55,6 +55,8 @@
                     <li><a href="#fotos">Fotos</a></li>
                     <!--<li><a href="#">Archiv</a></li>-->
                     <li><a href="https://jupeters.de/impressum.html">Impressum</a></li>
+                    <li class="hideForGuest"><button href="#" class="btn"
+                            onclick="localStorage.removeItem('token');location.reload(true)">Logout</button></li>
                 </ul>
             </div>
         </div>
@@ -246,24 +248,26 @@
 
         <div class="row hideForGuest">
             <div class="alert alert-secondary" id="personName"> </div>
-            <div class="sm-12 md-6 col">
-                <div class="form-group">
-                    <label for="mitbringenInput">Mitbringen</label>
-                    <select id="mitbringenInput" class="input-block">
-                        <option selected disabled>Bitte auswählen</option>
-                        <!-- Durch Web Request gefüllt -->
-                        <select>
+            <div id="anmeldenForm" class="row md-12">
+                <div class="sm-12 md-6 col">
+                    <div class="form-group">
+                        <label for="mitbringenInput">Mitbringen</label>
+                        <select id="mitbringenInput" class="input-block">
+                            <option selected disabled>Bitte auswählen</option>
+                            <!-- Durch Web Request gefüllt -->
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="sm-12 md-6 col">
-                <div class="form-group">
-                    <label for="personenInput">Anzahl Personen</label>
-                    <input class="input-block" type="number" min=1 max=3 placeholder="Personen" id="personenInput">
+                <div class="sm-12 md-6 col">
+                    <div class="form-group">
+                        <label for="personenInput">Anzahl Personen</label>
+                        <input class="input-block" type="number" min=1 max=3 placeholder="Personen" id="personenInput">
+                    </div>
                 </div>
-            </div>
-            <div class="col-12">
-                <div class="form-group">
-                    <button class="btn-large btn-block" type="submit" id="anmeldungAbsenden">Absenden</button>
+                <div class="col-12">
+                    <div class="form-group">
+                        <button class="btn-large btn-block" type="submit" id="anmeldungAbsenden">Absenden</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -295,9 +299,9 @@
         </h2>
         Da das ganze natürlich auch nicht soo schnell aufgebaut ist, wäre es super, wenn wir für Samstag auch ein
         paar
-        helfende Hände beim Aufbau hätten. Wer Lust und Zeit hat, uns hier zu unterstützen, bitte hier eintragen und
-        dazu die mögliche Einsatzzeit angeben.
-        <div class="row hideForGuest">
+        helfende Hände beim Aufbau hätten. Wer Lust und Zeit hat, uns hier zu unterstützen, bitte hier nach der
+        Anmeldung eintragen und dazu die mögliche Einsatzzeit angeben.
+        <div class="row hideForGuest" id="volunteerForm" style="display: none !important;">
             <div class="col-12">
                 <div class="form-group">
                     <label for="volunteerDauer">Dauer (Von - Bis)</label>

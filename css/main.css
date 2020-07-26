@@ -171,11 +171,15 @@ td svg {
 }
 
 .hideForGuest {
-  display: none;
+  display: none !important;
+}
+
+.signedIn li.hideForGuest{
+  display: inline-block !important;
 }
 
 .signedIn .hideForGuest{
-  display: flex;
+  display: flex !important;
 }
 
 .signedIn .hideForUser {

@@ -1,4 +1,6 @@
-var AUTH_DOMAIN = "https://poolparty-dev.logge.top"
+//var AUTH_DOMAIN = "https://poolparty-dev.logge.top"
+var AUTH_DOMAIN = "http://localhost:3000"
+
 var BASE_ENDPOINT_URL = AUTH_DOMAIN + "/api/"
 
 function jsonToQS(json) {
@@ -12,6 +14,7 @@ function jsonToQS(json) {
 // Populate Select with items
 function fillSelect(elements) {
     var input = document.getElementById('mitbringenInput')
+    if (!input) return
     for (i = 0; i < elements.length; i++) {
         if (!elements[i]) continue
         var option = document.createElement('option')
@@ -32,7 +35,93 @@ if (token) {
         email = userObj.email
         name = userObj.name
         document.getElementById('personName').innerText = 'Du bist derzeit als ' + userObj.name + ' angemeldet.'
+
+        fetch(BASE_ENDPOINT_URL + 'private/poolparty/ladeNutzer', {
+            method: 'get',
+            headers: new Headers({
+                'Authorization': token,
+            })
+        })
+            .then(response => {
+                response.json().then(json => {
+                    console.log(json)
+                    var data = json.data
+                    if (data.anmeldung.length > 0) {
+
+                        document.getElementById('volunteerForm').style.display = ''
+
+                        var item = data.item[0]
+                        var anmeldung = data.anmeldung[0]
+                        function anmeldungAbmelden() {
+
+                            fetch(BASE_ENDPOINT_URL + 'private/poolparty/anmeldungAbmelden', {
+                                method: 'post',
+                                headers: new Headers({
+                                    'Authorization': token,
+                                }),
+                                body: new URLSearchParams(jsonToQS({ anmeldungID: anmeldung._id, anmeldungRev: anmeldung._rev, itemID: item._id, itemRev: item._rev, itemName: item.name })),
+                            }).then(response => response.json()
+                                .then(json => {
+                                    if (volunteerAbmelden) { return volunteerAbmelden() }
+                                    else {
+                                        alert(JSON.stringify(json))
+                                        location.reload(true)
+                                    }
+                                })).catch(console.error)
+                        }
+
+                        var anmeldenForm = document.getElementById('anmeldenForm')
+                        anmeldenForm.innerHTML = '<div class="alert alert-success">Du hast dich am ' + new Date(anmeldung.date).toLocaleDateString() + ' mit ' + anmeldung.personen + ' Person' + (anmeldung.personen > 0 ? 'en' : '') + ' angemeldet. Du bringst "' + item.name + '" mit. </ br > </div > '
+                        var abmeldenButon = document.createElement('button')
+                        abmeldenButon.innerText = 'Abmelden'
+                        abmeldenButon.className = 'btn-warning'
+                        abmeldenButon.onclick = () => {
+                            abmeldenButon.className = 'btn-danger'
+                            abmeldenButon.innerText = 'Sicher?'
+                            abmeldenButon.onclick = () => anmeldungAbmelden()
+                        }
+                        anmeldenForm.append(abmeldenButon)
+
+
+                        if (data.volunteer.length > 0) {
+
+                            var volunteer = data.volunteer[0]
+
+                            function volunteerAbmelden() {
+
+                                fetch(BASE_ENDPOINT_URL + 'private/poolparty/volunteerAbmelden', {
+                                    method: 'post',
+                                    headers: new Headers({
+                                        'Authorization': token,
+                                    }),
+                                    body: new URLSearchParams(jsonToQS({ volunteerID: volunteer._id, volunteerRev: volunteer._rev })),
+                                }).then(response => response.json()
+                                    .then(json => {
+                                        alert(JSON.stringify(json))
+                                        location.reload(true)
+                                    })).catch(console.error)
+                            }
+
+
+                            var volunteerForm = document.getElementById('volunteerForm')
+                            volunteerForm.innerHTML = '<div class="alert alert-success">Du hast dich am ' + new Date(volunteer.date).toLocaleDateString() + ' mit einer Dauer von "' + volunteer.dauer + '" angemeldet.</ br > </div > '
+                            var button = document.createElement('button')
+                            button.innerText = 'Abmelden'
+                            button.className = 'btn-warning'
+                            button.onclick = () => {
+                                button.className = 'btn-danger'
+                                button.innerText = 'Sicher?'
+                                button.onclick = () => volunteerAbmelden()
+                            }
+                            volunteerForm.append(button)
+                        }
+                    }
+                })
+            })
+            .catch(error => alert("Fehler beim Laden der Nutzerdaten: " + errro))
+
         document.body.className = 'signedIn'
+
         //Nutzer ist Admin
         if (userObj.roles.includes('admin')) {
 
@@ -132,7 +221,7 @@ if (token) {
                             tr.append(td)
 
                             td = document.createElement('td')
-                            td.innerText = new Date(anmeldungen.date).toLocaleDateString()
+                            td.innerText = new Date(anmeldung.date).toLocaleString()
                             tr.append(td)
 
                             td = document.createElement('td')
@@ -169,7 +258,7 @@ if (token) {
                             tr.append(td)
 
                             td = document.createElement('td')
-                            td.innerText = new Date(volunteer.date).toLocaleDateString()
+                            td.innerText = new Date(volunteer.date).toLocaleString()
                             tr.append(td)
 
                             td = document.createElement('td')
@@ -211,26 +300,23 @@ if (token) {
         }
 
         // Load Items
-        var xhttp = new XMLHttpRequest()
-        xhttp.open("GET", BASE_ENDPOINT_URL + 'private/poolparty/ladeItems', true)
-        xhttp.setRequestHeader('Authorization', token);
-        xhttp.setRequestHeader('Access-Control-Allow-Origin', '*')
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                try {
-                    fillSelect(JSON.parse(this.responseText).data)
-                }
-                catch (e) {
-                    console.error(e)
-                }
-            }
-        }
-        xhttp.send()
+        console.log(BASE_ENDPOINT_URL + 'private/poolparty/ladeItems')
+        fetch(BASE_ENDPOINT_URL + 'private/poolparty/ladeItems', {
+            method: 'get',
+            headers: new Headers({
+                'Authorization': token,
+            }),
+        }).then(response =>
+            response.json().then(json => {
+                console.log(json)
+                fillSelect(json.data)
+            })
+        ).catch(console.error)
     }
     catch (e) {
         // Clear broken token
         console.error(e)
-        localStorage.rermoveItem('token')
+        localStorage.removeItem('token')
         alert('Ungültiger Token bitte erneut anmelden')
     }
 }
@@ -389,7 +475,7 @@ function modalFeedback(data) {
         success.innerText = data.success
     }
     closeTimer = setTimeout(function () {
-        hideModal()
+        window.location.reload(true)
     }, 3000)
 }
 
