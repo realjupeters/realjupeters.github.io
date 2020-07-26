@@ -1,5 +1,5 @@
-//var AUTH_DOMAIN = "https://poolparty-dev.logge.top"
-var AUTH_DOMAIN = "http://localhost:3000"
+var AUTH_DOMAIN = "https://poolparty-dev.logge.top"
+//var AUTH_DOMAIN = "http://localhost:3000"
 
 var BASE_ENDPOINT_URL = AUTH_DOMAIN + "/api/"
 
