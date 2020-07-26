@@ -162,17 +162,11 @@ if (token) {
                             const item = items[i]
                             const tr = document.createElement('tr')
                             let td
-                            td = document.createElement('td')
-                            td.innerText = item._id
-                            tr.append(td)
 
                             td = document.createElement('td')
                             td.innerText = item.name
                             tr.append(td)
 
-                            td = document.createElement('td')
-                            td.innerText = item.userID
-                            tr.append(td)
 
                             td = document.createElement('td')
                             if (item.userID) {
@@ -204,9 +198,6 @@ if (token) {
                             const anmeldung = anmeldungen[i]
                             const tr = document.createElement('tr')
                             let td
-                            td = document.createElement('td')
-                            td.innerText = anmeldung.userID
-                            tr.append(td)
 
                             td = document.createElement('td')
                             td.innerText = userNames[anmeldung.userID]
@@ -245,9 +236,6 @@ if (token) {
                             const volunteer = volunteers[i]
                             const tr = document.createElement('tr')
                             let td
-                            td = document.createElement('td')
-                            td.innerText = volunteer.userID
-                            tr.append(td)
 
                             td = document.createElement('td')
                             td.innerText = userNames[volunteer.userID]
