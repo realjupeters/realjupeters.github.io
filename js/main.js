@@ -1,5 +1,10 @@
-var AUTH_DOMAIN = "https://poolparty-dev.logge.top"
-//var AUTH_DOMAIN = "http://localhost:3000"
+var AUTH_DOMAIN
+if (window.location.hostname == "poolparty.jupeters.de") {
+    AUTH_DOMAIN = "https://poolparty-dev.logge.top"
+}
+else {
+    AUTH_DOMAIN = "http://localhost:3000"
+}
 
 var BASE_ENDPOINT_URL = AUTH_DOMAIN + "/api/"
 
@@ -145,6 +150,7 @@ if (token) {
                     })
                 }).then(response =>
                     response.json().then(json => {
+                        console.log(json)
                         const { items, anmeldungen, volunteers, users } = json.data
 
                         for (let i = 0; i < items.length; i++) {
@@ -367,6 +373,10 @@ window.onload = function () {
 document.getElementById('anmeldungAbsenden').onclick = function (event) {
     var mitbringen = document.getElementById('mitbringenInput')
     var personen = document.getElementById('personenInput').value
+
+    personen = Number(personen)
+    if (!personen) return
+    personen = personen.toFixed(0)
 
     var item = mitbringen.options[mitbringen.selectedIndex].innerText
     var itemID = mitbringen.options[mitbringen.selectedIndex].value
