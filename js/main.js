@@ -427,6 +427,7 @@ modalState.addEventListener('change', function (e) {
 })
 
 function hideModal() {
+    window.location.reload(true)
     if (closeTimer) clearInterval(closeTimer)
     modalState.checked = false
     progress.style.visibility = 'hidden'
