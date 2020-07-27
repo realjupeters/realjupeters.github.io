@@ -421,7 +421,7 @@ var closeTimer
 
 modalState.addEventListener('change', function (e) {
     if (!event.target.checked) {
-        console.log('not checked')
+        window.location.reload(true)
         hideModal()
     }
 })
