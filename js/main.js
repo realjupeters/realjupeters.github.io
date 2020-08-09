@@ -34,7 +34,11 @@ let userNames = {}
 
 var token = localStorage.getItem('token')
 var email, name
-if (token) {
+// No need for that functionality atm 
+//if (token) {
+// Remove to re-enable API
+if (false) {
+
     try {
         var userObj = JSON.parse(atob(token.split('.')[1]))
         email = userObj.email
@@ -370,38 +374,38 @@ window.onload = function () {
     createPhotos(2018, 7)
 }
 
-document.getElementById('anmeldungAbsenden').onclick = function (event) {
-    var mitbringen = document.getElementById('mitbringenInput')
-    var personen = document.getElementById('personenInput').value
+// document.getElementById('anmeldungAbsenden').onclick = function (event) {
+//     var mitbringen = document.getElementById('mitbringenInput')
+//     var personen = document.getElementById('personenInput').value
 
-    personen = Number(personen)
-    if (!personen) return
-    personen = personen.toFixed(0)
+//     personen = Number(personen)
+//     if (!personen) return
+//     personen = personen.toFixed(0)
 
-    var item = mitbringen.options[mitbringen.selectedIndex].innerText
-    var itemID = mitbringen.options[mitbringen.selectedIndex].value
+//     var item = mitbringen.options[mitbringen.selectedIndex].innerText
+//     var itemID = mitbringen.options[mitbringen.selectedIndex].value
 
-    if (!mitbringen || !name || !item) return // Leere Inputs
-    if (name.length < 3 || name.length > 512) return // Komische Nameslänge
-    if (personen < 1 || personen > 4) return // Falsche Anzahl
+//     if (!mitbringen || !name || !item) return // Leere Inputs
+//     if (name.length < 3 || name.length > 512) return // Komische Nameslänge
+//     if (personen < 1 || personen > 4) return // Falsche Anzahl
 
-    sendHandler({
-        path: 'private/poolparty/setzeAnmeldung',
-        data: { name: userObj.name, userID: userObj._id, personen, item, itemID }
-    })
-}
+//     sendHandler({
+//         path: 'private/poolparty/setzeAnmeldung',
+//         data: { name: userObj.name, userID: userObj._id, personen, item, itemID }
+//     })
+// }
 
-document.getElementById('volunteerAbsenden').onclick = function (event) {
-    var dauer = document.getElementById('volunteerDauer').value
+// document.getElementById('volunteerAbsenden').onclick = function (event) {
+//     var dauer = document.getElementById('volunteerDauer').value
 
-    if (!dauer) return// Leere Inputs
-    if (dauer.length < 3 || dauer.length > 512) return // Komische Dauerlänge
+//     if (!dauer) return// Leere Inputs
+//     if (dauer.length < 3 || dauer.length > 512) return // Komische Dauerlänge
 
-    sendHandler({
-        path: 'private/poolparty/setzeVolunteer',
-        data: { userID: userObj._id, dauer: dauer }
-    })
-}
+//     sendHandler({
+//         path: 'private/poolparty/setzeVolunteer',
+//         data: { userID: userObj._id, dauer: dauer }
+//     })
+// }
 
 var submitData
 
@@ -503,3 +507,12 @@ if ("IntersectionObserver" in window) {
 
 if (!submitData) hideModal()
 
+console.info(`Wilkommen in der Entewicklerkonsole
+    ,~~.
+    (  6 )-_,
+(\___ )=='-'
+\ .   ) )
+ \ \`- ' /    
+~'\`~'\`~'\`~'\`~
+    
+Falls dir WebDev auch Spaß macht schreib mir doch auf Discord: Logge#1337`)

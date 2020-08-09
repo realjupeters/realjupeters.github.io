@@ -48,12 +48,11 @@
             </button>
             <div class="collapsible-body">
                 <ul class="inline">
-                    <li><a href="#aktuell">Facts</a></li>
+                    <!-- <li><a href="#aktuell">Facts</a></li>
                     <li><a href="#anmeldung">Anmeldung</a></li>
                     <li><a href="#volunteers">Volunteers</a></li>
-                    <li class="hideForNonAdmin"><a href="#admin">Admin</a></li>
+                    <li class="hideForNonAdmin"><a href="#admin">Admin</a></li> -->
                     <li><a href="#fotos">Fotos</a></li>
-                    <!--<li><a href="#">Archiv</a></li>-->
                     <li><a href="https://jupeters.de/impressum.html">Impressum</a></li>
                     <li class="hideForGuest"><button href="#" class="btn"
                             onclick="localStorage.removeItem('token');location.reload(true)">Logout</button></li>
@@ -75,7 +74,9 @@
                 </h1>
             </div>
         </div>
-        <a name="aktuell"></a>
+
+
+        <!-- <a name="aktuell"></a>
         <h2 class="col background-secondary">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 372 372">
                 <path
@@ -219,7 +220,7 @@
             </tbody>
         </table>
 
-        <!-- Anmeldung -->
+        <!-- Anmeldung -/->
         <a name="anmeldung"></a>
         <h2 class="col background-secondary">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.021 27.022">
@@ -254,41 +255,41 @@
                         <label for="mitbringenInput">Mitbringen</label>
                         <select id="mitbringenInput" class="input-block">
                             <option selected disabled>Bitte auswählen</option>
-                            <!-- Durch Web Request gefüllt -->
-                        </select>
-                    </div>
-                </div>
-                <div class="sm-12 md-6 col">
-                    <div class="form-group">
-                        <label for="personenInput">Anzahl Personen</label>
-                        <input class="input-block" type="number" min=1 max=3 placeholder="Personen" id="personenInput">
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group">
-                        <button class="btn-large btn-block" type="submit" id="anmeldungAbsenden">Absenden</button>
-                    </div>
-                </div>
-            </div>
+                            <!-- Durch Web Request gefüllt -/->
+        </select>
+    </div>
+    </div>
+    <div class="sm-12 md-6 col">
+        <div class="form-group">
+            <label for="personenInput">Anzahl Personen</label>
+            <input class="input-block" type="number" min=1 max=3 placeholder="Personen" id="personenInput">
         </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group">
+            <button class="btn-large btn-block" type="submit" id="anmeldungAbsenden">Absenden</button>
+        </div>
+    </div>
+    </div>
+    </div>
 
-        <div class="row hideForUser">
-            <div class="col-12">
-                <div class="form-group">
-                    <button class="btn-large btn-block" onclick="cloudAuth()">Anmelden</button>
-                </div>
+    <div class="row hideForUser">
+        <div class="col-12">
+            <div class="form-group">
+                <button class="btn-large btn-block" onclick="cloudAuth()">Anmelden</button>
             </div>
         </div>
-        Ich weise euch hiermit darauf hin, dass nach der Anmeldung euer Name in der Datenbank gespeichert ist
-        (hoffentlich zumindest).
-        Und dazu steht dann dort auch noch, dass ihr nen Kartoffelsalat mitbringt.. Diese sensiblen Daten werde ich
-        natürlich gewinnbringend an Google verhökern.<br>
-        Außerdem werden wir während der Party Fotos machen, zum Beispiel ein paar für diese Seite.. Wie das auf
-        jeder
-        guten Party passiert.
-        Aber keine Angst, wir werden keine peinlichen Fotos oder so veröffentlichen. Diese sammle ich alle, um euch
-        damit irgendwann einmal bei eurer Hochzeit oder so bloßzustellen.
-        <!-- Volunteers -->
+    </div>
+    Ich weise euch hiermit darauf hin, dass nach der Anmeldung euer Name in der Datenbank gespeichert ist
+    (hoffentlich zumindest).
+    Und dazu steht dann dort auch noch, dass ihr nen Kartoffelsalat mitbringt.. Diese sensiblen Daten werde ich
+    natürlich gewinnbringend an Google verhökern.<br>
+    Außerdem werden wir während der Party Fotos machen, zum Beispiel ein paar für diese Seite.. Wie das auf
+    jeder
+    guten Party passiert.
+    Aber keine Angst, wir werden keine peinlichen Fotos oder so veröffentlichen. Diese sammle ich alle, um euch
+    damit irgendwann einmal bei eurer Hochzeit oder so bloßzustellen.
+    <!-- Volunteers -/->
         <a name="volunteers"></a>
         <h2 class="col background-secondary">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 297 297">
@@ -316,7 +317,7 @@
             </div>
         </div>
 
-        <!-- Admin -->
+        <!-- Admin -/->
         <a name="admin"></a>
         <div class="hideForNonAdmin">
             <h2 class="col background-secondary">
@@ -384,40 +385,71 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> -->
 
-    <!-- Fotos -->
-    <a name="fotos"></a>
-    <h2 class="col background-secondary">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
-            <g fill="#231f20">
+        <a name="danke"></a>
+        <h2 class="col background-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 121.7 121.7">
+                <path d="M61 122A61 61 0 1161 0a61 61 0 010 122zM61 6a55 55 0 100 110A55 55 0 0061 6z" />
                 <path
-                    d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z" />
-                <path
-                    d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z" />
-            </g>
-        </svg>
-        Fotos 2019
-    </h2>
-    <div id="photos2019" class="photos">
-        <!-- Gefüllt über main.js -->
-    </div>
+                    d="M61 100c-10 0-19-7-19-16h6c0 6 6 10 13 10 6 0 12-4 12-10h6c0 9-8 16-18 16zM46 66h-6c0-5-3-10-8-10s-8 5-8 10h-6c0-9 6-16 14-16s14 7 14 16zM104 66h-6c0-5-4-10-8-10s-9 5-9 10h-6c0-9 7-16 15-16s14 7 14 16z" />
+            </svg>
+            Danke
+        </h2>
+        Vielen Dank an Julian für das Organisieren der Poolparty und an Euch für's zahlreiche erscheinen. Es war ein
+        unvergesslicher Abend mit super Stimmung
+        und Bombenwetter. <br /><span style="font-size: 7px;">Dieser Text wird hoffentlich noch von einem humorvollen
+            Text von Julez ersetzt :D</span>
 
-    <!-- Fotos -->
-    <h2 class="col background-secondary">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
-            <g fill="#231f20">
-                <path
-                    d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z" />
-                <path
-                    d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z" />
-            </g>
-        </svg>
-        Fotos 2018
-    </h2>
-    <div id="photos2018" class="photos">
-        <!-- Gefüllt über main.js -->
-    </div>
+        <!-- Fotos -->
+        <a name="fotos"></a>
+
+        <h2 class="col background-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
+                <g fill="#231f20">
+                    <path
+                        d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z" />
+                    <path
+                        d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z" />
+                </g>
+            </svg>
+            Fotos 2020
+        </h2>
+        <div id="photos2020" class="photos">
+            <!-- Gefüllt über main.js -->
+            Kommt noch :)
+        </div>
+
+        <h2 class="col background-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
+                <g fill="#231f20">
+                    <path
+                        d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z" />
+                    <path
+                        d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z" />
+                </g>
+            </svg>
+            Fotos 2019
+        </h2>
+        <div id="photos2019" class="photos">
+            <!-- Gefüllt über main.js -->
+        </div>
+
+        <!-- Fotos -->
+        <h2 class="col background-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
+                <g fill="#231f20">
+                    <path
+                        d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z" />
+                    <path
+                        d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z" />
+                </g>
+            </svg>
+            Fotos 2018
+        </h2>
+        <div id="photos2018" class="photos">
+            <!-- Gefüllt über main.js -->
+        </div>
 
     </div>
 
