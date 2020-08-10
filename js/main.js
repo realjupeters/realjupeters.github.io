@@ -321,6 +321,7 @@ if (false) {
 
 function createPhotos(year, count) {
     var photos = document.getElementById('photos' + year)
+    var photosWrapper = document.createElement('div')
     for (i = 1; i <= count; i++) {
         `
         <div class="image-container" data-large="">
@@ -359,9 +360,10 @@ function createPhotos(year, count) {
         a.append(small)
         container.append(a)
 
-        photos.append(container)
+        photosWrapper.append(container)
 
     }
+    photos.append(photosWrapper)
 }
 
 function cloudAuth() {
@@ -370,6 +372,7 @@ function cloudAuth() {
 
 
 window.onload = function () {
+    createPhotos(2020, 25)
     createPhotos(2019, 18)
     createPhotos(2018, 7)
 }
@@ -486,10 +489,10 @@ function modalFeedback(data) {
 var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"))
 
 if ("IntersectionObserver" in window) {
-    let lazyImageObserver = new IntersectionObserver(function (entries, observer) {
+    var lazyImageObserver = new IntersectionObserver(function (entries, observer) {
         entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-                let lazyImage = entry.target
+                var lazyImage = entry.target
                 lazyImage.src = lazyImage.dataset.src
                 lazyImage.srcset = lazyImage.dataset.srcset
                 lazyImage.classList.remove("lazy")
