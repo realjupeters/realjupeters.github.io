@@ -6,6 +6,70 @@
   padding-bottom: 100px;
 }
 
+svg#logo {
+  fill: white;
+  max-width: 750px;
+}
+
+svg#logo path#innerText {
+  stroke: #65bf3b;
+  stroke-width: 3;
+  stroke-dasharray: 190737;
+  animation: drawInner 4s 1 ease-in-out;
+}
+
+svg#logo path#outerText {
+  stroke: #000;
+  stroke-width: 3;
+  stroke-dasharray: 190737;
+  animation: drawOuter 4s 1 ease-in-out;
+}
+
+@keyframes drawOuter {
+  0% {
+    stroke-dashoffset: 190737;
+    fill-opacity: 0;
+  }
+
+  10% {
+    fill-opacity: 0;
+  }
+
+  40% {
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    fill-opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drawInner {
+  0% {
+    stroke-dashoffset: 190737;
+    fill-opacity: 0;
+  }
+
+  30% {
+    stroke-dashoffset: 190737;
+    fill-opacity: 0;
+  }
+
+  50% {
+    fill-opacity: 0;
+  }
+
+  85% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    fill-opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
 .logo {
   max-width: 400px;
   position: relative;
@@ -105,12 +169,6 @@ nav {
 
 span.note {
     display: none;
-}
-
-h1 svg {
-  height: 4rem;
-  position: relative;
-  top: 0.15em;
 }
 
 h2 svg {
