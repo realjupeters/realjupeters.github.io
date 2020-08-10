@@ -128,8 +128,7 @@ if (false) {
                 })
             })
             .catch(error => alert("Fehler beim Laden der Nutzerdaten: " + errro))
-
-        document.body.className = 'signedIn'
+        document.body.classList.toggle('signedIn')
 
         //Nutzer ist Admin
         if (userObj.roles.includes('admin')) {
@@ -318,6 +317,21 @@ if (false) {
         alert('Ungültiger Token bitte erneut anmelden')
     }
 }
+
+var isDark = localStorage.getItem('dark')
+function toggleDark() {
+    document.body.classList.toggle('dark')
+    isDark = !isDark
+    localStorage.setItem('dark', isDark)
+    console.log(isDark)
+}
+
+if (isDark == 'true') {
+    toggleDark()
+}
+
+isDark = !isDark
+
 
 function createPhotos(year, count) {
     var photos = document.getElementById('photos' + year)

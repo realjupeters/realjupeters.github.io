@@ -6,6 +6,18 @@
   padding-bottom: 100px;
 }
 
+body.dark {
+  filter: invert(100%) hue-rotate(180deg);
+}
+
+body.dark img, body.dark #palm-wrapper {  
+  filter: invert(100%) hue-rotate(180deg);
+}
+
+body.dark #palm-wrapper {
+  background-image: linear-gradient(to bottom, #000, #ff9200, #ff9200, #f3e999, rgb(0, 195, 255), #0010ff)
+}
+
 .caption {
   margin: 0;
 }
