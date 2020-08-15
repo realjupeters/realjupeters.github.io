@@ -15,7 +15,7 @@ body.dark img, body.dark #palm-wrapper {
 }
 
 body.dark #palm-wrapper {
-  background-image: linear-gradient(to bottom, #000, #ff9200, #ff9200, #f3e999, rgb(0, 195, 255), #0010ff)
+  background-image: linear-gradient(to bottom, #090909, #ff9200, #ff9200, #f3e999, rgb(0, 195, 255), #0010ff)
 }
 
 .caption {
