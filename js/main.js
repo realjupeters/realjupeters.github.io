@@ -320,7 +320,7 @@ if (false) {
 
 var isDark = localStorage.getItem('dark')
 function toggleDark() {
-    document.body.classList.toggle('dark')
+    document.body.classList.toggle('darkmode')
     isDark = !isDark
     localStorage.setItem('dark', isDark)
     console.log(isDark)
@@ -332,63 +332,42 @@ if (isDark == 'true') {
 
 isDark = !isDark
 
-
 function createPhotos(year, count) {
     var photos = document.getElementById('photos' + year)
-    var photosWrapper = document.createElement('div')
+    let photosString = ''
     for (i = 1; i <= count; i++) {
+
+        photosString += `
+        <a href="img/${year}/full/img${i}.jpg">
+            <img src="img/${year}/thumb/img${i}.${imgType}" class="thumb" type="image/${imgType}" alt="Img${i}" onload='thumbnailHandler(this)'>
+        </a>
         `
-        <div class="image-container" data-large="">
-            <img class="placeholder" src="" class="img-small">
-        </div>
-    
-        `
-
-        var container = document.createElement('div')
-        container.setAttribute('data-large', 'img/' + year + '/full/img' + i + '.jpg')
-        container.className = 'image-container'
-
-        var a = document.createElement('a')
-        a.target = '_blank'
-        a.href = 'img/' + year + '/full/img' + i + '.jpg'
-
-        var small = new Image()
-        small.src = 'img/' + year + '/svg/img' + i + '.svg'
-        small.className = 'img-small placeholder'
-        small.onload = function () {
-            this.classList.add("loaded")
-
-            var imgLarge = new Image()
-            imgLarge.src = this.parentElement.href
-            imgLarge.onload = function () {
-                setTimeout(function () {
-                    this.classList.add('loaded');
-                    small.className = 'hidden'
-                }.bind(this), Math.random() * 3000)
-            }
-            imgLarge.classList.add('picture');
-
-            this.parentElement.appendChild(imgLarge)
-        }
-
-        a.append(small)
-        container.append(a)
-
-        photosWrapper.append(container)
-
     }
-    photos.append(photosWrapper)
+    photos.innerHTML = photosString
+}
+
+function thumbnailHandler(elem) {
+    if (elem.src.includes('/thumb/')) {
+        elem.setAttribute('src', elem.src.replace('thumb', 'medium'))
+    } else {
+        elem.classList.remove('thumb')
+    }
 }
 
 function cloudAuth() {
     window.location = AUTH_DOMAIN + '/login.html?permissions=IDENTIFY;MODIFY&service=' + window.location.host + '/login.html'
 }
 
-
+let imgType = 'jpg'
 window.onload = function () {
-    createPhotos(2020, 25)
-    createPhotos(2019, 18)
-    createPhotos(2018, 7)
+    const webP = new Image();
+    webP.onload = webP.onerror = function () {
+        imgType = webP.height == 2 ? 'webp' : 'jpg'
+        createPhotos(2020, 25)
+        createPhotos(2019, 18)
+        createPhotos(2018, 7)
+    };
+    webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
 }
 
 // document.getElementById('anmeldungAbsenden').onclick = function (event) {
@@ -497,29 +476,6 @@ function modalFeedback(data) {
     closeTimer = setTimeout(function () {
         window.location.reload(true)
     }, 3000)
-}
-
-// Lazy Loading
-var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"))
-
-if ("IntersectionObserver" in window) {
-    var lazyImageObserver = new IntersectionObserver(function (entries, observer) {
-        entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-                var lazyImage = entry.target
-                lazyImage.src = lazyImage.dataset.src
-                lazyImage.srcset = lazyImage.dataset.srcset
-                lazyImage.classList.remove("lazy")
-                lazyImageObserver.unobserve(lazyImage)
-            }
-        })
-    })
-
-    lazyImages.forEach(function (lazyImage) {
-        lazyImageObserver.observe(lazyImage)
-    })
-} else {
-    console.log("LL not supported")
 }
 
 if (!submitData) hideModal()

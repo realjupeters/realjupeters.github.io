@@ -6,15 +6,15 @@
   padding-bottom: 100px;
 }
 
-body.dark {
+body.darkmode {
   filter: invert(100%) hue-rotate(180deg);
 }
 
-body.dark img, body.dark #palm-wrapper {  
+body.darkmode img, body.darkmode svg, body.darkmode #palm-wrapper {  
   filter: invert(100%) hue-rotate(180deg);
 }
 
-body.dark #palm-wrapper {
+body.darkmode #palm-wrapper {
   background-image: linear-gradient(to bottom, #090909, #ff9200, #ff9200, #f3e999, rgb(0, 195, 255), #0010ff)
 }
 
@@ -22,22 +22,57 @@ body.dark #palm-wrapper {
   margin: 0;
 }
 
-svg#logo {
-  fill: white;
-  max-width: 750px;
+svg#Kolping_Logo {
+  display: block;
+  margin: auto;
+  fill: black;
 }
 
-svg#logo path#innerText {
-  stroke: #65bf3b;
+svg#Kolping_Logo path {
+  stroke: #000;
+  animation: drawKolping 4s 1 ease-in-out;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+@keyframes drawKolping {
+  0% {
+    stroke-dashoffset: 1000;
+    fill-opacity: 0;
+  }
+
+  30% {
+    fill-opacity: 0;
+  }
+
+  85% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    fill-opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+svg#JP_Logo {
+  fill: white;
+  max-width: 750px;
+  width: 100%;
+  height: 350px;
+}
+
+svg#JP_Logo path#innerText {
+  stroke: #ff8c00;
   stroke-width: 3;
   stroke-dasharray: 190737;
   animation: drawInner 4s 1 ease-in-out;
 }
 
-svg#logo path#outerText {
+svg#JP_Logo path#outerText {
   stroke: #000;
   stroke-width: 3;
-  stroke-dasharray: 190737;
+  stroke-dashoffset: 190737;
   animation: drawOuter 4s 1 ease-in-out;
 }
 
@@ -86,13 +121,6 @@ svg#logo path#outerText {
   }
 }
 
-.logo {
-  max-width: 400px;
-  position: relative;
-  border: 0 solid;
-  display: inline;
-}
-
 #palm-wrapper svg {
   max-width: 500px;
   margin: auto;
@@ -128,8 +156,7 @@ nav {
   border: 0px solid;
 }
 
-#photos {
-    /* Prevent vertical gaps */
+.photos {
     line-height: 0;
      
     -webkit-column-count: 5;
@@ -141,9 +168,12 @@ nav {
   }
   
   .photos img {
-    /* Just in case there are inline attributes */
-    width: 100% !important;
-    height: auto !important;
+    width: 100%;
+    height: auto;
+  }
+
+  .photos img:hover {
+    transform: scale(1.05);
   }
 
 
@@ -174,6 +204,10 @@ nav {
       column-count:         1;
     }
   }
+
+.thumb {
+  filter: blur(4px);
+}
 
 #progress {
     visibility: hidden;
@@ -209,35 +243,9 @@ td svg {
   margin: 1rem;
 }
 
-.image-container {
-  position: relative;
-  overflow: hidden;
-  margin: 15px 0;
-}
-
-.placeholder {
-  position: relative;
-  width: 100%;
-}
-
 .prefix-icon {
   height: 23px;
   margin-right: 5px;
-}
-
-.picture {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  transition: opacity 0.5s linear;
-}
-
-
-.picture.loaded {
-  opacity: 1;
 }
 
 .hidden {
