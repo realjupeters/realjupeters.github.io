@@ -1,4 +1,10 @@
-var AUTH_DOMAIN = "https://poolparty-dev.logge.top"
+var AUTH_DOMAIN
+if (window.location.hostname == "poolparty.jupeters.de") {
+    AUTH_DOMAIN = "https://poolparty-dev.logge.top"
+}
+else {
+    AUTH_DOMAIN = "http://localhost:3000"
+}
 
 var emoji = [...'☻😊🙃🤪🤓🤯😴💩👻👽🤖👾👐🖖✌️🤟🤘🤙👋🐭🦕🦖🐉']
 var randEmoji = emoji[Math.floor(emoji.length * Math.random())]

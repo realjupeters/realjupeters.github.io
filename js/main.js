@@ -34,287 +34,144 @@ let userNames = {}
 
 var token = localStorage.getItem('token')
 var email, name
-// No need for that functionality atm 
-//if (token) {
-// Remove to re-enable API
-if (false) {
+if (token) {
 
     try {
-        var userObj = JSON.parse(atob(token.split('.')[1]))
-        email = userObj.email
-        name = userObj.name
-        document.getElementById('personName').innerText = 'Du bist derzeit als ' + userObj.name + ' angemeldet.'
+        ; (async () => {
+            const { id, email, name, roles } = JSON.parse(atob(token.split('.')[1]))
 
-        fetch(BASE_ENDPOINT_URL + 'private/poolparty/ladeNutzer', {
-            method: 'get',
-            headers: new Headers({
-                'Authorization': token,
-            })
-        })
-            .then(response => {
-                response.json().then(json => {
-                    console.log(json)
-                    var data = json.data
-                    if (data.anmeldung.length > 0) {
+            document.getElementById('personName').innerText = 'Du bist derzeit als ' + name + ' (' + email + ') angemeldet.'
 
-                        document.getElementById('volunteerForm').style.display = ''
+            document.body.classList.add('signedIn')
+            if (roles == "admin") {
+                document.body.classList.add('admin')
+            }
 
-                        var item = data.item[0]
-                        var anmeldung = data.anmeldung[0]
-                        function anmeldungAbmelden() {
-
-                            fetch(BASE_ENDPOINT_URL + 'private/poolparty/anmeldungAbmelden', {
-                                method: 'post',
-                                headers: new Headers({
-                                    'Authorization': token,
-                                }),
-                                body: new URLSearchParams(jsonToQS({ anmeldungID: anmeldung._id, anmeldungRev: anmeldung._rev, itemID: item._id, itemRev: item._rev, itemName: item.name })),
-                            }).then(response => response.json()
-                                .then(json => {
-                                    if (volunteerAbmelden) { return volunteerAbmelden() }
-                                    else {
-                                        alert(JSON.stringify(json))
-                                        location.reload(true)
-                                    }
-                                })).catch(console.error)
-                        }
-
-                        var anmeldenForm = document.getElementById('anmeldenForm')
-                        anmeldenForm.innerHTML = '<div class="alert alert-success">Du hast dich am ' + new Date(anmeldung.date).toLocaleDateString() + ' mit ' + anmeldung.personen + ' Person' + (anmeldung.personen > 0 ? 'en' : '') + ' angemeldet. Du bringst "' + item.name + '" mit. </ br > </div > '
-                        var abmeldenButon = document.createElement('button')
-                        abmeldenButon.innerText = 'Abmelden'
-                        abmeldenButon.className = 'btn-warning'
-                        abmeldenButon.onclick = () => {
-                            abmeldenButon.className = 'btn-danger'
-                            abmeldenButon.innerText = 'Sicher?'
-                            abmeldenButon.onclick = () => anmeldungAbmelden()
-                        }
-                        anmeldenForm.append(abmeldenButon)
-
-
-                        if (data.volunteer.length > 0) {
-
-                            var volunteer = data.volunteer[0]
-
-                            function volunteerAbmelden() {
-
-                                fetch(BASE_ENDPOINT_URL + 'private/poolparty/volunteerAbmelden', {
-                                    method: 'post',
-                                    headers: new Headers({
-                                        'Authorization': token,
-                                    }),
-                                    body: new URLSearchParams(jsonToQS({ volunteerID: volunteer._id, volunteerRev: volunteer._rev })),
-                                }).then(response => response.json()
-                                    .then(json => {
-                                        alert(JSON.stringify(json))
-                                        location.reload(true)
-                                    })).catch(console.error)
-                            }
-
-
-                            var volunteerForm = document.getElementById('volunteerForm')
-                            volunteerForm.innerHTML = '<div class="alert alert-success">Du hast dich am ' + new Date(volunteer.date).toLocaleDateString() + ' mit einer Dauer von "' + volunteer.dauer + '" angemeldet.</ br > </div > '
-                            var button = document.createElement('button')
-                            button.innerText = 'Abmelden'
-                            button.className = 'btn-warning'
-                            button.onclick = () => {
-                                button.className = 'btn-danger'
-                                button.innerText = 'Sicher?'
-                                button.onclick = () => volunteerAbmelden()
-                            }
-                            volunteerForm.append(button)
-                        }
-                    }
+            const response = await fetch(BASE_ENDPOINT_URL + 'private/poolparty/me', {
+                method: 'get',
+                headers: new Headers({
+                    'Authorization': token,
                 })
             })
-            .catch(error => alert("Fehler beim Laden der Nutzerdaten: " + errro))
-        document.body.classList.toggle('signedIn')
+            const data = await response.json()
 
-        //Nutzer ist Admin
-        if (userObj.roles.includes('admin')) {
+            const { item, registration, volunteer } = data
 
-            function loadAdminContent() {
+            if (registration && item) {
 
-                function removeElement(element, _id, _rev) {
-                    fetch(BASE_ENDPOINT_URL + 'admin/poolparty/removeElement', {
-                        method: 'post',
+                document.getElementById('volunteerForm').style.display = ''
+
+                async function unregister() {
+                    const unregisterResp = await fetch(BASE_ENDPOINT_URL + 'private/poolparty/registration', {
+                        method: 'DELETE',
                         headers: new Headers({
                             'Authorization': token,
-                        }),
-                        body: new URLSearchParams(jsonToQS({ element, _id, _rev })),
-                    }).then(res => res.json().then(json => loadAdminContent(alert(JSON.stringify(json))))).catch(console.error)
+                        })
+                    })
+                    const json = await unregisterResp.json()
+                    console.log(json)
+                    alert(JSON.stringify(json))
+                    location.reload(true)
                 }
 
-                document.body.className += ' admin'
-                fetch(BASE_ENDPOINT_URL + 'admin/poolparty/ladeAnmeldungen', {
+                var anmeldenForm = document.getElementById('anmeldenForm')
+                anmeldenForm.innerHTML = '<div class="alert alert-success">Du hast dich am ' + new Date(registration.lastActivity).toLocaleDateString() + ' mit ' + registration.people + ' Person' + (registration.people > 0 ? 'en' : '') + ' angemeldet. Du bringst "' + item.name + '" mit. </ br > </div > '
+                var abmeldenButon = document.createElement('button')
+                abmeldenButon.innerText = 'Abmelden'
+                abmeldenButon.className = 'btn-warning row'
+                abmeldenButon.onclick = () => {
+                    abmeldenButon.className = 'btn-danger row'
+                    abmeldenButon.innerText = 'Sicher?'
+                    abmeldenButon.onclick = () => unregister()
+                }
+                anmeldenForm.append(abmeldenButon)
+
+
+                if (volunteer) {
+
+                    async function volunteerAbmelden() {
+
+                        const volunteerResp = await fetch(BASE_ENDPOINT_URL + 'private/poolparty/volunteer', {
+                            method: 'DELETE',
+                            headers: new Headers({
+                                'Authorization': token,
+                            }),
+                        })
+                        const json = await volunteerResp.json()
+                        console.log(json)
+                        alert(JSON.stringify(json))
+                        location.reload(true)
+                    }
+
+                    var volunteerForm = document.getElementById('volunteerForm')
+                    volunteerForm.innerHTML = '<div class="alert alert-success">Du hast dich am ' + new Date(volunteer.lastActivity).toLocaleDateString() + ' mit einer Dauer von "' + volunteer.duration + '" angemeldet.</ br > </div > '
+                    var button = document.createElement('button')
+                    button.innerText = 'Abmelden'
+                    button.className = 'btn-warning row'
+                    button.onclick = () => {
+                        button.className = 'btn-danger row'
+                        button.innerText = 'Sicher?'
+                        button.onclick = () => volunteerAbmelden()
+                    }
+                    volunteerForm.append(button)
+                } else {
+
+                    document.getElementById('submitVolunteer').onclick = () => {
+                        var duration = document.getElementById('durationInput').value
+                        if (duration.length < 3 || duration.length > 512) return
+
+                        sendHandler({
+                            path: 'private/poolparty/volunteer',
+                            method: 'POST',
+                            data: { duration }
+                        })
+                    }
+
+                }
+
+            } else {
+
+                const itemInput = document.getElementById('itemInput')
+
+                const response = await fetch(BASE_ENDPOINT_URL + 'private/poolparty/item', {
                     method: 'get',
                     headers: new Headers({
                         'Authorization': token,
                     })
-                }).then(response =>
-                    response.json().then(json => {
-                        console.log(json)
-                        const { items, anmeldungen, volunteers, users } = json.data
+                })
 
-                        for (let i = 0; i < items.length; i++) {
-                            itemNames[items[i]._id] = items[i].name
-                        }
+                const items = await response.json()
 
-                        for (let i = 0; i < users.length; i++) {
-                            userNames[users[i]._id] = users[i].name
-                        }
+                for (let i = 0; i < items.length; i++) {
+                    const item = items[i]
+                    const opt = document.createElement("option");
+                    opt.value = item.id;
+                    opt.innerHTML = item.name; // whatever property it has
+                    itemInput.appendChild(opt);
+                }
 
-                        // Item handling
-                        const itemList = document.getElementById('itemList')
-                        itemList.innerHTML = ''
-                        for (let i = 0; i < items.length; i++) {
-                            const item = items[i]
-                            const tr = document.createElement('tr')
-                            let td
+                document.getElementById('submitRegistration').onclick = () => {
+                    const itemID = itemInput.value
+                    var people = Number(document.getElementById('peopleInput').value)
 
-                            td = document.createElement('td')
-                            td.innerText = item.name
-                            tr.append(td)
+                    if (!Number(itemID)) return
+                    if (!people) return
+                    if (people < 1 || people > 4) return // Wrong Count
 
-
-                            td = document.createElement('td')
-                            if (item.userID) {
-                                td.innerText = userNames[item.userID]
-                            }
-                            else {
-                                td.innerText = null
-                            }
-                            tr.append(td)
-
-                            td = document.createElement('td')
-                            const a = document.createElement('button')
-                            a.innerText = "X"
-                            //a.href = '#admin'
-                            a.onclick = () => {
-                                a.className = 'btn-danger'
-                                a.onclick = () => removeElement("item", item._id, item._rev)
-                            }
-                            td.append(a)
-                            tr.append(td)
-
-                            itemList.append(tr)
-                        }
-
-                        // Anmeldung handling
-                        const anmeldungList = document.getElementById('anmeldungList')
-                        anmeldungList.innerHTML = ''
-                        for (let i = 0; i < anmeldungen.length; i++) {
-                            const anmeldung = anmeldungen[i]
-                            const tr = document.createElement('tr')
-                            let td
-
-                            td = document.createElement('td')
-                            td.innerText = userNames[anmeldung.userID]
-                            tr.append(td)
-
-                            td = document.createElement('td')
-                            td.innerText = anmeldung.personen
-                            tr.append(td)
-
-                            td = document.createElement('td')
-                            td.innerText = itemNames[anmeldung.itemID]
-                            tr.append(td)
-
-                            td = document.createElement('td')
-                            td.innerText = new Date(anmeldung.date).toLocaleString()
-                            tr.append(td)
-
-                            td = document.createElement('td')
-                            const a = document.createElement('button')
-                            a.innerText = "X"
-                            //a.href = '#admin'
-                            a.onclick = () => {
-                                a.className = 'btn-danger'
-                                a.onclick = () => removeElement("anmeldung", anmeldung._id, anmeldung._rev)
-                            }
-                            td.append(a)
-                            tr.append(td)
-
-                            anmeldungList.append(tr)
-                        }
-
-                        // Volunteer handling
-                        const volunteerList = document.getElementById('volunteerList')
-                        volunteerList.innerHTML = ''
-                        for (let i = 0; i < volunteers.length; i++) {
-                            const volunteer = volunteers[i]
-                            const tr = document.createElement('tr')
-                            let td
-
-                            td = document.createElement('td')
-                            td.innerText = userNames[volunteer.userID]
-                            tr.append(td)
-
-                            td = document.createElement('td')
-                            td.innerText = volunteer.dauer
-                            tr.append(td)
-
-                            td = document.createElement('td')
-                            td.innerText = new Date(volunteer.date).toLocaleString()
-                            tr.append(td)
-
-                            td = document.createElement('td')
-                            const a = document.createElement('button')
-                            a.innerText = "X"
-                            //a.href = '#admin'
-                            a.onclick = () => {
-                                a.className = 'btn-danger'
-                                a.onclick = () => removeElement("volunteer", volunteer._id, volunteer._rev)
-                            }
-                            td.append(a)
-                            tr.append(td)
-
-                            volunteerList.append(tr)
-                        }
-
+                    sendHandler({
+                        path: 'private/poolparty/registration',
+                        method: 'POST',
+                        data: { people, itemID }
                     })
-                ).catch(console.error)
-            }
-            loadAdminContent()
+                }
 
-            var itemInput = document.getElementById('setzeItem')
-            function setzeItem() {
-                var name = itemInput.value
-                if (!name) return alert('Kein Itemname eingetragen')
-                fetch(BASE_ENDPOINT_URL + 'admin/poolparty/setzeItem', {
-                    method: 'post',
-                    body: new URLSearchParams(jsonToQS({ name })),
-                    headers: new Headers({
-                        'Authorization': token,
-                    }),
-                }).then(response =>
-                    response.json().then(json => {
-                        console.log(json)
-                        loadAdminContent()
-                    })
-                ).catch(console.error)
             }
-        }
+        })()
+        // End of async block
 
-        // Load Items
-        console.log(BASE_ENDPOINT_URL + 'private/poolparty/ladeItems')
-        fetch(BASE_ENDPOINT_URL + 'private/poolparty/ladeItems', {
-            method: 'get',
-            headers: new Headers({
-                'Authorization': token,
-            }),
-        }).then(response =>
-            response.json().then(json => {
-                console.log(json)
-                fillSelect(json.data)
-            })
-        ).catch(console.error)
-    }
-    catch (e) {
-        // Clear broken token
-        console.error(e)
-        localStorage.removeItem('token')
-        alert('Ungültiger Token bitte erneut anmelden')
+
+    } catch (e) {
+        alert('Something went wrong ' + JSON.stringify(e))
     }
 }
 
@@ -355,7 +212,7 @@ function thumbnailHandler(elem) {
 }
 
 function cloudAuth() {
-    window.location = AUTH_DOMAIN + '/login.html?permissions=IDENTIFY;MODIFY&service=' + window.location.host + '/login.html'
+    window.location = AUTH_DOMAIN + '/?permissions=IDENTIFY;MODIFY&service=' + window.location.host + '/login.html'
 }
 
 let imgType = 'jpg'
@@ -405,7 +262,7 @@ window.onload = function () {
 
 var submitData
 
-sendHandler = function (data) {
+function sendHandler(data) {
     submitData = data
 
     var str = ""
@@ -413,7 +270,7 @@ sendHandler = function (data) {
         str += key + ': ' + submitData.data[key] + '\n'
     }
     document.getElementById('confirmationData').innerText = str
-    showModal()
+    showModal(data)
 }
 
 var modalState = document.getElementById('confirmModal')
@@ -451,7 +308,7 @@ function submitModal() {
     progress.style.visibility = 'visible'
     progress.children[0].style.width = '100%'
     fetch(BASE_ENDPOINT_URL + submitData.path, {
-        method: 'post',
+        method: submitData.method,
         headers: new Headers({
             'Authorization': token,
         }),
