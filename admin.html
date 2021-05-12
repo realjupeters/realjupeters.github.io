@@ -20,14 +20,23 @@
         <!-- Favicon -->
 
         <meta name="theme-color" content="#ffffff">
+
+        <style>
+            html,
+            body,
+            .paper {
+                height: 100%;
+            }
+        </style>
     </head>
 </head>
 
 <body>
 
     <!-- Admin -->
-    <a name="admin"></a>
-    <div class="hideForNonAdmin">
+
+    <div class="paper margin-none">
+        <a href="./">Back to Main</a>
         <h2 class="col background-secondary">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 238.1 238.1">
                 <path
@@ -35,63 +44,114 @@
             </svg>
             Admin Panel
         </h2>
-        <div class="col-12">
-            <div class="form-group">
-                <label for="setzeItem">Item hinzufügen</label>
-                <input class="input-block" type="text" placeholder="Item" id="setzeItem">
+
+
+        <div class="row flex-spaces tabs">
+            <input id="tab1" type="radio" name="tabs" checked>
+            <label for="tab1">Accounts</label>
+
+            <input id="tab2" type="radio" name="tabs" checked>
+            <label for="tab2">Registration</label>
+
+            <input id="tab3" type="radio" name="tabs">
+            <label for="tab3">Item</label>
+
+            <input id="tab4" type="radio" name="tabs">
+            <label for="tab4">Volunteer</label>
+
+            <div class="content" id="content1">
+
+                <!-- ACCOUTNS -->
+
+                <h3>Accounts</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>email</th>
+                            <th>verified</th>
+                            <th>roles</th>
+                            <th>lastActive</th>
+                        </tr>
+                    </thead>
+                    <tbody id="accountTable">
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content" id="content2">
+
+                <!-- REGISTER -->
+
+                <h3>Anmeldungen</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Personen</th>
+                            <th>lastActivity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registrationTable">
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content" id="content3">
+
+                <!-- ITEMS -->
+
+                <h3>Items</h3>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="setzeItem">Item hinzufügen</label>
+                        <input class="input-block" type="text" placeholder="Item" id="setzeItem"
+                            style="display: block;">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <button class="btn-large btn-block" type="submit" onclick="setzeItem()">Hinzufügen</button>
+                    </div>
+                </div>
+                <h3>Items</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ItemName</th>
+                            <th>UserName</th>
+                            <th>lastActivity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemTable">
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content" id="content4">
+
+                <!-- VOLUNTEERS -->
+
+                <h3>Volunteers</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Dauer</th>
+                            <th>lastActivity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="volunteerTable">
+
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="col-12">
-            <div class="form-group">
-                <button class="btn-large btn-block" type="submit" onclick="setzeItem()">Hinzufügen</button>
-            </div>
-        </div>
-        <h3>Items</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>ItemName</th>
-                    <th>UserName</th>
-                    <th>Remove</th>
-                </tr>
-            </thead>
-            <tbody id="itemList">
 
-            </tbody>
-        </table>
-        <br />
 
-        <h3>Anmeldungen</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>UserName</th>
-                    <th>personen</th>
-                    <th>itemName</th>
-                    <th>Date</th>
-                    <th>Remove</th>
-                </tr>
-            </thead>
-            <tbody id="anmeldungList">
-
-            </tbody>
-        </table>
-        <br />
-
-        <h3>Volunteers</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>UserName</th>
-                    <th>Dauer</th>
-                    <th>Date</th>
-                    <th>Remove</th>
-                </tr>
-            </thead>
-            <tbody id="volunteerList">
-
-            </tbody>
-        </table>
     </div>
 
     <script src="js/admin.js"></script>
