@@ -1,6 +1,6 @@
 var AUTH_DOMAIN
 if (window.location.hostname == "poolparty.jupeters.de") {
-    AUTH_DOMAIN = "https://poolparty-dev.logge.top"
+    AUTH_DOMAIN = "https://jpCore.logge.top"
 }
 else {
     AUTH_DOMAIN = "http://localhost:3000"
