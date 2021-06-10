@@ -1,9 +1,10 @@
 var AUTH_DOMAIN
 if (window.location.hostname == "poolparty.jupeters.de") {
-    AUTH_DOMAIN = "https://poolparty-dev.logge.top"
+    AUTH_DOMAIN = "https://jpCore.logge.top"
 }
 else {
-    AUTH_DOMAIN = "http://localhost:3000"
+    // AUTH_DOMAIN = "http://localhost:3000"^
+    AUTH_DOMAIN = 'http://' + window.location.hostname + ':3000'
 }
 
 var BASE_ENDPOINT_URL = AUTH_DOMAIN + "/api/"
@@ -226,39 +227,6 @@ window.onload = function () {
     };
     webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
 }
-
-// document.getElementById('anmeldungAbsenden').onclick = function (event) {
-//     var mitbringen = document.getElementById('mitbringenInput')
-//     var personen = document.getElementById('personenInput').value
-
-//     personen = Number(personen)
-//     if (!personen) return
-//     personen = personen.toFixed(0)
-
-//     var item = mitbringen.options[mitbringen.selectedIndex].innerText
-//     var itemID = mitbringen.options[mitbringen.selectedIndex].value
-
-//     if (!mitbringen || !name || !item) return // Leere Inputs
-//     if (name.length < 3 || name.length > 512) return // Komische Nameslänge
-//     if (personen < 1 || personen > 4) return // Falsche Anzahl
-
-//     sendHandler({
-//         path: 'private/poolparty/setzeAnmeldung',
-//         data: { name: userObj.name, userID: userObj._id, personen, item, itemID }
-//     })
-// }
-
-// document.getElementById('volunteerAbsenden').onclick = function (event) {
-//     var dauer = document.getElementById('volunteerDauer').value
-
-//     if (!dauer) return// Leere Inputs
-//     if (dauer.length < 3 || dauer.length > 512) return // Komische Dauerlänge
-
-//     sendHandler({
-//         path: 'private/poolparty/setzeVolunteer',
-//         data: { userID: userObj._id, dauer: dauer }
-//     })
-// }
 
 var submitData
 
