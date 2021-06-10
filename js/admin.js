@@ -1,5 +1,5 @@
 var AUTH_DOMAIN
-if (window.location.hostnam1 == "poolparty.jupeters.de") {
+if (window.location.hostname == "poolparty.jupeters.de") {
     AUTH_DOMAIN = "https://jpCore.logge.top"
 }
 else {
