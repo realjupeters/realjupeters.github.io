@@ -134,7 +134,9 @@ document.getElementById('addItem').onclick = () => {
     }).then(async response => {
         const json = await response.json()
         console.log('Added Item', json)
-
+        if (json.success) {
+            alert(json.success)
+        }
     })
 }
 
