@@ -21,7 +21,7 @@ fetch(BASE_ENDPOINT_URL + 'admin/poolparty/account', {
         'Authorization': token,
     })
 }).then(async response => {
-    const accounts = await response.json()
+    const accounts = (await response.json()).sort((a, b) => b.lastActivity - a.lastActivity)
     console.log("account", accounts)
     const accountTable = document.getElementById('accountTable')
     for (let i = 0; i < accounts.length; i++) {
