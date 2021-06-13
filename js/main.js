@@ -310,13 +310,14 @@ if (!submitData) hideModal()
 fetch('https://api.corona-zahlen.org/districts/07332').then(async response => {
     const json = await response.json()
     const coronaBar = document.getElementById('coronaBar')
+    const coronaBarText = document.getElementById('coronaBarText')
     coronaBar.style.width = Math.min(json.data['07332'].weekIncidence, 100) + '%'
     if (json.data['07332'].weekIncidence < 30) {
         coronaBar.classList.add('warning')
     } else {
         coronaBar.classList.add('danger')
     }
-    coronaBar.innerText = 'Landkreis Inizdenz: ' + json.data['07332'].weekIncidence.toFixed(1)
+    coronaBarText.innerText = 'Landkreis Inizdenz: ' + json.data['07332'].weekIncidence.toFixed(1)
 })
 
 console.info(`Wilkommen in der Entewicklerkonsole
