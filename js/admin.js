@@ -167,3 +167,17 @@ fetch(BASE_ENDPOINT_URL + 'admin/poolparty/volunteer', {
     }
 })
 
+
+var isDark = localStorage.getItem('dark')
+function toggleDark() {
+    document.body.classList.toggle('darkmode')
+    isDark = !isDark
+    localStorage.setItem('dark', isDark)
+    console.log(isDark)
+}
+
+if (isDark == 'true') {
+    toggleDark()
+}
+
+isDark = !isDark
