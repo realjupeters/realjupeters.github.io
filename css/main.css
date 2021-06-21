@@ -66,14 +66,14 @@ svg#JP_Logo path#innerText {
   stroke: #ff8c00;
   stroke-width: 3;
   stroke-dasharray: 190737;
-  animation: drawInner 4s 1 ease-in-out;
+  animation: drawInner 5s 1 ease-in-out;
 }
 
 svg#JP_Logo path#outerText {
   stroke: #000;
   stroke-width: 3;
   stroke-dashoffset: 190737;
-  animation: drawOuter 4s 1 ease-in-out;
+  animation: drawOuter 5s 1 ease-in-out;
 }
 
 @keyframes drawOuter {

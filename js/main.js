@@ -41,6 +41,12 @@ if (token) {
         ; (async () => {
             const { id, email, name, roles } = JSON.parse(atob(token.split('.')[1]))
 
+            if (!id) {
+                localStorage.setItem('token', null)
+                alert("Altes Token Format. Bitte neu anmelden!")
+                window.reload(true)
+            }
+
             document.getElementById('personName').innerText = 'Du bist derzeit als ' + name + ' (' + email + ') angemeldet.'
 
             document.body.classList.add('signedIn')
