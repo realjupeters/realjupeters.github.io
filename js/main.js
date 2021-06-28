@@ -202,7 +202,7 @@ function createPhotos(year, count) {
     for (i = 1; i <= count; i++) {
 
         photosString += `
-        <a href="img/${year}/full/img${i}.jpg">
+        <a href="img/${year}/full/img${i}.jpg" target="_blank">
             <img src="img/${year}/thumb/img${i}.${imgType}" class="thumb" type="image/${imgType}" alt="Img${i}" onload='thumbnailHandler(this)'>
         </a>
         `
@@ -227,6 +227,7 @@ window.onload = function () {
     const webP = new Image();
     webP.onload = webP.onerror = function () {
         imgType = webP.height == 2 ? 'webp' : 'jpg'
+        createPhotos(2021, 11)
         createPhotos(2020, 25)
         createPhotos(2019, 18)
         createPhotos(2018, 7)

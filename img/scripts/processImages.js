@@ -11,7 +11,7 @@ let json = [];
 const sizes = [['thumb', 20], ['small', 400], ['medium', 600], ['large', 800]];
 
 (async () => {
-    const year = "2020"
+    const year = "2021"
 
     const files = await imagemin([`../${year}/full/*.jpg`], {
         plugins: [
