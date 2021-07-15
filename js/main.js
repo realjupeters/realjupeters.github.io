@@ -35,8 +35,7 @@ let userNames = {}
 
 var token = localStorage.getItem('token')
 var email, name
-if (token) {
-
+if (token && !document.querySelector('a[name="danke"]')) {
     try {
         ; (async () => {
             const { id, email, name, roles } = JSON.parse(atob(token.split('.')[1]))
@@ -212,7 +211,16 @@ function createPhotos(year, count) {
 
 function thumbnailHandler(elem) {
     if (elem.src.includes('/thumb/')) {
-        elem.setAttribute('src', elem.src.replace('thumb', 'medium'))
+        const width = elem.width * window.devicePixelRatio || 1
+        let size = 'large'
+        if (width > 600) {
+            size = 'large'
+        } else if (width > 400) {
+            size = 'medium'
+        } else {
+            size = 'small'
+        }
+        elem.setAttribute('src', elem.src.replace('thumb', size))
     } else {
         elem.classList.remove('thumb')
     }
