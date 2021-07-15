@@ -227,7 +227,7 @@ window.onload = function () {
     const webP = new Image();
     webP.onload = webP.onerror = function () {
         imgType = webP.height == 2 ? 'webp' : 'jpg'
-        createPhotos(2021, 11)
+        createPhotos(2021, 18)
         createPhotos(2020, 25)
         createPhotos(2019, 18)
         createPhotos(2018, 7)
