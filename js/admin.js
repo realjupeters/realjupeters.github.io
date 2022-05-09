@@ -3,7 +3,7 @@ if (window.location.hostname == "poolparty.jupeters.de") {
     AUTH_DOMAIN = "https://jpCore.logge.top"
 }
 else {
-    // AUTH_DOMAIN = "http://localhost:3000"^
+    // AUTH_DOMAIN = "http://localhost:3000"
     AUTH_DOMAIN = 'http://' + window.location.hostname + ':3000'
 }
 
@@ -50,6 +50,7 @@ fetch(BASE_ENDPOINT_URL + 'admin/poolparty/registration', {
     const registration = await response.json()
     console.log("registration", registration)
     const registrationTable = document.getElementById('registrationTable')
+    const musicTable = document.getElementById('musicTable')
 
     for (let i = 0; i < registration.length; i++) {
         const a = registration[i]
@@ -57,10 +58,27 @@ fetch(BASE_ENDPOINT_URL + 'admin/poolparty/registration', {
 
 
         for (key in a) {
-            const td = document.createElement('td')
-            if (key == "lastActivity") a[key] = a[key] = a[key] ? new Date(a[key]).toLocaleDateString() : ''
-            td.innerText = a[key] || ''
-            tr.append(td)
+            if (key == "music") {
+                if (a[key]) {
+                    const tr = document.createElement('tr')
+                    const tdId = document.createElement('td')
+                    const tdName = document.createElement('td')
+                    const tdMusic = document.createElement('td')
+
+                    tdId.innerText = a.id
+                    tdName.innerText = a.name
+                    tdMusic.innerText = a.music
+                    tr.append(tdId)
+                    tr.append(tdName)
+                    tr.append(tdMusic)
+                    musicTable.append(tr)
+                }
+            } else {
+                const td = document.createElement('td')
+                if (key == "lastActivity") a[key] = a[key] = a[key] ? new Date(a[key]).toLocaleDateString() : ''
+                td.innerText = a[key] || ''
+                tr.append(td)
+            }
         }
 
         registrationTable.append(tr)
