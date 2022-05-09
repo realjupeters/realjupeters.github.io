@@ -1,9 +1,7 @@
 var AUTH_DOMAIN
 if (window.location.hostname == "poolparty.jupeters.de") {
     AUTH_DOMAIN = "https://jpCore.logge.top"
-}
-else {
-    // AUTH_DOMAIN = "http://localhost:3000"^
+} else {
     AUTH_DOMAIN = 'http://' + window.location.hostname + ':3000'
 }
 
@@ -40,7 +38,7 @@ if (token && !document.querySelector('a[name="danke"]')) {
         ; (async () => {
             const { id, email, name, roles } = JSON.parse(atob(token.split('.')[1]))
 
-            if (!id) {
+            if (!id || !email || !name) {
                 localStorage.setItem('token', null)
                 alert("Altes Token Format. Bitte neu anmelden!")
                 window.reload(true)
@@ -158,7 +156,8 @@ if (token && !document.querySelector('a[name="danke"]')) {
 
                 document.getElementById('submitRegistration').onclick = () => {
                     const itemID = itemInput.value
-                    var people = Number(document.getElementById('peopleInput').value)
+                    const people = Number(document.getElementById('peopleInput').value)
+                    const music = document.getElementById('musicInput').value
 
                     if (!Number(itemID)) return
                     if (!people) return
@@ -167,7 +166,7 @@ if (token && !document.querySelector('a[name="danke"]')) {
                     sendHandler({
                         path: 'private/poolparty/registration',
                         method: 'POST',
-                        data: { people, itemID }
+                        data: { people, itemID, music }
                     })
                 }
 
@@ -227,7 +226,7 @@ function thumbnailHandler(elem) {
 }
 
 function cloudAuth() {
-    window.location = AUTH_DOMAIN + '/?permissions=IDENTIFY;MODIFY&service=' + window.location.host + '/login.html'
+    window.location = AUTH_DOMAIN + '/login.html'
 }
 
 let imgType = 'jpg'
@@ -319,21 +318,6 @@ function modalFeedback(data) {
 }
 
 if (!submitData) hideModal()
-
-/* COVID COUNTER */
-
-fetch('https://api.corona-zahlen.org/districts/07332').then(async response => {
-    const json = await response.json()
-    const coronaBar = document.getElementById('coronaBar')
-    const coronaBarText = document.getElementById('coronaBarText')
-    coronaBar.style.width = Math.min(json.data['07332'].weekIncidence, 100) + '%'
-    if (json.data['07332'].weekIncidence < 30) {
-        coronaBar.classList.add('warning')
-    } else {
-        coronaBar.classList.add('danger')
-    }
-    coronaBarText.innerText = 'Landkreis Inizdenz: ' + json.data['07332'].weekIncidence.toFixed(1)
-})
 
 console.info(`Wilkommen in der Entewicklerkonsole
     ,~~.
