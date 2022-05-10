@@ -124,7 +124,8 @@ if (token && !document.querySelector('a[name="danke"]')) {
 
                     document.getElementById('submitVolunteer').onclick = () => {
                         var duration = document.getElementById('durationInput').value
-                        if (duration.length < 3 || duration.length > 512) return
+                        if (duration.length < 3 || duration.length > 512) return document.getElementById('durationInput').classList.add('invalid')
+                        else document.getElementById('durationInput').classList.remove('invalid')
 
                         sendHandler({
                             path: 'private/poolparty/volunteer',
@@ -161,9 +162,11 @@ if (token && !document.querySelector('a[name="danke"]')) {
                     const people = Number(document.getElementById('peopleInput').value)
                     const music = document.getElementById('musicInput').value
 
-                    if (!Number(itemID)) return
-                    if (!people) return
-                    if (people < 1 || people > 4) return // Wrong Count
+                    if (!Number(itemID)) return itemInput.classList.add('invalid')
+                    itemInput.classList.remove('invalid')
+                    if (!people) return document.getElementById('peopleInput').classList.add('invalid')
+                    if (people < 1 || people > 4) return document.getElementById('peopleInput').classList.add('invalid')
+                    document.getElementById('peopleInput').classList.remove('invalid')
 
                     sendHandler({
                         path: 'private/poolparty/registration',
