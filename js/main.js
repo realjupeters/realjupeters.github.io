@@ -39,7 +39,7 @@ if (token && !document.querySelector('a[name="danke"]')) {
             const { id, email, name, roles } = JSON.parse(atob(token.split('.')[1]))
 
             if (!id || !email || !name) {
-                localStorage.setItem('token', null)
+                localStorage.removeItem('token')
                 alert("Altes Token Format. Bitte neu anmelden!")
                 window.reload(true)
             }
@@ -202,7 +202,7 @@ function createPhotos(year, count) {
     for (i = 1; i <= count; i++) {
 
         photosString += `
-        <a href="img/${year}/full/img${i}.jpg" target="_blank">
+        <a data-fslightbox="gallery${year}" href="img/${year}/full/img${i}.jpg">
             <img src="img/${year}/thumb/img${i}.${imgType}" class="thumb" type="image/${imgType}" alt="Img${i}" onload='thumbnailHandler(this)'>
         </a>
         `
@@ -240,6 +240,7 @@ window.onload = function () {
         createPhotos(2020, 25)
         createPhotos(2019, 18)
         createPhotos(2018, 7)
+        refreshFsLightbox()
     };
     webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
 }
