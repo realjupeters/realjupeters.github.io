@@ -72,10 +72,11 @@ if (token && !document.querySelector('a[name="danke"]')) {
                             'Authorization': token,
                         })
                     })
-                    const json = await unregisterResp.json()
-                    console.log(json)
-                    alert(JSON.stringify(json))
-                    location.reload(true)
+                    const success = await unregisterResp.json()
+                    if (success) {
+                        alert("Dein Registrierungsstatus wurde erfolgreich gelöscht.")
+                        location.reload(true)
+                    }
                 }
 
                 var anmeldenForm = document.getElementById('anmeldenForm')
@@ -101,10 +102,11 @@ if (token && !document.querySelector('a[name="danke"]')) {
                                 'Authorization': token,
                             }),
                         })
-                        const json = await volunteerResp.json()
-                        console.log(json)
-                        alert(JSON.stringify(json))
-                        location.reload(true)
+                        const success = await volunteerResp.json()
+                        if (success) {
+                            alert("Dein Registrierungsstatus wurde erfolgreich gelöscht.")
+                            location.reload(true)
+                        }
                     }
 
                     var volunteerForm = document.getElementById('volunteerForm')
@@ -174,9 +176,9 @@ if (token && !document.querySelector('a[name="danke"]')) {
         })()
         // End of async block
 
-
     } catch (e) {
-        alert('Something went wrong ' + JSON.stringify(e))
+        alert('Etwas ist schief gelaufen...')
+        console.error(e)
     }
 }
 
