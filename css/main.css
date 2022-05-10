@@ -14,7 +14,7 @@
   padding-bottom: 100px;
 }
 
-body.darkmode {
+/* body.darkmode {
   filter: invert(100%) hue-rotate(180deg);
 }
 
@@ -34,6 +34,10 @@ body.darkmode #palm-wrapper {
     rgb(0, 195, 255),
     #0010ff
   );
+} */
+
+body {
+  margin-top: 64px;
 }
 
 .caption {
@@ -162,11 +166,23 @@ div.row {
 }
 
 .background-secondary {
-  background-color: #a3d1ff;
+  background-color: #00f9f9;
 }
 
 nav {
-  background-color: #dfdfdf;
+  background-color: rgb(65, 64, 62);
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+nav a {
+  color: #f6f6f6 !important;
+  border-color: #f6f6f6;
+}
+
+nav a:hover {
+  color: #00f9f9 !important;
+  border-color: #00f9f9;
 }
 
 .paper {
