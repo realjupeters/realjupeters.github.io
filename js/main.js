@@ -44,7 +44,7 @@ if (token && !document.querySelector('a[name="danke"]')) {
                 window.reload(true)
             }
 
-            document.getElementById('personName').innerText = 'Du bist derzeit als ' + name + ' (' + email + ') angemeldet.'
+            document.getElementById('personName').innerText = 'Eingeloggt als ' + name + ' (' + email + ').'
 
             document.body.classList.add('signedIn')
             if (roles == "admin") {
@@ -165,7 +165,7 @@ if (token && !document.querySelector('a[name="danke"]')) {
                     if (!Number(itemID)) return itemInput.classList.add('invalid')
                     itemInput.classList.remove('invalid')
                     if (!people) return document.getElementById('peopleInput').classList.add('invalid')
-                    if (people < 1 || people > 4) return document.getElementById('peopleInput').classList.add('invalid')
+                    if (people < 1 || people > 2) return document.getElementById('peopleInput').classList.add('invalid')
                     document.getElementById('peopleInput').classList.remove('invalid')
 
                     sendHandler({
