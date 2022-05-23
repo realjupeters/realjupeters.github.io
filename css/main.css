@@ -309,6 +309,7 @@ td svg {
   display: initial !important;
 }
 
-input.invalid {
+input.invalid,
+select.invalid {
   border-color: red !important;
 }

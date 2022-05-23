@@ -290,8 +290,13 @@
                 </div>
                 <div class="sm-12 md-6 col">
                     <div class="form-group">
-                        <label for="peopleInput">Anzahl Personen (max 2)</label>
-                        <input class="input-block" type="number" min=1 max=2 placeholder="Personen" id="peopleInput">
+                        <label for="peopleInput">Anzahl Personen</label>
+                        <select id="peopleInput" class="input-block">
+                            <option selected disabled>Bitte auswählen</option>
+                            <option value="1">1 Person</option>
+                            <option value="2">2 Personen</option>
+                        </select>
+                        <!-- <input class="input-block" type="number" min=1 max=2 placeholder="Personen" id="peopleInput"> -->
                     </div>
                 </div>
                 <div class="sm-12 md-12 col">
