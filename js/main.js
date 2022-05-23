@@ -257,6 +257,7 @@ function sendHandler(data) {
                 str += `Personen: ${submitData.data[key]}\n`
                 break;
             case 'itemID':
+                if (document.querySelector('#itemInput option[value="' + submitData.data[key] + '"]')) break
                 const itemName = document.querySelector('#itemInput option[value="' + submitData.data[key] + '"]').innerText
                 str += `Mitbringen: ${itemName}\n`
                 break;
