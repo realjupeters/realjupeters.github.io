@@ -28,9 +28,6 @@ function fillSelect(elements) {
     }
 }
 
-let itemNames = {}
-let userNames = {}
-
 var token = localStorage.getItem('token')
 var email, name
 if (token && !document.querySelector('a[name="danke"]')) {
@@ -255,7 +252,21 @@ function sendHandler(data) {
 
     var str = ""
     for (key in submitData.data) {
-        str += key + ': ' + submitData.data[key] + '\n'
+        switch (key) {
+            case 'people':
+                str += `Personen: ${submitData.data[key]}\n`
+                break;
+            case 'itemID':
+                const itemName = document.querySelector('#itemInput option[value="' + submitData.data[key] + '"]').innerText
+                str += `Mitbringen: ${itemName}\n`
+                break;
+            case 'music':
+                str += `Musik: ${submitData.data[key]}\n`
+                break;
+            case 'duration':
+                str += `Dauer: ${submitData.data[key]}\n`
+        }
+        // str += key + ': ' + submitData.data[key] + '\n'
     }
     document.getElementById('confirmationData').innerText = str
     showModal(data)
@@ -266,7 +277,7 @@ var closeTimer
 
 modalState.addEventListener('change', function (e) {
     if (!event.target.checked) {
-        window.location.reload(true)
+        // window.location.reload(true)
         hideModal()
     }
 })
