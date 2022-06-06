@@ -210,12 +210,6 @@ nav a:hover {
   transform: scale(1.05);
 }
 
-.photos {
-  -moz-column-count: 4;
-  -webkit-column-count: 4;
-  column-count: 4;
-}
-
 @media (max-width: 1000px) {
   .photos {
     -moz-column-count: 3;

@@ -202,9 +202,11 @@ function createPhotos(year, count) {
     for (i = 1; i <= count; i++) {
 
         photosString += `
-        <a data-fslightbox="gallery${year}" href="img/${year}/full/img${i}.jpg">
-            <img src="img/${year}/thumb/img${i}.${imgType}" class="thumb" type="image/${imgType}" alt="Img${i}" onload='thumbnailHandler(this)'>
-        </a>
+        <div>
+            <a data-fslightbox="gallery${year}" href="img/${year}/full/img${i}.jpg">
+                <img src="img/${year}/thumb/img${i}.${imgType}" class="thumb" type="image/${imgType}" alt="Img${i}" onload='thumbnailHandler(this)'>
+            </a>
+        </div>
         `
     }
     photos.innerHTML = photosString
