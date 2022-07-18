@@ -1,5 +1,5 @@
-const Promise = require('Bluebird');
-const jo = require('jpeg-autorotate');
+import Promise from 'Bluebird'
+import jo from 'jpeg-autorotate';
 
 const jpegAutorotate = buffer => {
     return new Promise((resolve, reject) => {
@@ -15,4 +15,4 @@ const jpegAutorotate = buffer => {
     });
 };
 
-module.exports = jpegAutorotate;
+export default jpegAutorotate;

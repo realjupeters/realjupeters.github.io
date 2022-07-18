@@ -1,8 +1,8 @@
 
-const isJpg = require('is-jpg');
-const jpegAutorotate = require('./jpeg-autorotate');
+import isJpg from 'is-jpg';
+import jpegAutorotate from './jpeg-autorotate.js';
 
-module.exports = ({
+export default ({
     disable = false,
     quality = 100
 } = {}) => {

@@ -1,24 +1,22 @@
-const fs = require('fs')
-const CWebp = require('cwebp').CWebp;
-const sharp = require('sharp')
+import fs from 'fs'
+import sharp from 'sharp'
 
-const imagemin = require('imagemin');
-const imageminJpegtran = require('imagemin-jpegtran');
-
-const imageminJpegAutorotate = require('./imagemin-jpeg-autorotate');
+import imagemin from 'imagemin';
+import imageminJpegAutorotate from './imagemin-jpeg-autorotate.js';
+import imageminJpegRecompress  from 'imagemin-jpeg-recompress';
 
 let json = [];
 const sizes = [['thumb', 20], ['small', 400], ['medium', 600], ['large', 800]];
 
 (async () => {
-    const year = "2021"
+    const year = "2022"
 
     const files = await imagemin([`../${year}/full/*.jpg`], {
         plugins: [
             imageminJpegAutorotate({
                 disable: false
             }),
-            imageminJpegtran(),
+            imageminJpegRecompress(),
         ]
     })
     for (let l = 0; l < sizes.length; l++) {
@@ -52,9 +50,6 @@ const sizes = [['thumb', 20], ['small', 400], ['medium', 600], ['large', 800]];
                 .resize({ width })
                 .toBuffer()
             fs.writeFileSync(`../${year}/${sizeName}/${imgName}.jpg`, data)
-            const encoder = new CWebp(data);
-            const newMeta = await sharp(data).metadata()
-            encoder.write(`../${year}/${sizeName}/${imgName}.webp`)
             img.sizes.push(sizeName)
         }
         json.push(img)
