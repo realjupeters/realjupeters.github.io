@@ -234,6 +234,11 @@ function cloudAuth() {
 }
 
 let imgType = 'jpg'
+createPhotos(2022, 12)
+createPhotos(2021, 18)
+createPhotos(2020, 25)
+createPhotos(2019, 18)
+createPhotos(2018, 7)
 
 var submitData
 
