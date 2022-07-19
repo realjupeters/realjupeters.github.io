@@ -204,6 +204,7 @@ nav a:hover {
 .photos img {
   width: 100%;
   height: auto;
+  transition: transform 0.25s ease-in-out;
 }
 
 .photos img:hover {
