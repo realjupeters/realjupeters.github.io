@@ -21,6 +21,7 @@ function fillSelect(elements) {
   if (!input) return
   // Sort by name
   elements.sort((a, b) => (a.name > b.name ? 1 : -1))
+  console.log(elements)
   for (i = 0; i < elements.length; i++) {
     if (!elements[i]) continue
     var option = document.createElement('option')
@@ -169,6 +170,9 @@ if (token && !document.querySelector('a[name="danke"]')) {
         )
 
         const items = await response.json()
+
+        // Sort by name
+        items.sort((a, b) => (a.name > b.name ? 1 : -1))
 
         for (let i = 0; i < items.length; i++) {
           const item = items[i]
