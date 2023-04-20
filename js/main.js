@@ -1,9 +1,9 @@
 var AUTH_DOMAIN
-if (window.location.hostname == 'poolparty.jupeters.de') {
-  AUTH_DOMAIN = 'https://jpCore.logge.top'
-} else {
-  AUTH_DOMAIN = 'http://' + window.location.hostname + ':3000'
-}
+// if (window.location.hostname == 'poolparty.jupeters.de') {
+AUTH_DOMAIN = 'https://jpCore.logge.top'
+// } else {
+//   AUTH_DOMAIN = 'http://' + window.location.hostname + ':3000'
+// }
 
 var BASE_ENDPOINT_URL = AUTH_DOMAIN + '/api/'
 
@@ -19,6 +19,8 @@ function jsonToQS(json) {
 function fillSelect(elements) {
   var input = document.getElementById('mitbringenInput')
   if (!input) return
+  // Sort by name
+  elements.sort((a, b) => (a.name > b.name ? 1 : -1))
   for (i = 0; i < elements.length; i++) {
     if (!elements[i]) continue
     var option = document.createElement('option')
