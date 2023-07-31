@@ -265,6 +265,7 @@ function cloudAuth() {
 }
 
 let imgType = 'jpg'
+createPhotos(2023, 10)
 createPhotos(2022, 12)
 createPhotos(2021, 18)
 createPhotos(2020, 25)
