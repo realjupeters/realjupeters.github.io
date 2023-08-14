@@ -36,7 +36,7 @@ var email, name
 if (token && !document.querySelector('a[name="danke"]')) {
   try {
     ;(async () => {
-      const { id, email, name, roles } = JSON.parse(atob(token.split('.')[1]))
+      const {id, email, name, roles} = JSON.parse(atob(token.split('.')[1]))
 
       if (!id || !email || !name) {
         localStorage.removeItem('token')
@@ -60,7 +60,7 @@ if (token && !document.querySelector('a[name="danke"]')) {
       })
       const data = await response.json()
 
-      const { item, registration, volunteer } = data
+      const {item, registration, volunteer} = data
 
       if (registration && item) {
         document.getElementById('volunteerForm').style.display = ''
@@ -152,7 +152,7 @@ if (token && !document.querySelector('a[name="danke"]')) {
             sendHandler({
               path: 'private/poolparty/volunteer',
               method: 'POST',
-              data: { duration },
+              data: {duration},
             })
           }
         }
@@ -202,7 +202,7 @@ if (token && !document.querySelector('a[name="danke"]')) {
           sendHandler({
             path: 'private/poolparty/registration',
             method: 'POST',
-            data: { people, itemID, music },
+            data: {people, itemID, music},
           })
         }
       }
@@ -265,7 +265,7 @@ function cloudAuth() {
 }
 
 let imgType = 'jpg'
-createPhotos(2023, 10)
+createPhotos(2023, 15)
 createPhotos(2022, 12)
 createPhotos(2021, 18)
 createPhotos(2020, 25)
