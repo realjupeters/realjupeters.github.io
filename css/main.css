@@ -1,8 +1,8 @@
 /* Variables */
 :root {
-  --primary-color: #db36ff;
+  --primary-color: #ff0000;
   --primary-text-color: #f6f6f6;
-  --primary-text-hover-color: #db36ff;
+  --primary-text-hover-color: #ff0000;
 }
 
 #palm-wrapper {
