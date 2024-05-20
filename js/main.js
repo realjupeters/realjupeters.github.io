@@ -1,11 +1,17 @@
 var AUTH_DOMAIN
-// if (window.location.hostname == 'poolparty.jupeters.de') {
 AUTH_DOMAIN = 'https://jpCore.logge.top'
-// } else {
-//   AUTH_DOMAIN = 'http://' + window.location.hostname + ':3000'
-// }
-
 var BASE_ENDPOINT_URL = AUTH_DOMAIN + '/api/'
+
+// Toggle this to swap between active and inactive mode
+const ACTIVE = true
+
+if (ACTIVE) {
+  document.documentElement.style.setProperty('--display-active', 'initial')
+  document.documentElement.style.setProperty('--display-inactive', 'none')
+} else {
+  document.documentElement.style.setProperty('--display-active', 'none')
+  document.documentElement.style.setProperty('--display-inactive', 'initial')
+}
 
 function jsonToQS(json) {
   var qs = []
@@ -36,7 +42,7 @@ var email, name
 if (token && !document.querySelector('a[name="danke"]')) {
   try {
     ;(async () => {
-      const {id, email, name, roles} = JSON.parse(atob(token.split('.')[1]))
+      const { id, email, name, roles } = JSON.parse(atob(token.split('.')[1]))
 
       if (!id || !email || !name) {
         localStorage.removeItem('token')
@@ -60,7 +66,7 @@ if (token && !document.querySelector('a[name="danke"]')) {
       })
       const data = await response.json()
 
-      const {item, registration, volunteer} = data
+      const { item, registration, volunteer } = data
 
       if (registration && item) {
         document.getElementById('volunteerForm').style.display = ''
@@ -152,7 +158,7 @@ if (token && !document.querySelector('a[name="danke"]')) {
             sendHandler({
               path: 'private/poolparty/volunteer',
               method: 'POST',
-              data: {duration},
+              data: { duration },
             })
           }
         }
@@ -202,7 +208,7 @@ if (token && !document.querySelector('a[name="danke"]')) {
           sendHandler({
             path: 'private/poolparty/registration',
             method: 'POST',
-            data: {people, itemID, music},
+            data: { people, itemID, music },
           })
         }
       }

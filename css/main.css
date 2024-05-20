@@ -5,6 +5,15 @@
   --primary-text-hover-color: #ff0000;
 }
 
+/* General */
+body .only-active {
+  display: var(--display-active);
+}
+
+body .only-inactive {
+  display: var(--display-inactive);
+}
+
 #palm-wrapper {
   background-image: linear-gradient(
     to bottom,
