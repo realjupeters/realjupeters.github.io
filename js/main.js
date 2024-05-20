@@ -39,7 +39,7 @@ function fillSelect(elements) {
 
 var token = localStorage.getItem('token')
 var email, name
-if (token && !document.querySelector('a[name="danke"]')) {
+if (token && ACTIVE) {
   try {
     ;(async () => {
       const { id, email, name, roles } = JSON.parse(atob(token.split('.')[1]))
