@@ -100,7 +100,7 @@ if (token && ACTIVE) {
           item.name +
           '" mit. </ br > </div > '
         var abmeldenButon = document.createElement('button')
-        abmeldenButon.innerText = 'Abmelden'
+        abmeldenButon.innerText = 'Anmeldung zurückziehen'
         abmeldenButon.className = 'btn-warning row'
         abmeldenButon.onclick = () => {
           abmeldenButon.className = 'btn-danger row'
@@ -135,7 +135,7 @@ if (token && ACTIVE) {
             volunteer.duration +
             '" angemeldet.</ br > </div > '
           var button = document.createElement('button')
-          button.innerText = 'Abmelden'
+          button.innerText = 'Anmeldung zurückziehen'
           button.className = 'btn-warning row'
           button.onclick = () => {
             button.className = 'btn-danger row'
