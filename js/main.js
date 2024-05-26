@@ -1,7 +1,6 @@
-var AUTH_DOMAIN
-// AUTH_DOMAIN = 'https://jpCore.logge.top'
-AUTH_DOMAIN = 'http://localhost:3000'
-var BASE_ENDPOINT_URL = AUTH_DOMAIN + '/api/'
+const AUTH_DOMAIN = 'https://jpCore.logge.top'
+// const AUTH_DOMAIN = 'http://localhost:3000'
+const BASE_ENDPOINT_URL = AUTH_DOMAIN + '/api/'
 
 // Toggle this to swap between active and inactive mode
 const ACTIVE = true
