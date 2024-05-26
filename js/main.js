@@ -98,7 +98,7 @@ if (token && ACTIVE) {
           (registration.people > 0 ? 'en' : '') +
           ' angemeldet. Du bringst "' +
           item.name +
-          '" mit.</b></div> <br /> <div> <h2 class="sm-12">Änderungen:</h2></div>' +
+          '" mit.</b></div> <br /> <div class="sm-12"> <h2>Änderungen:</h2></div>' +
           anmeldenForm.innerHTML
         var abmeldenButon = document.createElement('button')
         abmeldenButon.innerText = 'Anmeldung zurückziehen'
