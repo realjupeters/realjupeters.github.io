@@ -1,5 +1,6 @@
 var AUTH_DOMAIN
-AUTH_DOMAIN = 'https://jpCore.logge.top'
+// AUTH_DOMAIN = 'https://jpCore.logge.top'
+AUTH_DOMAIN = 'http://localhost:3000'
 var BASE_ENDPOINT_URL = AUTH_DOMAIN + '/api/'
 
 // Toggle this to swap between active and inactive mode
@@ -90,7 +91,7 @@ if (token && ACTIVE) {
 
         var anmeldenForm = document.getElementById('anmeldenForm')
         anmeldenForm.innerHTML =
-          '<div class="alert alert-success">Du hast dich am ' +
+          '<div class="alert alert-success"><b>Du hast dich am ' +
           new Date(registration.lastActivity).toLocaleDateString() +
           ' mit ' +
           registration.people +
@@ -98,10 +99,11 @@ if (token && ACTIVE) {
           (registration.people > 0 ? 'en' : '') +
           ' angemeldet. Du bringst "' +
           item.name +
-          '" mit. </ br > </div > '
+          '" mit.</b></div> <br /> <div> <h2 class="sm-12">Änderungen:</h2></div>' +
+          anmeldenForm.innerHTML
         var abmeldenButon = document.createElement('button')
         abmeldenButon.innerText = 'Anmeldung zurückziehen'
-        abmeldenButon.className = 'btn-warning row'
+        abmeldenButon.className = 'btn-danger row'
         abmeldenButon.onclick = () => {
           abmeldenButon.className = 'btn-danger row'
           abmeldenButon.innerText = 'Sicher?'
@@ -162,55 +164,78 @@ if (token && ACTIVE) {
             })
           }
         }
-      } else {
+      }
+
+      const itemInput = document.getElementById('itemInput')
+
+      const itemResponse = await fetch(
+        BASE_ENDPOINT_URL + 'private/poolparty/item',
+        {
+          method: 'get',
+          headers: new Headers({
+            Authorization: token,
+          }),
+        }
+      )
+
+      const items = await itemResponse.json()
+
+      // Sort by name
+      items.sort((a, b) => (a.name > b.name ? 1 : -1))
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i]
+        const opt = document.createElement('option')
+        opt.value = item.id
+        opt.innerHTML = item.name // whatever property it has
+        itemInput.appendChild(opt)
+      }
+
+      if (item && registration) {
+        document.getElementById('submitRegistration').innerText =
+          'Anmeldung anpassen'
+        document
+          .getElementById('submitRegistration')
+          .classList.add('btn-warning')
+        document.getElementById('peopleInput').value = registration.people
+        document.getElementById('musicInput').value = registration.music
+
+        // Inject item id
         const itemInput = document.getElementById('itemInput')
+        // Change first option to selected
+        itemInput.children[0].selected = true
+        itemInput.children[0].innerText = item.name
+        itemInput.children[0].value = item.id
+        itemInput.children[0].disabled = false
 
-        const response = await fetch(
-          BASE_ENDPOINT_URL + 'private/poolparty/item',
-          {
-            method: 'get',
-            headers: new Headers({
-              Authorization: token,
-            }),
-          }
-        )
+        console.log(item)
+        document.getElementById('itemInput').value = item.id
 
-        const items = await response.json()
+        document.querySelector('.modal-title').innerText = 'Anmeldung anpassen'
+        document.querySelector('.modal button').innerText = 'Anpassen'
+      }
 
-        // Sort by name
-        items.sort((a, b) => (a.name > b.name ? 1 : -1))
+      // Create or update registration
+      document.getElementById('submitRegistration').onclick = () => {
+        const itemID = itemInput.value
+        const people = Number(document.getElementById('peopleInput').value)
+        const music = document.getElementById('musicInput').value
 
-        for (let i = 0; i < items.length; i++) {
-          const item = items[i]
-          const opt = document.createElement('option')
-          opt.value = item.id
-          opt.innerHTML = item.name // whatever property it has
-          itemInput.appendChild(opt)
-        }
+        console.log(itemID, people, music)
 
-        document.getElementById('submitRegistration').onclick = () => {
-          const itemID = itemInput.value
-          const people = Number(document.getElementById('peopleInput').value)
-          const music = document.getElementById('musicInput').value
+        if (!Number(itemID)) return itemInput.classList.add('invalid')
+        itemInput.classList.remove('invalid')
+        if (!people)
+          return document.getElementById('peopleInput').classList.add('invalid')
+        if (people < 1 || people > 2)
+          return document.getElementById('peopleInput').classList.add('invalid')
+        document.getElementById('peopleInput').classList.remove('invalid')
 
-          if (!Number(itemID)) return itemInput.classList.add('invalid')
-          itemInput.classList.remove('invalid')
-          if (!people)
-            return document
-              .getElementById('peopleInput')
-              .classList.add('invalid')
-          if (people < 1 || people > 2)
-            return document
-              .getElementById('peopleInput')
-              .classList.add('invalid')
-          document.getElementById('peopleInput').classList.remove('invalid')
-
-          sendHandler({
-            path: 'private/poolparty/registration',
-            method: 'POST',
-            data: { people, itemID, music },
-          })
-        }
+        sendHandler({
+          path: 'private/poolparty/registration',
+          method: registration && item ? 'PATCH' : 'POST', // If item is already set, update, else create
+          data: { people, itemID, music },
+        })
       }
     })()
     // End of async block
