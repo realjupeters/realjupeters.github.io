@@ -2,7 +2,7 @@ from PIL import Image, ExifTags
 from os import listdir
 import os
 
-year = "2023"
+year = "2024"
 
 if not os.path.exists("{}/full".format(year)):
     os.makedirs("{}/full".format(year))
