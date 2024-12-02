@@ -5,7 +5,7 @@
     "imagemin-jpeg-autorotate": "^1.0.0",
     "imagemin-jpeg-recompress": "^7.0.0",
     "is-jpg": "^3.0.0",
-    "sharp": "^0.30.7"
+    "sharp": "^0.32.6"
   },
   "type": "module"
 }
