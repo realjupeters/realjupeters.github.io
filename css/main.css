@@ -263,6 +263,11 @@ span.note {
   display: none;
 }
 
+h2 {
+  /* shadow */
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
 h2 svg {
   height: 3rem;
   position: relative;
