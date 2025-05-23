@@ -1,9 +1,5 @@
 /* Variables */
-:root {
-  --primary-color: #E0E722;
-  --primary-text-color: #f6f6f6;
-  --primary-text-hover-color: #E0E722;
-}
+@import "colors.css";
 
 /* General */
 body .only-active {

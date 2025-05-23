@@ -5,173 +5,234 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin View</title>
+    <title>Admin Panel - Poolparty 2025</title>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Poolparty 2025</title>
+    <!-- CSS Imports -->
+    <link rel="stylesheet" href="css/admin.css">
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="css/paper.min.css">
-        <link rel="stylesheet" href="css/main.css">
+    <!-- Theme Color Detection Script -->
+    <script>
+        // Auto-detect if primary color is light or dark and adjust contrast
+        function updatePrimaryContrast() {
+            const primaryColor = getComputedStyle(document.documentElement)
+                .getPropertyValue('--primary-color').trim();
+            
+            // Convert color to RGB
+            const temp = document.createElement('div');
+            temp.style.color = primaryColor;
+            document.body.appendChild(temp);
+            const rgb = getComputedStyle(temp).color.match(/\d+/g);
+            document.body.removeChild(temp);
+            
+            if (rgb) {
+                // Calculate luminance
+                const luminance = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255;
+                
+                // Set contrast color
+                document.documentElement.style.setProperty(
+                    '--primary-contrast', 
+                    luminance > 0.5 ? '#000000' : '#ffffff'
+                );
+            }
+        }
+        
+        // Run on load
+        document.addEventListener('DOMContentLoaded', updatePrimaryContrast);
+        
+        // Allow easy theme color changing
+        window.setThemeColor = function(color) {
+            document.documentElement.style.setProperty('--primary-color', color);
+            updatePrimaryContrast();
+        };
+    </script>
 
-        <!-- Favicon -->
-
-        <meta name="theme-color" content="#ffffff">
-
-    </head>
+    <!-- Favicon -->
+    <meta name="theme-color" content="#ffffff">
 </head>
 
 <body>
+    <div class="admin-container fade-in">
+        <div class="admin-header">
+            <a href="./" class="back-link">
+                <svg viewBox="0 0 24 24" width="16" height="16">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.42-1.41L7.83 13H20v-2z"/>
+                </svg>
+                Back to Main
+            </a>
+            <h1>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 238.1 238.1">
+                    <path d="M205 99c-1-3-4-5-7-5h-62l30-84a8 8 0 00-13-8L34 131a7 7 0 006 13h40a7 7 0 100-15H57l82-89-21 59a8 8 0 007 10h56l-82 89 21-59a7 7 0 00-7-10c-4 0-7 2-7 6l-34 93a7 7 0 0013 8l119-129c2-2 2-6 1-8z" />
+                </svg>
+                Poolparty Admin Panel
+            </h1>
+        </div>
 
-    <!-- Admin -->
-
-    <div class="paper margin-none">
-        <a href="./">Back to Main</a>
-        <h2 class="col background-secondary">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 238.1 238.1">
-                <path
-                    d="M205 99c-1-3-4-5-7-5h-62l30-84a8 8 0 00-13-8L34 131a7 7 0 006 13h40a7 7 0 100-15H57l82-89-21 59a8 8 0 007 10h56l-82 89 21-59a7 7 0 00-7-10c-4 0-7 2-7 6l-34 93a7 7 0 0013 8l119-129c2-2 2-6 1-8z" />
-            </svg>
-            Admin Panel
-        </h2>
-
-
-        <div class="row flex-spaces tabs">
-            <input id="tab1" type="radio" name="tabs" checked>
-            <label for="tab1">Accounts</label>
-
-            <input id="tab2" type="radio" name="tabs">
-            <label for="tab2">Registration</label>
-
-            <input id="tab3" type="radio" name="tabs">
-            <label for="tab3">Item</label>
-
-            <input id="tab4" type="radio" name="tabs">
-            <label for="tab4">Volunteer</label>
-
-            <input id="tab5" type="radio" name="tabs">
-            <label for="tab5">Music</label>
-
-            <div class="content" id="content1">
-
-                <!-- ACCOUTNS -->
-
-                <h3>Accounts</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>email</th>
-                            <th>verified</th>
-                            <th>roles</th>
-                            <th>lastActive</th>
-                        </tr>
-                    </thead>
-                    <tbody id="accountTable">
-
-                    </tbody>
-                </table>
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalAccounts">-</div>
+                <div class="stat-label">Total Accounts</div>
             </div>
-
-            <div class="content" id="content2">
-
-                <!-- REGISTER -->
-
-                <h3>Anmeldungen</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Personen</th>
-                            <th>lastActivity</th>
-                        </tr>
-                    </thead>
-                    <tbody id="registrationTable">
-
-                    </tbody>
-                </table>
+            <div class="stat-card">
+                <div class="stat-value" id="totalRegistrations">-</div>
+                <div class="stat-label">Registrations</div>
             </div>
-
-            <div class="content" id="content3">
-
-                <!-- ITEMS -->
-
-                <h3>Items</h3>
-                <div class="col-12">
-                    <div class="form-group">
-                        <label for="addItemInput">Item hinzufügen</label>
-                        <input class="input-block" type="text" placeholder="Item" id="addItemInput"
-                            style="display: block;">
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group">
-                        <button class="btn-large btn-block" type="submit" id="addItem">Hinzufügen</button>
-                    </div>
-                </div>
-                <h3>Items</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>ItemName</th>
-                            <th>UserName</th>
-                            <th>lastActivity</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody id="itemTable">
-
-                    </tbody>
-                </table>
+            <div class="stat-card">
+                <div class="stat-value" id="totalPeople">-</div>
+                <div class="stat-label">Total People</div>
             </div>
-
-            <div class="content" id="content4">
-
-                <!-- VOLUNTEERS -->
-
-                <h3>Volunteers</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Dauer</th>
-                            <th>lastActivity</th>
-                        </tr>
-                    </thead>
-                    <tbody id="volunteerTable">
-
-                    </tbody>
-                </table>
+            <div class="stat-card">
+                <div class="stat-value" id="totalItems">-</div>
+                <div class="stat-label">Items</div>
             </div>
-
-            <div class="content" id="content5">
-
-                <!-- MUSIC -->
-
-                <h3>Music</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Musikwünsche</th>
-                        </tr>
-                    </thead>
-                    <tbody id="musicTable">
-
-                    </tbody>
-                </table>
+            <div class="stat-card">
+                <div class="stat-value" id="totalVolunteers">-</div>
+                <div class="stat-label">Volunteers</div>
             </div>
         </div>
 
+        <!-- Enhanced Tabs -->
+        <div class="enhanced-tabs">
+            <!-- Radio buttons as direct children -->
+            <input id="tab1" type="radio" name="tabs" checked>
+            <input id="tab2" type="radio" name="tabs">
+            <input id="tab3" type="radio" name="tabs">
+            <input id="tab4" type="radio" name="tabs">
+            <input id="tab5" type="radio" name="tabs">
+            
+            <div class="tab-header">
+                <label for="tab1">👥 Accounts</label>
+                <label for="tab2">📝 Registrations</label>
+                <label for="tab3">📦 Items</label>
+                <label for="tab4">🙋 Volunteers</label>
+                <label for="tab5">🎵 Music</label>
+            </div>
 
+            <div class="content tab-content" id="content1">
+                <h3>Account Management</h3>
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" placeholder="Search accounts..." id="accountSearch">
+                    <select class="filter-select" id="accountFilter">
+                        <option value="">All Accounts</option>
+                        <option value="verified">Verified Only</option>
+                        <option value="unverified">Unverified Only</option>
+                    </select>
+                </div>
+                <div class="loading" id="accountLoading">Loading accounts...</div>
+                <table class="enhanced-table" id="accountTableContainer" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('accountTable', 0)">ID</th>
+                            <th onclick="sortTable('accountTable', 1)">Name</th>
+                            <th onclick="sortTable('accountTable', 2)">Email</th>
+                            <th onclick="sortTable('accountTable', 3)">Status</th>
+                            <th onclick="sortTable('accountTable', 4)">Roles</th>
+                            <th onclick="sortTable('accountTable', 5)">Last Active</th>
+                        </tr>
+                    </thead>
+                    <tbody id="accountTable"></tbody>
+                </table>
+            </div>
+
+            <div class="content tab-content" id="content2">
+                <h3>Registration Management</h3>
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" placeholder="Search registrations..." id="registrationSearch">
+                    <button class="btn btn-danger" id="deleteAllRegistrations" style="margin-left: auto;">
+                        🗑️ Delete All Registrations
+                    </button>
+                </div>
+                <div class="loading" id="registrationLoading">Loading registrations...</div>
+                <table class="enhanced-table" id="registrationTableContainer" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('registrationTable', 0)">ID</th>
+                            <th onclick="sortTable('registrationTable', 1)">Name</th>
+                            <th onclick="sortTable('registrationTable', 2)">People Count</th>
+                            <th onclick="sortTable('registrationTable', 3)">Last Activity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registrationTable"></tbody>
+                </table>
+            </div>
+
+            <div class="content tab-content" id="content3">
+                <h3>Item Management</h3>
+                <div class="add-item-form">
+                    <h4>Add New Item</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="addItemInput">Item Name</label>
+                            <input type="text" class="form-control" placeholder="Enter item name..." id="addItemInput">
+                        </div>
+                        <button class="btn btn-primary" id="addItem">Add Item</button>
+                    </div>
+                </div>
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" placeholder="Search items..." id="itemSearch">
+                    <select class="filter-select" id="itemFilter">
+                        <option value="">All Items</option>
+                        <option value="assigned">Assigned</option>
+                        <option value="unassigned">Unassigned</option>
+                    </select>
+                </div>
+                <div class="loading" id="itemLoading">Loading items...</div>
+                <table class="enhanced-table" id="itemTableContainer" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('itemTable', 0)">ID</th>
+                            <th onclick="sortTable('itemTable', 1)">Item Name</th>
+                            <th onclick="sortTable('itemTable', 2)">Assigned To</th>
+                            <th onclick="sortTable('itemTable', 3)">Last Activity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemTable"></tbody>
+                </table>
+            </div>
+
+            <div class="content tab-content" id="content4">
+                <h3>Volunteer Management</h3>
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" placeholder="Search volunteers..." id="volunteerSearch">
+                    <button class="btn btn-danger" id="deleteAllVolunteers" style="margin-left: auto;">
+                        🗑️ Delete All Volunteers
+                    </button>
+                </div>
+                <div class="loading" id="volunteerLoading">Loading volunteers...</div>
+                <table class="enhanced-table" id="volunteerTableContainer" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('volunteerTable', 0)">ID</th>
+                            <th onclick="sortTable('volunteerTable', 1)">Name</th>
+                            <th onclick="sortTable('volunteerTable', 2)">Duration</th>
+                            <th onclick="sortTable('volunteerTable', 3)">Last Activity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="volunteerTable"></tbody>
+                </table>
+            </div>
+
+            <div class="content tab-content" id="content5">
+                <h3>Music Requests</h3>
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" placeholder="Search music requests..." id="musicSearch">
+                </div>
+                <div class="loading" id="musicLoading">Loading music requests...</div>
+                <table class="enhanced-table" id="musicTableContainer" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('musicTable', 0)">ID</th>
+                            <th onclick="sortTable('musicTable', 1)">Name</th>
+                            <th onclick="sortTable('musicTable', 2)">Music Requests</th>
+                        </tr>
+                    </thead>
+                    <tbody id="musicTable"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script src="js/admin.js"></script>
