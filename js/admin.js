@@ -673,6 +673,95 @@ class PoolpartyAdmin {
         }
     }
 
+    // 📧 Email All Registered Users
+    generateEmailAllRegistered() {
+        console.log('📧 Generating email for all registered users...');
+        
+        // Get all registered users by matching registration names with account names
+        const registeredNames = this.state.data.registration.map(reg => reg.name);
+        const registeredAccounts = this.state.data.account.filter(acc => registeredNames.includes(acc.name));
+        
+        if (registeredAccounts.length === 0) {
+            this.showNotification('No registered users found with email addresses.', 'warning');
+            return;
+        }
+        
+        // Extract email addresses
+        const emailAddresses = registeredAccounts
+            .map(acc => acc.email)
+            .filter(email => email && email.trim() !== '')
+            .filter((email, index, self) => self.indexOf(email) === index); // Remove duplicates
+        
+        if (emailAddresses.length === 0) {
+            this.showNotification('No valid email addresses found for registered users.', 'warning');
+            return;
+        }
+        
+        // Create mailto link with BCC
+        const subject = encodeURIComponent('Poolparty');
+        const body = encodeURIComponent(`Hallo zusammen,
+
+hier sind die neuesten Informationen zur Poolparty.
+
+Viele Grüße
+Das Poolparty Team`);
+        
+        const bccEmails = emailAddresses.join(',');
+        const mailtoLink = `mailto:?bcc=${encodeURIComponent(bccEmails)}&subject=${subject}&body=${body}`;
+        
+        // Open the mailto link
+        window.location.href = mailtoLink;
+        
+        // Show success notification
+        this.showNotification(`Email client opened with ${emailAddresses.length} recipients in BCC.`, 'success');
+        
+        console.log(`📧 Email generated for ${emailAddresses.length} registered users:`, emailAddresses);
+    }
+
+    // 📧 Email All Account Holders
+    generateEmailAllAccounts() {
+        console.log('📧 Generating email for all account holders...');
+        
+        // Get all account holders
+        const allAccounts = this.state.data.account;
+        
+        if (allAccounts.length === 0) {
+            this.showNotification('No accounts found.', 'warning');
+            return;
+        }
+        
+        // Extract email addresses
+        const emailAddresses = allAccounts
+            .map(acc => acc.email)
+            .filter(email => email && email.trim() !== '')
+            .filter((email, index, self) => self.indexOf(email) === index); // Remove duplicates
+        
+        if (emailAddresses.length === 0) {
+            this.showNotification('No valid email addresses found for account holders.', 'warning');
+            return;
+        }
+        
+        // Create mailto link with BCC
+        const subject = encodeURIComponent('Poolparty');
+        const body = encodeURIComponent(`Hallo zusammen,
+
+hier sind allgemeine Informationen zur Poolparty.
+
+Viele Grüße
+Das Poolparty Team`);
+        
+        const bccEmails = emailAddresses.join(',');
+        const mailtoLink = `mailto:?bcc=${encodeURIComponent(bccEmails)}&subject=${subject}&body=${body}`;
+        
+        // Open the mailto link
+        window.location.href = mailtoLink;
+        
+        // Show success notification
+        this.showNotification(`Email client opened with ${emailAddresses.length} recipients in BCC.`, 'success');
+        
+        console.log(`📧 Email generated for ${emailAddresses.length} account holders:`, emailAddresses);
+    }
+
     // 📊 Statistics
     updateStats() {
         const { account, registration, item, volunteer } = this.state.data;
@@ -813,6 +902,22 @@ class PoolpartyAdmin {
         if (deleteAllVolunteersBtn) {
             deleteAllVolunteersBtn.addEventListener('click', () => {
                 this.showBulkDeleteConfirm('volunteer');
+            });
+        }
+
+        // Email all registered button
+        const emailAllRegisteredBtn = document.getElementById('emailAllRegistered');
+        if (emailAllRegisteredBtn) {
+            emailAllRegisteredBtn.addEventListener('click', () => {
+                this.generateEmailAllRegistered();
+            });
+        }
+
+        // Email all accounts button
+        const emailAllAccountsBtn = document.getElementById('emailAllAccounts');
+        if (emailAllAccountsBtn) {
+            emailAllAccountsBtn.addEventListener('click', () => {
+                this.generateEmailAllAccounts();
             });
         }
 

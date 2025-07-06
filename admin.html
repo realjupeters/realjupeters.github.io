@@ -119,6 +119,9 @@
                         <option value="verified">Verified Only</option>
                         <option value="unverified">Unverified Only</option>
                     </select>
+                    <button class="btn btn-primary" id="emailAllAccounts" style="margin-left: auto;">
+                        📧 Email All Accounts
+                    </button>
                 </div>
                 <div class="loading" id="accountLoading">Loading accounts...</div>
                 <table class="enhanced-table" id="accountTableContainer" style="display: none;">
@@ -141,7 +144,10 @@
                 <h3>Registration Management</h3>
                 <div class="search-filter-bar">
                     <input type="text" class="search-input" placeholder="Search registrations..." id="registrationSearch">
-                    <button class="btn btn-danger" id="deleteAllRegistrations" style="margin-left: auto;">
+                    <button class="btn btn-primary" id="emailAllRegistered" style="margin-left: auto; margin-right: 10px;">
+                        📧 Email All Registered
+                    </button>
+                    <button class="btn btn-danger" id="deleteAllRegistrations">
                         🗑️ Delete All Registrations
                     </button>
                 </div>
