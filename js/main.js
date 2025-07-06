@@ -3,7 +3,7 @@ const AUTH_DOMAIN = 'https://jpCore.logge.top'
 const BASE_ENDPOINT_URL = AUTH_DOMAIN + '/api/'
 
 // Toggle this to swap between active and inactive mode
-const ACTIVE = true
+const ACTIVE = false
 
 if (ACTIVE) {
   document.documentElement.style.setProperty('--display-active', 'initial')
