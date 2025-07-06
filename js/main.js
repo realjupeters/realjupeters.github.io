@@ -3,7 +3,7 @@ const AUTH_DOMAIN = 'https://jpCore.logge.top'
 const BASE_ENDPOINT_URL = AUTH_DOMAIN + '/api/'
 
 // Toggle this to swap between active and inactive mode
-const ACTIVE = false
+const ACTIVE = true
 
 if (ACTIVE) {
   document.documentElement.style.setProperty('--display-active', 'initial')
@@ -310,6 +310,7 @@ function cloudAuth() {
 }
 
 let imgType = 'jpg'
+createPhotos(2025, 10)
 createPhotos(2024, 13)
 createPhotos(2023, 15)
 createPhotos(2022, 12)
