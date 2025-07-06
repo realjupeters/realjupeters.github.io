@@ -124,20 +124,22 @@
                     </button>
                 </div>
                 <div class="loading" id="accountLoading">Loading accounts...</div>
-                <table class="enhanced-table" id="accountTableContainer" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th onclick="sortTable('accountTable', 0)">ID</th>
-                            <th onclick="sortTable('accountTable', 1)">Name</th>
-                            <th onclick="sortTable('accountTable', 2)">Email</th>
-                            <th onclick="sortTable('accountTable', 3)">Status</th>
-                            <th onclick="sortTable('accountTable', 4)">Roles</th>
-                            <th onclick="sortTable('accountTable', 5)">Last Active</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="accountTable"></tbody>
-                </table>
+                <div class="enhanced-table-wrapper">
+                    <table class="enhanced-table" id="accountTableContainer" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable('accountTable', 0)">ID</th>
+                                <th onclick="sortTable('accountTable', 1)">Name</th>
+                                <th onclick="sortTable('accountTable', 2)">Email</th>
+                                <th onclick="sortTable('accountTable', 3)">Status</th>
+                                <th onclick="sortTable('accountTable', 4)">Roles</th>
+                                <th onclick="sortTable('accountTable', 5)">Last Active</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="accountTable"></tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="content tab-content" id="content2">
@@ -152,18 +154,20 @@
                     </button>
                 </div>
                 <div class="loading" id="registrationLoading">Loading registrations...</div>
-                <table class="enhanced-table" id="registrationTableContainer" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th onclick="sortTable('registrationTable', 0)">ID</th>
-                            <th onclick="sortTable('registrationTable', 1)">Name</th>
-                            <th onclick="sortTable('registrationTable', 2)">People Count</th>
-                            <th onclick="sortTable('registrationTable', 3)">Last Activity</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="registrationTable"></tbody>
-                </table>
+                <div class="enhanced-table-wrapper">
+                    <table class="enhanced-table" id="registrationTableContainer" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable('registrationTable', 0)">ID</th>
+                                <th onclick="sortTable('registrationTable', 1)">Name</th>
+                                <th onclick="sortTable('registrationTable', 2)">People Count</th>
+                                <th onclick="sortTable('registrationTable', 3)">Last Activity</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="registrationTable"></tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="content tab-content" id="content3">
@@ -187,18 +191,20 @@
                     </select>
                 </div>
                 <div class="loading" id="itemLoading">Loading items...</div>
-                <table class="enhanced-table" id="itemTableContainer" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th onclick="sortTable('itemTable', 0)">ID</th>
-                            <th onclick="sortTable('itemTable', 1)">Item Name</th>
-                            <th onclick="sortTable('itemTable', 2)">Assigned To</th>
-                            <th onclick="sortTable('itemTable', 3)">Last Activity</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="itemTable"></tbody>
-                </table>
+                <div class="enhanced-table-wrapper">
+                    <table class="enhanced-table" id="itemTableContainer" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable('itemTable', 0)">ID</th>
+                                <th onclick="sortTable('itemTable', 1)">Item Name</th>
+                                <th onclick="sortTable('itemTable', 2)">Assigned To</th>
+                                <th onclick="sortTable('itemTable', 3)">Last Activity</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemTable"></tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="content tab-content" id="content4">
@@ -210,18 +216,20 @@
                     </button>
                 </div>
                 <div class="loading" id="volunteerLoading">Loading volunteers...</div>
-                <table class="enhanced-table" id="volunteerTableContainer" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th onclick="sortTable('volunteerTable', 0)">ID</th>
-                            <th onclick="sortTable('volunteerTable', 1)">Name</th>
-                            <th onclick="sortTable('volunteerTable', 2)">Duration</th>
-                            <th onclick="sortTable('volunteerTable', 3)">Last Activity</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="volunteerTable"></tbody>
-                </table>
+                <div class="enhanced-table-wrapper">
+                    <table class="enhanced-table" id="volunteerTableContainer" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable('volunteerTable', 0)">ID</th>
+                                <th onclick="sortTable('volunteerTable', 1)">Name</th>
+                                <th onclick="sortTable('volunteerTable', 2)">Duration</th>
+                                <th onclick="sortTable('volunteerTable', 3)">Last Activity</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="volunteerTable"></tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="content tab-content" id="content5">
@@ -230,16 +238,18 @@
                     <input type="text" class="search-input" placeholder="Search music requests..." id="musicSearch">
                 </div>
                 <div class="loading" id="musicLoading">Loading music requests...</div>
-                <table class="enhanced-table" id="musicTableContainer" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th onclick="sortTable('musicTable', 0)">ID</th>
-                            <th onclick="sortTable('musicTable', 1)">Name</th>
-                            <th onclick="sortTable('musicTable', 2)">Music Requests</th>
-                        </tr>
-                    </thead>
-                    <tbody id="musicTable"></tbody>
-                </table>
+                <div class="enhanced-table-wrapper">
+                    <table class="enhanced-table" id="musicTableContainer" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable('musicTable', 0)">ID</th>
+                                <th onclick="sortTable('musicTable', 1)">Name</th>
+                                <th onclick="sortTable('musicTable', 2)">Music Requests</th>
+                            </tr>
+                        </thead>
+                        <tbody id="musicTable"></tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="content tab-content" id="content6"><h3>User Registration</h3>

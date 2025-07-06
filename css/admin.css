@@ -142,13 +142,32 @@ button:disabled {
 }
 
 /* ===== TABLES ===== */
+/* Table wrapper for horizontal scrolling */
+.table-wrapper {
+    overflow-x: auto;
+    overflow-y: visible;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    background: var(--white);
+    max-width: 100%;
+}
+
+.enhanced-table-wrapper {
+    overflow-x: auto;
+    overflow-y: visible;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    background: var(--white);
+    max-width: 100%;
+    margin-top: var(--space-4);
+}
+
 table {
     width: 100%;
+    min-width: 600px; /* Minimum width to ensure table doesn't get too cramped */
     border-collapse: collapse;
     background: var(--white);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow);
+    margin: 0; /* Remove any margin that might cause overflow */
 }
 
 th, td {
@@ -330,7 +349,7 @@ tr:nth-child(even) {
     background: var(--white);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lg);
-    overflow: hidden;
+    overflow: visible;
 }
 
 /* Hide radio buttons */
@@ -429,12 +448,10 @@ tr:nth-child(even) {
 
 .enhanced-table {
     width: 100%;
+    min-width: 600px; /* Minimum width to ensure table doesn't get too cramped */
     border-collapse: collapse;
-    margin-top: var(--space-4);
     background: var(--white);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow);
+    margin: 0; /* Remove any margin that might cause overflow */
 }
 
 .action-btn {
