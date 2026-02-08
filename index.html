@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="css/main.css" />
 
     <!-- Favicon -->
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#fdfbf7" />
   </head>
 
   <body>
@@ -91,24 +91,30 @@
       </div>
 
       <div class="row flex-center padding-top-large">
-        <h2 class="caption">Featuring</h2>
+        <h2 class="col background-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+          Featuring!
+        </h2>
       </div>
-      <div class="row">
-        <div class="col lg-3 sm-6 row flex-center">
-          <img src="img/2020/medium/img16.jpg" />
-          <h3>DJ Jesus</h3>
+
+      <div class="featuring-grid">
+        <div class="feature-card">
+          <img src="img/2020/medium/img16.jpg" alt="DJ Jesus" />
+          <div class="feature-label">DJ Jesus</div>
         </div>
-        <div class="col lg-3 sm-6 row flex-center">
-          <img src="img/2020/medium/img4.jpg" />
-          <h3>Pool</h3>
+        <div class="feature-card">
+          <img src="img/2020/medium/img4.jpg" alt="Pool" />
+          <div class="feature-label">Pool</div>
         </div>
-        <div class="col lg-3 sm-6 row flex-center">
-          <img src="img/2023/medium/img1.jpg" />
-          <h3>Drinks</h3>
+        <div class="feature-card">
+          <img src="img/2023/medium/img1.jpg" alt="Drinks" />
+          <div class="feature-label">Drinks</div>
         </div>
-        <div class="col lg-3 sm-6 row flex-center">
-          <img src="img/2024/medium/img3.jpg" />
-          <h3>Band: <i>Dont tell the others</i></h3>
+        <div class="feature-card">
+          <img src="img/2024/medium/img3.jpg" alt="Band" />
+          <div class="feature-label">Dont tell the others</div>
         </div>
       </div>
 
@@ -140,7 +146,7 @@
                 </svg>
                 Wann?
               </td>
-              <td>Am Samstag, den 05. Juli 2025 ab 16:00 Uhr.</td>
+              <td>Samstag, 05. Juli 2025 ab 16:00 Uhr.</td>
             </tr>
 
             <tr>
@@ -159,8 +165,8 @@
                 Wo?
               </td>
               <td>
-                Wie immer: Kolpingwiese in Ramsen <br />
-                Adresse: Klosterhof 7, 67305 Ramsen
+                Kolpingwiese in Ramsen<br />
+                Klosterhof 7, 67305 Ramsen
               </td>
             </tr>
             <tr>
@@ -176,11 +182,8 @@
                 Parken?
               </td>
               <td>
-                Für P&uuml;nktliche & Aufbauhelfer gibt es genau gegenüber,
-                neben der Kirche einige Parkpl&auml;tze. Ansonsten parkt ihr
-                <a href="https://goo.gl/maps/6Jr2paPszKuscUEZ9">hier</a>, dann
-                seid ihr nach 3 Minuten Fußweg genau auf der richtigen
-                Temperatur, um direkt in den Pool zu hüpfen.
+                Direkt gegen&uuml;ber neben der Kirche gibt es Parkpl&auml;tze f&uuml;r fr&uuml;he G&auml;ste und Aufbauhelfer. Ansonsten parkt ihr
+                <a href="https://goo.gl/maps/6Jr2paPszKuscUEZ9">hier</a> &ndash; nach 3 Minuten Fu&szlig;weg seid ihr perfekt auf Temperatur, um direkt in den Pool zu springen.
               </td>
             </tr>
             <tr>
@@ -201,14 +204,10 @@
                     d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-2.5c2.33 0 4.32-1.45 5.12-3.5h-1.67c-.69 1.19-1.97 2-3.45 2s-2.75-.81-3.45-2H6.88c.8 2.05 2.79 3.5 5.12 3.5z"
                   />
                 </svg>
-                Gäste
+                G&auml;ste
               </td>
               <td>
-                Alle, die eingeladen wurden. Dies ist
-                <b>keine öffentliche Party</b>, keine "da feiert jemand den ich
-                kenne der jemand kennt" Party. Jeder Gast wurde
-                <b>persönlich</b> von den Gastgebern eingeladen. Partner und
-                eigene Kinder sind natürlich gerne willkommen.
+                Nur geladene G&auml;ste. Dies ist <b>keine &ouml;ffentliche Party</b>. Jeder Gast wurde <b>pers&ouml;nlich</b> von den Gastgebern eingeladen. Partner und eigene Kinder sind nat&uuml;rlich willkommen.
               </td>
             </tr>
             <tr>
@@ -224,39 +223,23 @@
                     d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"
                   />
                 </svg>
-                Partymodus
+                Modus
               </td>
               <td>
-                Dies ist eine Jederbringtwasmitparty. <br />Wir, die Gastgeber,
-                stellen und bauen auf:
+                Jederbringtwasmitparty!<br />Wir stellen bereit:
                 <ul>
-                  <li>Location</li>
-                  <li>Pool</li>
-                  <li>Sound</li>
-                  <li>Licht</li>
-                  <li>Diese Seite</li>
+                  <li>Location + Pool</li>
+                  <li>Sound + Licht</li>
                   <li>Grill</li>
-                  <li>Hoffentlich wohlwollende Nachbarn</li>
                   <li>Den ein oder anderen Gag</li>
                 </ul>
-                Ihr, also die Gäste, bringt mit:
+                Ihr bringt mit:
                 <ul>
-                  <li>Getränke</li>
-                  <li>Salate</li>
-                  <li>Brot</li>
-                  <li>Nachtisch</li>
-                  <li>
-                    Euer Grillfleisch oder was man sonst so grillen
-                    <del>muss</del> kann
-                  </li>
+                  <li>Getr&auml;nke</li>
+                  <li>Salate, Brot, Nachtisch</li>
+                  <li>Euer Grillfleisch (oder was man sonst so grillen <del>muss</del> kann)</li>
                 </ul>
-                Durch die Anmeldung wird sichergestellt, dass jeder nur etwas,
-                z.B. einen Salat oder einen Kasten Bier mitbringen muss und dass
-                dann trotzdem genügend für alle da ist. Grillfleisch bringt
-                jeder für sich selbst mit! Für die leicht dementen hier: Ihr
-                solltet nach eurer Anmeldung eine Mail mit den Infos bekommen.
-                Solltet ihr es also trotzdem vergessen und uns nerven, müsst ihr
-                noch nen Straf-Bierkasten mitbringen. Gefüllt.
+                Die Anmeldung sorgt daf&uuml;r, dass jeder nur eine Sache mitbringen muss und trotzdem gen&uuml;gend f&uuml;r alle da ist. Grillfleisch bringt jeder selbst mit. Ihr bekommt nach der Anmeldung eine Best&auml;tigungsmail &ndash; wer trotzdem vergisst was er mitbringen soll, schuldet uns einen Straf-Bierkasten. Gef&uuml;llt.
               </td>
             </tr>
             <tr>
@@ -272,20 +255,19 @@
                     d="M13.127 14.56l1.43-1.43 6.44 6.443L19.57 21zm4.293-5.73l2.86-2.86c-3.95-3.95-10.35-3.96-14.3-.02 3.93-1.3 8.31-.25 11.44 2.88zM5.95 5.98c-3.94 3.95-3.93 10.35.02 14.3l2.86-2.86C5.7 14.29 4.65 9.91 5.95 5.98zm.02-.02l-.01.01c-.38 3.01 1.17 6.88 4.3 10.02l5.73-5.73c-3.13-3.13-7.01-4.68-10.02-4.3z"
                   />
                 </svg>
-                Features
+                Highlights
               </td>
               <td>
                 <ul>
                   <li>Pool</li>
                   <li>Cocktails</li>
-                  <li>nette Leute</li>
-                  <li>gemütliche Atmosphäre</li>
                   <li>Live-Musik</li>
-                  <li>Zelten vor Ort möglich (bitte kurz anmelden)</li>
-                  <li>Grillmöglichkeit</li>
+                  <li>Gem&uuml;tliche Atmosph&auml;re</li>
+                  <li>Zelten vor Ort m&ouml;glich (bitte kurz anmelden)</li>
+                  <li>Grillm&ouml;glichkeit</li>
                 </ul>
                 ... alles weitere verraten wir noch nicht. Wir werden uns schon
-                was einfallen lassen... Ihr kennt uns ja.
+                was einfallen lassen.
               </td>
             </tr>
           </tbody>
@@ -299,31 +281,30 @@
               <g>
                 <path
                   d="M17.855,21.223c0-1.902,1.049-3.55,2.588-4.44c-0.963-0.308-2-0.552-3.09-0.722c2.342-1.299,3.929-3.794,3.929-6.663
-                                c0-4.207-3.41-7.617-7.617-7.617s-7.617,3.41-7.617,7.617c0,2.868,1.587,5.364,3.929,6.663C4.223,16.958,0,19.897,0,23.389h18.35
-                                C18.041,22.727,17.855,22,17.855,21.223z"
+                              c0-4.207-3.41-7.617-7.617-7.617s-7.617,3.41-7.617,7.617c0,2.868,1.587,5.364,3.929,6.663C4.223,16.958,0,19.897,0,23.389h18.35
+                              C18.041,22.727,17.855,22,17.855,21.223z"
                 />
               </g>
               <path
                 d="M23.004,17.206c-2.218,0-4.018,1.797-4.018,4.018c0,2.219,1.8,4.017,4.018,4.017c2.219,0,4.018-1.798,4.018-4.017
-                            C27.02,19.002,25.223,17.206,23.004,17.206z M25.627,21.936h-1.909v1.91h-1.427v-1.91h-1.91v-1.429h1.91v-1.911h1.427v1.911h1.909
-                            V21.936z"
+                          C27.02,19.002,25.223,17.206,23.004,17.206z M25.627,21.936h-1.909v1.91h-1.427v-1.91h-1.91v-1.429h1.91v-1.911h1.427v1.911h1.909
+                          V21.936z"
               />
             </g>
           </svg>
           Anmeldung
         </h2>
-        Hier könnt ihr euch für die Poolparty anmelden.<br />
-        Das Anmeldeverfahren ist dabei ganz einfach:<br />
+        Hier k&ouml;nnt ihr euch f&uuml;r die Poolparty anmelden.<br />
+        Das geht ganz einfach:<br />
         <br />
         <ol>
-          <li class="hideForUser">Clickt den "Anmelden" Button</li>
+          <li class="hideForUser">Klickt den &ldquo;Anmelden&rdquo; Button</li>
           <li class="hideForUser">
-            Meldet euch mit den gegebenen Nutzerdaten an
+            Meldet euch mit euren Nutzerdaten an
           </li>
           <li>Tragt ein, was ihr mitbringt</li>
           <li>
-            Wenn ihr einen Musikwunsch äußern wollt: Dann tut das im
-            entsprechenden Feld
+            Optional: Musikwunsch &auml;u&szlig;ern
           </li>
           <li>Fertig!</li>
         </ol>
@@ -337,7 +318,7 @@
                   <div class="form-group">
                     <label for="itemInput">Mitbringen</label>
                     <select id="itemInput" class="input-block">
-                      <option selected disabled>Bitte auswählen</option>
+                      <option selected disabled>Bitte ausw&auml;hlen</option>
                     </select>
                   </div>
                 </div>
@@ -345,7 +326,7 @@
                   <div class="form-group">
                     <label for="peopleInput">Anzahl Personen</label>
                     <select id="peopleInput" class="input-block">
-                      <option selected disabled>Bitte auswählen</option>
+                      <option selected disabled>Bitte ausw&auml;hlen</option>
                       <option value="1">1 Person</option>
                       <option value="2">2 Personen</option>
                     </select>
@@ -364,7 +345,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="form-actions">
                 <button
                   class="btn-large btn-block"
@@ -387,16 +368,8 @@
             </div>
           </div>
         </div>
-        Wir weisen euch hiermit darauf hin, dass nach der Anmeldung euer Name in
-        der Datenbank gespeichert ist (hoffentlich zumindest). Und dazu steht
-        dann dort auch noch, dass ihr nen Kartoffelsalat mitbringt.. Diese
-        sensiblen Daten werden wir natürlich gewinnbringend an Google
-        verhökern.<br />
-        Außerdem werden wir während der Party Recap machen, zum Beispiel ein
-        paar für diese Seite.. Wie das auf jeder guten Party passiert. Aber
-        keine Angst, wir werden keine peinlichen Recap oder so veröffentlichen.
-        Diese sammeln wir alle, um euch damit irgendwann einmal bei eurer
-        Hochzeit oder so bloßzustellen.
+        Wir weisen darauf hin, dass nach der Anmeldung euer Name und euer mitgebrachtes Item gespeichert werden. Diese sensiblen Daten werden wir nat&uuml;rlich gew&iuml;nnbringend an Google verh&ouml;kern.<br />
+        Au&szlig;erdem gibt es w&auml;hrend der Party Fotos und Videos f&uuml;r diese Seite. Keine Sorge, wir ver&ouml;ffentlichen nichts Peinliches &ndash; das heben wir f&uuml;r eure Hochzeiten auf.
 
         <!-- Volunteers -->
 
@@ -409,20 +382,13 @@
           </svg>
           Volunteers
         </h2>
-        Da das ganze natürlich auch nicht soo schnell aufgebaut ist, wäre es
-        super, wenn wir für Freitag und Samstag morgen auch ein paar helfende
-        Hände beim Aufbau hätten. Und natürlich auch Sonntag zum Abbau. Wer Lust
-        und Zeit hat, uns hier zu unterstützen, bitte hier nach der Anmeldung
-        eintragen und dazu die mögliche Einsatzzeit angeben. Wir melden uns
-        dann. Wichtig auch hier: Wenn ihr doch nicht könnt (weil ihr den Dackel
-        füttern, im Rewe an der Kasse einspringen , oder sonst was müsst), sagt
-        uns auch hier wieder ab.
+        Da der Aufbau Zeit braucht, suchen wir helfende H&auml;nde f&uuml;r Freitag/Samstag morgen (Aufbau) und Sonntag (Abbau). Wer Lust und Zeit hat, kann sich hier nach der Anmeldung eintragen und die m&ouml;gliche Einsatzzeit angeben. Wir melden uns dann. Wenn es doch nicht klappt, sagt bitte wieder ab.
         <div class="form-section hideForGuest" id="volunteerForm" style="display: none !important">
           <h3>Volunteer Anmeldung</h3>
           <div class="row">
             <div class="col-12">
               <div class="form-group">
-                <label for="durationInput">Dauer (Von - Bis) 3-512 Zeichen</label>
+                <label for="durationInput">Dauer (Von - Bis)</label>
                 <input
                   class="input-block"
                   type="text"
@@ -435,7 +401,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="form-actions">
             <button
               class="btn-large btn-block"
@@ -472,7 +438,7 @@
         <br />
         Danke an jeden, bei dem ich das ganze Zeug leihen durfte.<br />
         <br />
-        Danke an die Kolpingsfamilie Ramsen, für die tolle Location.<br />
+        Danke an die Kolpingsfamilie Ramsen, f&uuml;r die tolle Location.<br />
         <br />
         Danke an alle Nachbarn, die uns geduldig ertragen haben. Und auch denen,
         die dies nicht getan haben.<br />
@@ -506,33 +472,26 @@
           </svg>
           <h3>Aftermovie 2025</h3>
         </div>
-        <div class="aftermovie-placeholder" style="text-align: center; padding: 40px; background: #f8f9fa; border-radius: 8px; margin: 20px 0;">
-          <p style="color: #666; font-size: 18px;">🎬 Aftermovie coming soon...</p>
-          <p style="color: #888; font-size: 14px;">Das Aftermovie wird irgendwann nach der Party verfügbar sein!</p>
+        <div class="aftermovie-placeholder" style="text-align: center; padding: 40px; border-radius: 8px; margin: 20px 0;">
+          <p>Aftermovie coming soon...</p>
+          <p>Das Aftermovie wird nach der Party verf&uuml;gbar sein!</p>
         </div>
       </div>
 
-      <div id="photos2025" class="photos">
-        <!-- Gefüllt über main.js -->
-      </div>
+      <div id="photos2025" class="photos"></div>
 
       <h2 class="col background-secondary" style="background-color: #ff0000">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
           <g>
-            <path
-              d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"
-            />
-            <path
-              d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"
-            />
+            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
+            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
           </g>
         </svg>
         Recap 2024
       </h2>
       <div class="aftermovie-section">
-        <!-- 50% of that years color #ff0000 -->
-        <div class="aftermovie-header" style="background-color: color-mix(in srgb, #ff0000 50%, var(--white));">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="aftermovie-icon">
+        <div class="aftermovie-header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="aftermovie-icon">
             <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
           </svg>
           <h3>Aftermovie 2024</h3>
@@ -549,26 +508,20 @@
         </a>
       </div>
 
-      <div id="photos2024" class="photos">
-        <!-- Gefüllt über main.js -->
-      </div>
+      <div id="photos2024" class="photos"></div>
 
       <h2 class="col background-secondary" style="background-color: #d800ff">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
           <g>
-            <path
-              d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"
-            />
-            <path
-              d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"
-            />
+            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
+            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
           </g>
         </svg>
         Recap 2023
       </h2>
       <div class="aftermovie-section">
-        <div class="aftermovie-header" style="background-color: color-mix(in srgb, #d800ff 50%, var(--white));">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="aftermovie-icon">
+        <div class="aftermovie-header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="aftermovie-icon">
             <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
           </svg>
           <h3>Aftermovie 2023</h3>
@@ -585,26 +538,20 @@
         </a>
       </div>
 
-      <div id="photos2023" class="photos">
-        <!-- Gefüllt über main.js -->
-      </div>
+      <div id="photos2023" class="photos"></div>
 
       <h2 class="col background-secondary" style="background-color: #51fcf8">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
           <g>
-            <path
-              d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"
-            />
-            <path
-              d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"
-            />
+            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
+            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
           </g>
         </svg>
         Recap 2022
       </h2>
       <div class="aftermovie-section">
-        <div class="aftermovie-header" style="background-color: color-mix(in srgb, #51fcf8 50%, var(--white));">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="aftermovie-icon">
+        <div class="aftermovie-header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="aftermovie-icon">
             <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
           </svg>
           <h3>Aftermovie 2022</h3>
@@ -621,26 +568,20 @@
         </a>
       </div>
 
-      <div id="photos2022" class="photos">
-        <!-- Gefüllt über main.js -->
-      </div>
+      <div id="photos2022" class="photos"></div>
 
       <h2 class="col background-secondary" style="background-color: #f5601d">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
           <g>
-            <path
-              d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"
-            />
-            <path
-              d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"
-            />
+            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
+            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
           </g>
         </svg>
         Recap 2021
       </h2>
       <div class="aftermovie-section">
-        <div class="aftermovie-header" style="background-color: color-mix(in srgb, #f5601d 50%, var(--white));">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="aftermovie-icon">
+        <div class="aftermovie-header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="aftermovie-icon">
             <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
           </svg>
           <h3>Aftermovie 2021</h3>
@@ -657,26 +598,20 @@
         </a>
       </div>
 
-      <div id="photos2021" class="photos">
-        <!-- Gefüllt über main.js -->
-      </div>
+      <div id="photos2021" class="photos"></div>
 
       <h2 class="col background-secondary" style="background-color: #6be607">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
           <g>
-            <path
-              d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"
-            />
-            <path
-              d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"
-            />
+            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
+            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
           </g>
         </svg>
         Recap 2020
       </h2>
       <div class="aftermovie-section">
-        <div class="aftermovie-header" style="background-color: color-mix(in srgb, #6be607 50%, var(--white));">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="aftermovie-icon">
+        <div class="aftermovie-header">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="aftermovie-icon">
             <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
           </svg>
           <h3>Aftermovie 2020</h3>
@@ -706,44 +641,29 @@
         ></iframe>
       </div>
 
-      <div id="photos2020" class="photos">
-        <!-- Gefüllt über main.js -->
-      </div>
+      <div id="photos2020" class="photos"></div>
 
       <h2 class="col background-secondary">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
           <g>
-            <path
-              d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"
-            />
-            <path
-              d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"
-            />
+            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
+            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
           </g>
         </svg>
         Recap 2019
       </h2>
-      <div id="photos2019" class="photos">
-        <!-- Gefüllt über main.js -->
-      </div>
+      <div id="photos2019" class="photos"></div>
 
-      <!-- Recap -->
       <h2 class="col background-secondary">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
           <g>
-            <path
-              d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"
-            />
-            <path
-              d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"
-            />
+            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
+            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
           </g>
         </svg>
         Recap 2018
       </h2>
-      <div id="photos2018" class="photos">
-        <!-- Gefüllt über main.js -->
-      </div>
+      <div id="photos2018" class="photos"></div>
     </div>
 
     <!-- Modal -->
@@ -752,7 +672,7 @@
       <label class="modal-bg" for="confirmModal"></label>
       <div class="modal-body">
         <label class="btn-close" for="confirmModal">X</label>
-        <h4 class="modal-title">Anmeldung Bestätigen</h4>
+        <h4 class="modal-title">Anmeldung Best&auml;tigen</h4>
         <span class="background-success note margin-small" id="success"
           >Erfolgreich eingetragen</span
         >
@@ -760,7 +680,7 @@
           >Fehler beim Eintragen</span
         >
         <p class="modal-text">
-          Bitte überprüfe folgende Angaben um deine Anmeldung zu bestätigen:
+          Bitte &uuml;berpr&uuml;fe folgende Angaben um deine Anmeldung zu best&auml;tigen:
         </p>
 
         <p id="confirmationData"></p>
@@ -790,7 +710,6 @@
       >
         <g>
           <path
-            style="fill: #030104"
             d="M13.396,12.382c-0.543,0.336-1.108,0.445-1.688,0.361c-0.578-0.08-1.167-0.313-1.74-0.602
 c-0.287-0.148-0.573-0.303-0.854-0.477c-0.29-0.168-0.543-0.338-0.868-0.545C8.117,11.043,7.983,10.971,7.85,10.9
 c-0.055-0.594-0.133-1.535-0.124-2.041c0.012-0.582,0.052-1.167,0.131-1.746c0.079-0.578,0.198-1.153,0.38-1.711
@@ -824,7 +743,7 @@ c0.526-0.559,0.853-1.195,1.115-1.852C14.427,11.544,13.946,12.058,13.396,12.382z"
       </svg>
 
       <span
-        >© <a href="https://jupeters.de">JP</a> &
+        >&copy; <a href="https://jupeters.de">JP</a> &
         <a href="https://lmf.logge.top">LMF</a> 2025</span
       >
     </div>

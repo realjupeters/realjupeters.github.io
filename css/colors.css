@@ -1,56 +1,43 @@
 :root {
-  /* Primary color - easily changeable for each event */
-  --primary-color: #E0E722;
-  --primary-text-color: #f6f6f6;
-  --primary-text-hover-color: #E0E722;
+  /* Hand-Drawn Design System */
 
-  /* Auto-calculated variations of primary color */
-  --primary-light: color-mix(in srgb, var(--primary-color) 20%, white);
-  --primary-dark: color-mix(in srgb, var(--primary-color) 80%, black);
-  --primary-alpha-10: color-mix(in srgb, var(--primary-color) 10%, transparent);
-  --primary-alpha-20: color-mix(in srgb, var(--primary-color) 20%, transparent);
+  /* Primary color - accent for the event */
+  --primary-color: #ff4d4d;
+  --primary-text-color: #2d2d2d;
+  --primary-text-hover-color: #ff4d4d;
 
-  /* Determine if primary is light or dark for contrast */
-  --primary-contrast: white;
-
-  /* Hand-drawn palette */
+  /* Core palette */
   --paper: #fdfbf7;
+  --paper-alt: #f7f3ec;
   --pencil: #2d2d2d;
   --muted: #e5e0d8;
-  --accent-red: #ff4d4d;
-  --blue-pen: #2d5da1;
-  --postit-yellow: #fff9c4;
+  --accent: #ff4d4d;
+  --blue: #2d5da1;
+  --postit: #fff9c4;
+  --postit-dark: #f5e88c;
 
-  /* Base colors */
-  --white: #ffffff;
-  --gray-50: #f8fafc;
-  --gray-100: #f1f5f9;
-  --gray-200: #e2e8f0;
-  --gray-300: #cbd5e1;
-  --gray-400: #94a3b8;
-  --gray-500: #64748b;
-  --gray-600: #475569;
-  --gray-700: #334155;
-  --gray-800: #1e293b;
-  --gray-900: #0f172a;
-
-  /* Status colors */
-  --success: #10b981;
-  --success-light: #d1fae5;
-  --error: #ef4444;
-  --error-light: #fee2e2;
-  --warning: #f59e0b;
-  --warning-light: #fef3c7;
-  --info: #3b82f6;
-  --info-light: #dbeafe;
+  /* Semantic colors */
+  --success: #4caf50;
+  --success-light: #e8f5e9;
+  --error: #ff4d4d;
+  --error-light: #ffebee;
+  --warning: #ff9800;
+  --warning-light: #fff3e0;
+  --info: #2d5da1;
+  --info-light: #e3f2fd;
 
   /* Typography */
   --font-heading: 'Kalam', cursive;
   --font-body: 'Patrick Hand', cursive;
   --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
   --font-weight-bold: 700;
+
+  /* Wobbly border-radius values */
+  --wobbly: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  --wobbly-md: 30px 4px 25px 4px / 4px 25px 4px 30px;
+  --wobbly-sm: 15px 3px 12px 3px / 3px 12px 3px 15px;
+  --wobbly-btn: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  --wobbly-card: 30px 185px 8px 155px / 185px 8px 155px 30px;
 
   /* Spacing */
   --space-1: 0.25rem;
@@ -64,31 +51,16 @@
   --space-12: 3rem;
   --space-16: 4rem;
 
-  /* Wobbly border-radius */
-  --radius-wobbly: 255px 15px 225px 15px / 15px 225px 15px 255px;
-  --radius-wobbly-md: 30px 20px 35px 25px / 20px 35px 25px 30px;
-  --radius-wobbly-sm: 20px 12px 25px 15px / 12px 20px 10px 25px;
-  --radius-wobbly-btn: 25px 15px 30px 20px / 15px 25px 18px 30px;
-  --radius-wobbly-nav: 18px 10px 15px 12px / 10px 18px 8px 15px;
-  --radius-wobbly-input: 15px 8px 18px 12px / 8px 15px 10px 18px;
+  /* Hard offset shadows - no blur */
+  --shadow: 4px 4px 0px 0px #2d2d2d;
+  --shadow-sm: 3px 3px 0px 0px rgba(45, 45, 45, 0.15);
+  --shadow-lg: 8px 8px 0px 0px #2d2d2d;
+  --shadow-hover: 2px 2px 0px 0px #2d2d2d;
+  --shadow-active: 0px 0px 0px 0px #2d2d2d;
+  --shadow-accent: 4px 4px 0px 0px #ff4d4d;
+  --shadow-blue: 4px 4px 0px 0px #2d5da1;
 
-  /* Standard radius fallbacks */
-  --radius-sm: 0.25rem;
-  --radius: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-
-  /* Hard offset shadows - NO blur */
-  --shadow-hard: 4px 4px 0px 0px var(--pencil);
-  --shadow-hard-sm: 3px 3px 0px 0px rgba(45, 45, 45, 0.15);
-  --shadow-hard-lg: 8px 8px 0px 0px var(--pencil);
-  --shadow-hard-hover: 2px 2px 0px 0px var(--pencil);
-  --shadow-hard-active: 0px 0px 0px 0px var(--pencil);
-  --shadow-hard-accent: 4px 4px 0px 0px var(--accent-red);
-  --shadow-hard-primary: 4px 4px 0px 0px var(--primary-color);
-
-  /* Transitions - snappy */
+  /* Transitions */
   --transition: all 0.1s ease;
-  --transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.3s ease;
 }

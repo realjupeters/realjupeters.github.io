@@ -3,7 +3,7 @@ const AUTH_DOMAIN = 'https://jpCore.logge.top'
 const BASE_ENDPOINT_URL = AUTH_DOMAIN + '/api/'
 
 // Toggle this to swap between active and inactive mode
-const ACTIVE = false
+const ACTIVE = true
 
 if (ACTIVE) {
   document.documentElement.style.setProperty('--display-active', 'initial')
@@ -259,19 +259,6 @@ if (token && ACTIVE) {
   }
 }
 
-// var isDark = localStorage.getItem('dark')
-// function toggleDark() {
-//     document.body.classList.toggle('darkmode')
-//     isDark = !isDark
-//     localStorage.setItem('dark', isDark)
-//     console.log(isDark)
-// }
-
-// if (isDark == 'true') {
-//     toggleDark()
-// }
-
-// isDark = !isDark
 
 function createPhotos(year, count) {
   var photos = document.getElementById('photos' + year)
