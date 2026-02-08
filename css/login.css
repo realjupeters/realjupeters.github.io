@@ -1,24 +1,90 @@
-body, html, .paper {
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Patrick+Hand&display=swap');
+@import url('colors.css');
+
+body, html {
     height: 100%;
+    margin: 0;
+    background-color: var(--paper);
+    background-image: radial-gradient(var(--muted) 1px, transparent 1px);
+    background-size: 24px 24px;
+    font-family: var(--font-body);
+    color: var(--pencil);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.paper {
+    background: var(--white);
+    border: 3px solid var(--pencil);
+    border-radius: var(--radius-wobbly-md);
+    box-shadow: var(--shadow-hard-lg);
+    padding: 3rem;
+    text-align: center;
+    transform: rotate(-1deg);
+    position: relative;
+    max-width: 400px;
+    width: 90%;
+}
+
+/* Tape decoration */
+.paper::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%) rotate(2deg);
+    width: 80px;
+    height: 20px;
+    background: rgba(200, 200, 190, 0.5);
+    border-radius: 2px;
+}
+
+h1 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--pencil);
+    margin-bottom: 1.5rem;
+}
+
+.margin-none {
+    margin: 0;
+}
 
 .progress {
+    width: 100%;
+    height: 10px;
+    background: var(--muted);
+    border: 2px solid var(--pencil);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.progress .bar {
+    height: 100%;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
     transition: width 1s ease-in-out;
+}
+
+.bar.success {
+    background: var(--success);
+}
+
+.w-20 { width: 20%; }
+
+.margin-bottom {
+    margin-bottom: 1rem;
 }
 
 .spin {
     font-size: 80px;
     display: inline-block;
     animation: spin 3s infinite linear;
-  }
+}
 
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

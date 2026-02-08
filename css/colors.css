@@ -12,7 +12,14 @@
 
   /* Determine if primary is light or dark for contrast */
   --primary-contrast: white;
-  /* Will be auto-calculated in JS */
+
+  /* Hand-drawn palette */
+  --paper: #fdfbf7;
+  --pencil: #2d2d2d;
+  --muted: #e5e0d8;
+  --accent-red: #ff4d4d;
+  --blue-pen: #2d5da1;
+  --postit-yellow: #fff9c4;
 
   /* Base colors */
   --white: #ffffff;
@@ -38,7 +45,8 @@
   --info-light: #dbeafe;
 
   /* Typography */
-  --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Kalam', cursive;
+  --font-body: 'Patrick Hand', cursive;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -56,21 +64,31 @@
   --space-12: 3rem;
   --space-16: 4rem;
 
-  /* Border radius */
+  /* Wobbly border-radius */
+  --radius-wobbly: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  --radius-wobbly-md: 30px 20px 35px 25px / 20px 35px 25px 30px;
+  --radius-wobbly-sm: 20px 12px 25px 15px / 12px 20px 10px 25px;
+  --radius-wobbly-btn: 25px 15px 30px 20px / 15px 25px 18px 30px;
+  --radius-wobbly-nav: 18px 10px 15px 12px / 10px 18px 8px 15px;
+  --radius-wobbly-input: 15px 8px 18px 12px / 8px 15px 10px 18px;
+
+  /* Standard radius fallbacks */
   --radius-sm: 0.25rem;
   --radius: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  /* Hard offset shadows - NO blur */
+  --shadow-hard: 4px 4px 0px 0px var(--pencil);
+  --shadow-hard-sm: 3px 3px 0px 0px rgba(45, 45, 45, 0.15);
+  --shadow-hard-lg: 8px 8px 0px 0px var(--pencil);
+  --shadow-hard-hover: 2px 2px 0px 0px var(--pencil);
+  --shadow-hard-active: 0px 0px 0px 0px var(--pencil);
+  --shadow-hard-accent: 4px 4px 0px 0px var(--accent-red);
+  --shadow-hard-primary: 4px 4px 0px 0px var(--primary-color);
 
-  /* Transitions */
-  --transition: all 0.2s ease-in-out;
-  --transition-fast: all 0.15s ease-in-out;
+  /* Transitions - snappy */
+  --transition: all 0.1s ease;
+  --transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
