@@ -509,6 +509,12 @@ tr:hover {
     margin: 0 var(--space-1);
 }
 
+.action-btn.btn-danger {
+    background: var(--accent-red);
+    color: var(--white);
+    border-color: var(--pencil);
+}
+
 .status-badge {
     padding: var(--space-1) var(--space-3);
     border: 2px solid var(--pencil);
