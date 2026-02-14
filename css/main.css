@@ -350,18 +350,7 @@ h1.caption {
   line-height: 1.1;
 }
 
-h1.caption::after {
-  content: '!';
-  display: inline-block;
-  color: var(--accent);
-  animation: jiggle 0.4s ease-in-out infinite alternate;
-  transform-origin: bottom center;
-}
-
-@keyframes jiggle {
-  0% { transform: rotate(-5deg); }
-  100% { transform: rotate(5deg); }
-}
+/* animated exclamation mark removed per request */
 
 /* ===== Section Headings ===== */
 h2 {
