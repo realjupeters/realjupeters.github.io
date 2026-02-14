@@ -95,7 +95,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
           </svg>
-          Featuring!
+          Featuring
         </h2>
       </div>
 
@@ -472,10 +472,70 @@
           </svg>
           <h3>Aftermovie 2025</h3>
         </div>
-        <div class="aftermovie-placeholder" style="text-align: center; padding: 40px; border-radius: 8px; margin: 20px 0;">
+        <div class="aftermovie-placeholder" id="easterEggTrigger" style="text-align: center; padding: 40px; border-radius: 8px; margin: 20px 0; cursor: pointer; transition: all 0.3s ease;">
           <p>Aftermovie coming soon...</p>
           <p>Das Aftermovie wird nach der Party verf&uuml;gbar sein!</p>
         </div>
+
+        <!-- Easter Egg Modal -->
+        <div id="easterEggModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; cursor:pointer; flex-direction:column;">
+          <div style="text-align:center; max-width:500px; padding:20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 350" style="width:100%; max-width:400px;">
+              <!-- Pool party dad character -->
+              <!-- Body with swim trunks -->
+              <rect x="170" y="160" width="60" height="80" rx="10" fill="#F4A460"/>
+              <!-- Swim trunks -->
+              <rect x="165" y="220" width="70" height="30" rx="5" fill="#E0E722"/>
+              <path d="M185 250 L180 310" stroke="#F4A460" stroke-width="14" stroke-linecap="round"/>
+              <path d="M215 250 L220 310" stroke="#F4A460" stroke-width="14" stroke-linecap="round"/>
+              <!-- Arms - gesturing proudly -->
+              <path d="M170 180 L110 140" stroke="#F4A460" stroke-width="12" stroke-linecap="round"/>
+              <path d="M230 180 L290 140" stroke="#F4A460" stroke-width="12" stroke-linecap="round"/>
+              <!-- Hands pointing at empty frame -->
+              <circle cx="105" cy="135" r="8" fill="#F4A460"/>
+              <circle cx="295" cy="135" r="8" fill="#F4A460"/>
+              <!-- Head -->
+              <circle cx="200" cy="140" r="35" fill="#F4A460"/>
+              <!-- Sunglasses -->
+              <rect x="178" y="128" width="18" height="14" rx="3" fill="#333"/>
+              <rect x="204" y="128" width="18" height="14" rx="3" fill="#333"/>
+              <line x1="196" y1="135" x2="204" y2="135" stroke="#333" stroke-width="2"/>
+              <!-- Big proud grin -->
+              <path d="M185 152 Q200 168 215 152" stroke="#333" stroke-width="3" fill="none"/>
+              <!-- Empty frame / shelf -->
+              <rect x="100" y="30" width="200" height="90" rx="5" fill="none" stroke="#E0E722" stroke-width="6"/>
+              <!-- Shelf -->
+              <rect x="80" y="115" width="240" height="8" rx="2" fill="#E0E722"/>
+              <!-- Pool floatie -->
+              <ellipse cx="330" cy="300" rx="30" ry="15" fill="none" stroke="#FF69B4" stroke-width="5"/>
+              <!-- Water splashes -->
+              <path d="M50 320 Q60 305 70 320 Q80 335 90 320" stroke="#4FC3F7" stroke-width="3" fill="none"/>
+              <path d="M310 330 Q320 315 330 330 Q340 345 350 330" stroke="#4FC3F7" stroke-width="3" fill="none"/>
+            </svg>
+            <p style="color:#E0E722; font-size:1.8em; font-weight:bold; margin-top:20px; text-shadow: 0 0 10px rgba(224,231,34,0.5);">
+              This is where I'd put my Aftermovie...<br>
+              <span style="font-size:1.4em; color:#fff;">IF I HAD ONE!</span>
+            </p>
+            <p style="color:#aaa; font-size:0.9em; margin-top:15px;">(click anywhere to close)</p>
+          </div>
+        </div>
+
+        <style>
+          #easterEggTrigger:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(224,231,34,0.3);
+            background: rgba(224,231,34,0.05);
+          }
+        </style>
+        <script>
+          document.getElementById('easterEggTrigger').addEventListener('click', function() {
+            var m = document.getElementById('easterEggModal');
+            m.style.display = 'flex';
+          });
+          document.getElementById('easterEggModal').addEventListener('click', function() {
+            this.style.display = 'none';
+          });
+        </script>
       </div>
 
       <div id="photos2025" class="photos"></div>
