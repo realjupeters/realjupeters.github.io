@@ -25,3 +25,30 @@ export const deleteRegistration = (id) =>
 
 export const deleteVolunteer = (id) =>
   apiFetch(`/api/admin/poolparty/volunteer/${encodeURIComponent(id)}`, { method: 'DELETE' });
+
+// ===== Mail drafts =====
+export const listMailDrafts = () => apiFetch('/api/admin/mail/draft');
+
+export const getMailDraft = (id) =>
+  apiFetch(`/api/admin/mail/draft/${encodeURIComponent(id)}`);
+
+export const createMailDraft = ({ name, subject, html }) =>
+  apiFetch('/api/admin/mail/draft', {
+    method: 'POST',
+    body: { name, subject, html },
+  });
+
+export const updateMailDraft = (id, patch) =>
+  apiFetch(`/api/admin/mail/draft/${encodeURIComponent(id)}`, {
+    method: 'PATCH',
+    body: patch,
+  });
+
+export const deleteMailDraft = (id) =>
+  apiFetch(`/api/admin/mail/draft/${encodeURIComponent(id)}`, { method: 'DELETE' });
+
+export const sendMailDraftTest = (id) =>
+  apiFetch(`/api/admin/mail/draft/${encodeURIComponent(id)}/send-test`, { method: 'POST' });
+
+export const sendMailDraftAll = (id) =>
+  apiFetch(`/api/admin/mail/draft/${encodeURIComponent(id)}/send-all`, { method: 'POST' });

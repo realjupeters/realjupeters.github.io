@@ -101,7 +101,8 @@
             <input id="tab4" type="radio" name="tabs">
             <input id="tab5" type="radio" name="tabs">
             <input id="tab6" type="radio" name="tabs">
-            
+            <input id="tab7" type="radio" name="tabs">
+
             <div class="tab-header">
                 <label for="tab1">👥 Accounts</label>
                 <label for="tab2">📝 Registrations</label>
@@ -109,6 +110,7 @@
                 <label for="tab4">🙋 Volunteers</label>
                 <label for="tab5">🎵 Music</label>
                 <label for="tab6">➕ Register User</label>
+                <label for="tab7">📧 Mails</label>
             </div>
 
             <div class="content tab-content" id="content1">
@@ -274,9 +276,68 @@
                     <button type="submit" class="btn btn-primary" id="registerUserBtn">Register User</button>
                 </form>
             </div>
+
+            <div class="content tab-content" id="content7">
+                <h3>Mail Drafts</h3>
+                <div class="mail-layout">
+                    <aside class="mail-sidebar">
+                        <div class="mail-sidebar-header">
+                            <strong>Entwürfe</strong>
+                            <button type="button" class="btn btn-primary btn-sm" id="mailNewBtn">+ Neu</button>
+                        </div>
+                        <ul id="mailDraftList" class="mail-draft-list"></ul>
+                        <div class="mail-sidebar-hint" id="mailDraftHint">Lade Entwürfe…</div>
+                    </aside>
+
+                    <section class="mail-editor-pane" id="mailEditorPane" hidden>
+                        <div class="mail-form-grid">
+                            <div class="form-group">
+                                <label for="mailNameInput">Interner Name</label>
+                                <input type="text" id="mailNameInput" placeholder="Save the Date 2026 (Teaser)">
+                            </div>
+                            <div class="form-group">
+                                <label for="mailSubjectInput">Betreff (wird an Empfänger gesendet)</label>
+                                <input type="text" id="mailSubjectInput" placeholder="🏊 Save the Date: Poolparty 2026 💦">
+                            </div>
+                        </div>
+
+                        <div class="mail-editor-modes">
+                            <button type="button" class="btn btn-sm mail-mode-btn active" data-mail-mode="visual">Visual (Quill)</button>
+                            <button type="button" class="btn btn-sm mail-mode-btn" data-mail-mode="source">HTML Source</button>
+                            <span class="mail-editor-status" id="mailEditorStatus"></span>
+                        </div>
+
+                        <div id="mailQuillHost" class="mail-quill-host"></div>
+                        <textarea id="mailHtmlSource" class="mail-html-source" hidden spellcheck="false"></textarea>
+
+                        <div class="mail-preview-wrap">
+                            <div class="mail-preview-header">
+                                <span>Live-Preview</span>
+                                <button type="button" class="btn btn-sm" id="mailPreviewRefresh">↻ Refresh</button>
+                            </div>
+                            <iframe id="mailPreviewFrame" class="mail-preview-frame" title="Mail Preview"></iframe>
+                        </div>
+
+                        <div class="mail-actions">
+                            <button type="button" class="btn btn-primary" id="mailSaveBtn">💾 Speichern</button>
+                            <button type="button" class="btn" id="mailTestBtn">📤 Test an mich</button>
+                            <button type="button" class="btn btn-danger" id="mailSendAllBtn">📬 An ALLE senden</button>
+                            <button type="button" class="btn btn-danger" id="mailDeleteBtn">🗑️ Draft löschen</button>
+                        </div>
+                        <p class="mail-sendinfo" id="mailSendInfo"></p>
+                    </section>
+
+                    <section class="mail-empty-pane" id="mailEmptyPane">
+                        <p>Wähle einen Entwurf aus der Liste oder erstelle einen neuen.</p>
+                    </section>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Quill WYSIWYG (loaded before admin.js so the editor is ready when initMailTab runs) -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.min.js"></script>
     <script type="module" src="js/admin.js"></script>
 </body>
 

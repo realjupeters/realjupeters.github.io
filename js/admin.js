@@ -858,25 +858,29 @@ Das Poolparty Team`);
         document.querySelectorAll('input[name="tabs"]').forEach(tab => {
             tab.addEventListener('change', (e) => {
                 if (e.target.checked) {
-                    const sections = ['account', 'registration', 'item', 'volunteer', 'music', 'register']; // Added 'register'
+                    const sections = ['account', 'registration', 'item', 'volunteer', 'music', 'register', 'mail'];
                     const tabIndex = parseInt(e.target.id.replace('tab', '')) - 1;
-                    
+
                     if (tabIndex < sections.length) {
                         const section = sections[tabIndex];
                         this.state.currentTab = section;
                         console.log(`🔄 Switching to tab: ${section}`);
 
-                        // Re-render the selected table or handle static tab
                         setTimeout(() => {
-                            if (section !== 'register') {
+                            if (section === 'register') {
+                                Object.keys(this.loaders).forEach(key => this.setLoading(key, false));
+                                this.setLoading('music', false);
+                            } else if (section === 'mail') {
+                                // Lazy-init the mail tab the first time it's opened
+                                if (!this._mailInited) {
+                                    this._mailInited = true;
+                                    this.initMailTab();
+                                } else {
+                                    this.refreshMailDrafts();
+                                }
+                            } else {
                                 this.renderTable(section);
                                 console.log(`✅ ${section} tab rendered`);
-                            } else {
-                                // For 'register' tab, content is static, ensure no loading indicators interfere
-                                console.log(`✅ 'register' tab is static, no table rendering needed.`);
-                                // Hide any potential loading spinners for other sections if they were active
-                                Object.keys(this.loaders).forEach(key => this.setLoading(key, false));
-                                this.setLoading('music', false); // music is special
                             }
                         }, 100);
                     } else {
@@ -957,15 +961,336 @@ Das Poolparty Team`);
     updatePrimaryContrast() {
         const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
         const temp = Object.assign(document.createElement('div'), { style: `color: ${primaryColor}` });
-        
+
         document.body.appendChild(temp);
         const rgb = getComputedStyle(temp).color.match(/\d+/g);
         document.body.removeChild(temp);
-        
+
         if (rgb) {
             const luminance = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255;
             document.documentElement.style.setProperty('--primary-contrast', luminance > 0.5 ? '#000000' : '#ffffff');
         }
+    }
+
+    // ===== Mail Drafts tab =====
+    async initMailTab() {
+        console.log('📧 Initializing Mail Drafts tab...');
+        this.mailState = {
+            drafts: [],
+            currentId: null,
+            mode: 'visual',
+            quill: null,
+            lastSavedHtml: '',
+            lastSavedSubject: '',
+            lastSavedName: '',
+            suppressChange: false,
+        };
+
+        // Build Quill once. It lives inside #mailQuillHost; the HTML source textarea
+        // lives next to it and is shown/hidden by the mode buttons.
+        const host = document.getElementById('mailQuillHost');
+        if (!host) return;
+
+        if (typeof window.Quill !== 'function') {
+            console.warn('Quill not loaded');
+            this.mailState.quill = null;
+        } else {
+            const q = new window.Quill(host, {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ header: [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ color: [] }, { background: [] }],
+                        [{ list: 'ordered' }, { list: 'bullet' }],
+                        [{ align: [] }],
+                        ['link', 'image'],
+                        ['blockquote', 'code-block'],
+                        ['clean'],
+                    ],
+                },
+                placeholder: 'Schreib deine Mail...',
+            });
+
+            // Quill → live preview on every change (unless we're programmatically loading)
+            q.on('text-change', () => {
+                if (this.mailState.suppressChange) return;
+                this.refreshMailPreview();
+            });
+            this.mailState.quill = q;
+        }
+
+        // Wire editor-mode buttons
+        document.querySelectorAll('.mail-mode-btn').forEach((btn) => {
+            btn.addEventListener('click', () => this.switchMailMode(btn.dataset.mailMode));
+        });
+
+        // HTML source textarea → preview on input
+        const src = document.getElementById('mailHtmlSource');
+        if (src) {
+            src.addEventListener('input', () => {
+                if (this.mailState.suppressChange) return;
+                this.refreshMailPreview();
+            });
+        }
+
+        // Action buttons
+        document.getElementById('mailNewBtn')?.addEventListener('click', () => this.newMailDraft());
+        document.getElementById('mailSaveBtn')?.addEventListener('click', () => this.saveCurrentMailDraft());
+        document.getElementById('mailTestBtn')?.addEventListener('click', () => this.sendCurrentMailTest());
+        document.getElementById('mailSendAllBtn')?.addEventListener('click', () => this.sendCurrentMailAll());
+        document.getElementById('mailDeleteBtn')?.addEventListener('click', () => this.deleteCurrentMailDraft());
+        document.getElementById('mailPreviewRefresh')?.addEventListener('click', () => this.refreshMailPreview());
+
+        // Subject/name inputs → live preview (subject doesn't affect the iframe but we
+        // refresh anyway so the user sees unsaved changes reflected).
+        ['mailNameInput', 'mailSubjectInput'].forEach((id) => {
+            document.getElementById(id)?.addEventListener('input', () => {
+                // no preview needed, just mark dirty
+                this.markMailDirty();
+            });
+        });
+
+        await this.refreshMailDrafts();
+    }
+
+    async refreshMailDrafts() {
+        try {
+            const drafts = await adminApi.listMailDrafts();
+            this.mailState.drafts = drafts;
+            this.renderMailDraftList();
+
+            // If nothing selected, auto-select the first draft so the user lands in the editor.
+            if (drafts.length > 0 && this.mailState.currentId == null) {
+                this.selectMailDraft(drafts[0].id);
+            } else if (drafts.length === 0) {
+                this.showMailEditor(false);
+                document.getElementById('mailDraftHint').textContent = 'Noch keine Entwürfe. Klicke "Neu" um einen anzulegen.';
+            }
+        } catch (err) {
+            this.showNotification(`Fehler beim Laden der Drafts: ${err.message}`, 'error');
+        }
+    }
+
+    renderMailDraftList() {
+        const list = document.getElementById('mailDraftList');
+        const hint = document.getElementById('mailDraftHint');
+        if (!list) return;
+        list.innerHTML = '';
+        for (const d of this.mailState.drafts) {
+            const li = document.createElement('li');
+            li.dataset.draftId = String(d.id);
+            if (d.id === this.mailState.currentId) li.classList.add('active');
+            const sentMeta = d.lastSentAt
+                ? `zuletzt gesendet ${new Date(d.lastSentAt).toLocaleDateString('de-DE')} (${d.lastSentTo ?? '?'} Empfänger)`
+                : `aktualisiert ${new Date(d.updatedAt).toLocaleDateString('de-DE')}`;
+            li.innerHTML = `<div>${this.escapeHtml(d.name)}</div><span class="mail-draft-meta">${sentMeta}</span>`;
+            li.addEventListener('click', () => this.selectMailDraft(d.id));
+            list.appendChild(li);
+        }
+        if (hint) hint.textContent = `${this.mailState.drafts.length} Entwürfe`;
+    }
+
+    async selectMailDraft(id) {
+        try {
+            const draft = await adminApi.getMailDraft(id);
+            this.mailState.currentId = draft.id;
+            this.mailState.lastSavedHtml = draft.html;
+            this.mailState.lastSavedSubject = draft.subject;
+            this.mailState.lastSavedName = draft.name;
+
+            document.getElementById('mailNameInput').value = draft.name;
+            document.getElementById('mailSubjectInput').value = draft.subject;
+            document.getElementById('mailHtmlSource').value = draft.html;
+
+            this.mailState.suppressChange = true;
+            if (this.mailState.quill) {
+                // Quill doesn't fully load an email HTML document - we feed it the inner body html
+                const bodyHtml = this.extractBodyHtml(draft.html);
+                this.mailState.quill.root.innerHTML = bodyHtml;
+            }
+            this.mailState.suppressChange = false;
+
+            this.renderMailDraftList();
+            this.showMailEditor(true);
+            this.refreshMailPreview();
+            this.setMailStatus('');
+            this.setMailSendInfo('');
+        } catch (err) {
+            this.showNotification(`Fehler beim Laden: ${err.message}`, 'error');
+        }
+    }
+
+    /** Quill works with body-level HTML. If the draft is a full <!DOCTYPE> document,
+     * pull out <body>...</body> for editing and re-wrap on save. */
+    extractBodyHtml(html) {
+        const match = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+        return match ? match[1] : html;
+    }
+
+    /** Collect the current HTML from whichever editor mode is active. In visual mode,
+     * we merge the Quill body content into the source textarea's current shell so that
+     * round-trip edits (source → visual → source) preserve the user's source changes. */
+    collectCurrentHtml() {
+        const src = document.getElementById('mailHtmlSource');
+        if (this.mailState.mode === 'source') {
+            return src.value;
+        }
+        if (!this.mailState.quill) {
+            return src.value;
+        }
+        const bodyContent = this.mailState.quill.root.innerHTML;
+        const shell = src.value || this.mailState.lastSavedHtml || '';
+        if (/<body[^>]*>[\s\S]*<\/body>/i.test(shell)) {
+            return shell.replace(/(<body[^>]*>)[\s\S]*(<\/body>)/i, `$1${bodyContent}$2`);
+        }
+        return bodyContent;
+    }
+
+    switchMailMode(mode) {
+        this.mailState.mode = mode;
+        const visualBtn = document.querySelector('.mail-mode-btn[data-mail-mode="visual"]');
+        const sourceBtn = document.querySelector('.mail-mode-btn[data-mail-mode="source"]');
+        const host = document.getElementById('mailQuillHost');
+        const src = document.getElementById('mailHtmlSource');
+
+        if (mode === 'visual') {
+            visualBtn?.classList.add('active');
+            sourceBtn?.classList.remove('active');
+            host.hidden = false;
+            src.hidden = true;
+            // pull HTML source back into Quill
+            this.mailState.suppressChange = true;
+            if (this.mailState.quill) {
+                const bodyHtml = this.extractBodyHtml(src.value);
+                this.mailState.quill.root.innerHTML = bodyHtml;
+            }
+            this.mailState.suppressChange = false;
+        } else {
+            sourceBtn?.classList.add('active');
+            visualBtn?.classList.remove('active');
+            host.hidden = true;
+            src.hidden = false;
+            // pull Quill content back into source (merged with shell)
+            src.value = this.collectCurrentHtml();
+        }
+        this.refreshMailPreview();
+    }
+
+    refreshMailPreview() {
+        const frame = document.getElementById('mailPreviewFrame');
+        if (!frame) return;
+        const html = this.collectCurrentHtml();
+        frame.srcdoc = html;
+    }
+
+    markMailDirty() {
+        this.setMailStatus('⚠️ Ungespeicherte Änderungen');
+    }
+
+    setMailStatus(text) {
+        const el = document.getElementById('mailEditorStatus');
+        if (el) el.textContent = text;
+    }
+
+    setMailSendInfo(text, kind = '') {
+        const el = document.getElementById('mailSendInfo');
+        if (!el) return;
+        el.textContent = text;
+        el.className = 'mail-sendinfo' + (kind ? ` ${kind}` : '');
+    }
+
+    showMailEditor(show) {
+        document.getElementById('mailEditorPane').hidden = !show;
+        document.getElementById('mailEmptyPane').hidden = show;
+    }
+
+    newMailDraft() {
+        const name = prompt('Name für den neuen Entwurf:', 'Neuer Entwurf');
+        if (!name) return;
+        const subject = prompt('Betreff der E-Mail:', '🏊 Poolparty 2026');
+        if (!subject) return;
+        const emptyHtml = '<!DOCTYPE html><html><body><p>Hier schreiben...</p></body></html>';
+        adminApi
+            .createMailDraft({ name, subject, html: emptyHtml })
+            .then(async (draft) => {
+                await this.refreshMailDrafts();
+                this.selectMailDraft(draft.id);
+                this.showNotification('Entwurf angelegt', 'success');
+            })
+            .catch((err) => this.showNotification(err.message, 'error'));
+    }
+
+    async saveCurrentMailDraft() {
+        if (this.mailState.currentId == null) return;
+        const name = document.getElementById('mailNameInput').value.trim();
+        const subject = document.getElementById('mailSubjectInput').value.trim();
+        const html = this.collectCurrentHtml();
+
+        if (!name || !subject || !html) {
+            this.showNotification('Name, Betreff und HTML sind Pflicht', 'error');
+            return;
+        }
+
+        try {
+            const updated = await adminApi.updateMailDraft(this.mailState.currentId, { name, subject, html });
+            this.mailState.lastSavedHtml = updated.html;
+            this.mailState.lastSavedSubject = updated.subject;
+            this.mailState.lastSavedName = updated.name;
+            // Also keep the visible source textarea in sync
+            document.getElementById('mailHtmlSource').value = updated.html;
+            this.setMailStatus('✅ Gespeichert');
+            this.showNotification('Draft gespeichert', 'success');
+            await this.refreshMailDrafts();
+        } catch (err) {
+            this.showNotification(`Fehler beim Speichern: ${err.message}`, 'error');
+        }
+    }
+
+    async sendCurrentMailTest() {
+        if (this.mailState.currentId == null) return;
+        if (!confirm('Test-Mail an dich selbst senden?')) return;
+        this.setMailSendInfo('Wird gesendet…');
+        try {
+            const result = await adminApi.sendMailDraftTest(this.mailState.currentId);
+            this.setMailSendInfo(`✅ Test-Mail verschickt an ${result.recipients.join(', ')}`, 'success');
+        } catch (err) {
+            this.setMailSendInfo(`❌ ${err.message}`, 'error');
+        }
+    }
+
+    async sendCurrentMailAll() {
+        if (this.mailState.currentId == null) return;
+        const count = this.state.data.account?.length ?? '?';
+        if (!confirm(`⚠️ Diese Mail wird an ALLE ${count} Accounts gesendet. Sicher?`)) return;
+        if (!confirm(`Absolut sicher? Tippe die Zahl ${count} um zu bestätigen.`)) return;
+        this.setMailSendInfo('Sende an alle Empfänger…');
+        try {
+            const result = await adminApi.sendMailDraftAll(this.mailState.currentId);
+            const msg = `✅ ${result.sent} gesendet, ${result.failed} fehlgeschlagen`;
+            this.setMailSendInfo(msg + (result.failed ? ` — Fehler: ${result.errors?.map((e) => e.email).join(', ') ?? ''}` : ''), result.failed ? 'error' : 'success');
+            await this.refreshMailDrafts();
+        } catch (err) {
+            this.setMailSendInfo(`❌ ${err.message}`, 'error');
+        }
+    }
+
+    async deleteCurrentMailDraft() {
+        if (this.mailState.currentId == null) return;
+        if (!confirm('Entwurf wirklich löschen? Kann nicht rückgängig gemacht werden.')) return;
+        try {
+            await adminApi.deleteMailDraft(this.mailState.currentId);
+            this.mailState.currentId = null;
+            this.showNotification('Entwurf gelöscht', 'success');
+            await this.refreshMailDrafts();
+            if (this.mailState.drafts.length === 0) this.showMailEditor(false);
+        } catch (err) {
+            this.showNotification(err.message, 'error');
+        }
+    }
+
+    escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
     }
 }
 
