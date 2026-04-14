@@ -2,24 +2,24 @@
   /* Hand-Drawn Design System */
 
   /* Primary color - accent for the event */
-  --primary-color: #ff4d4d;
+  --primary-color: #ff2d87;
   --primary-text-color: #2d2d2d;
-  --primary-text-hover-color: #ff4d4d;
+  --primary-text-hover-color: #ff2d87;
 
   /* Core palette */
   --paper: #fdfbf7;
   --paper-alt: #f7f3ec;
   --pencil: #2d2d2d;
   --muted: #e5e0d8;
-  --accent: #ff4d4d;
+  --accent: #ff2d87;
   --blue: #2d5da1;
-  --postit: #fff9c4;
-  --postit-dark: #f5e88c;
+  --postit: #ffe4f1;
+  --postit-dark: #ffb8d5;
 
   /* Semantic colors */
   --success: #4caf50;
   --success-light: #e8f5e9;
-  --error: #ff4d4d;
+  --error: #ff2d87;
   --error-light: #ffebee;
   --warning: #ff9800;
   --warning-light: #fff3e0;
@@ -57,7 +57,7 @@
   --shadow-lg: 8px 8px 0px 0px #2d2d2d;
   --shadow-hover: 2px 2px 0px 0px #2d2d2d;
   --shadow-active: 0px 0px 0px 0px #2d2d2d;
-  --shadow-accent: 4px 4px 0px 0px #ff4d4d;
+  --shadow-accent: 4px 4px 0px 0px #ff2d87;
   --shadow-blue: 4px 4px 0px 0px #2d5da1;
 
   /* Transitions */

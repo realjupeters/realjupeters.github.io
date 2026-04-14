@@ -45,6 +45,6 @@
       ]]>
     </style>
   </defs>
-  <path fill="#E0E722" d="M0,0H200V200H0" />
+  <path fill="#ff2d87" d="M0,0H200V200H0" />
   <path d="M0,0H60V200H0M60,100 200,0V200" />
 </svg> 

@@ -3,7 +3,7 @@ const AUTH_DOMAIN = 'https://jpCore.logge.top'
 const BASE_ENDPOINT_URL = AUTH_DOMAIN + '/api/'
 
 // Toggle this to swap between active and inactive mode
-const ACTIVE = false
+const ACTIVE = true
 
 if (ACTIVE) {
   document.documentElement.style.setProperty('--display-active', 'initial')
@@ -266,7 +266,7 @@ function createPhotos(year, count) {
   for (i = 1; i <= count; i++) {
     photosString += `
         <div>
-            <a data-fslightbox="gallery${year}" href="img/${year}/full/img${i}.jpg">
+            <a data-fslightbox="gallery${year}" href="img/${year}/large/img${i}.jpg">
                 <img src="img/${year}/thumb/img${i}.${imgType}" class="thumb" type="image/${imgType}" alt="Img${i}" onload='thumbnailHandler(this)'>
             </a>
         </div>

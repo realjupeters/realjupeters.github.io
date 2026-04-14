@@ -344,7 +344,7 @@ h1.caption {
   text-align: center;
   margin: 2rem 0 0.5rem;
   font-weight: 700;
-  color: var(--pencil);
+  color: var(--primary-color);
   transform: rotate(-2deg);
   position: relative;
   line-height: 1.1;
