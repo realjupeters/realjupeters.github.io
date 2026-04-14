@@ -3,13 +3,47 @@
  * ES6+ Class-based architecture with modern JavaScript patterns
  */
 
+import { getCurrentUser, isAdmin } from './api/session.js';
+import * as adminApi from './api/admin.js';
+
+// Adapters: the new backend returns field names that differ from what the rendering
+// code below expects. Rather than rewriting 500+ lines of UI code, we normalize the
+// payloads into the legacy shape on fetch.
+const adapt = {
+    account: (a) => ({
+        id: a.id,
+        name: a.name,
+        email: a.email,
+        verifiedMail: !!a.emailVerifiedAt,
+        roles: Array.isArray(a.roles) ? a.roles.join(', ') : '',
+        lastActivity: a.lastActivityAt,
+    }),
+    registration: (r) => ({
+        id: r.id,
+        accountId: r.accountId,
+        name: r.accountName ?? '',
+        people: r.peopleCount,
+        music: r.music,
+        lastActivity: r.updatedAt,
+    }),
+    item: (i) => ({
+        id: i.id,
+        itemName: i.itemName,
+        accountName: i.accountName,
+        accountId: i.accountId,
+        lastActivity: i.updatedAt,
+    }),
+    volunteer: (v) => ({
+        id: v.id,
+        accountId: v.accountId,
+        name: v.accountName ?? '',
+        duration: v.duration,
+        lastActivity: v.updatedAt,
+    }),
+};
+
 class PoolpartyAdmin {
     constructor() {
-        this.config = {
-            authDomain: 'https://jpCore.logge.top',
-            baseURL: 'https://jpCore.logge.top/api/'
-        };
-        
         this.state = {
             data: { account: [], registration: [], item: [], volunteer: [], music: [] },
             loading: new Set(),
@@ -22,16 +56,8 @@ class PoolpartyAdmin {
                 music: { column: null, direction: 'asc' }
             }
         };
-        
-        // Data mapping for API endpoints
-        this.dataMapping = {
-            account: { endpoint: 'admin/poolparty/account', key: 'account' },
-            registration: { endpoint: 'admin/poolparty/registration', key: 'registration' },
-            item: { endpoint: 'admin/poolparty/item', key: 'item' },
-            volunteer: { endpoint: 'admin/poolparty/volunteer', key: 'volunteer' }
-        };
-        
-        // Column mapping for sorting
+
+        // Column mapping for sorting (unchanged — keyed on legacy field names that adapt.* emits)
         this.columnMapping = {
             account: ['id', 'name', 'email', 'verifiedMail', 'roles', 'lastActivity'],
             registration: ['id', 'name', 'people', 'lastActivity'],
@@ -39,50 +65,41 @@ class PoolpartyAdmin {
             volunteer: ['id', 'name', 'duration', 'lastActivity'],
             music: ['id', 'name', 'music']
         };
-        
-        this.token = localStorage.getItem('token');
+
+        // Loader map: each section knows how to fetch + adapt its own data.
+        this.loaders = {
+            account: () => adminApi.listAccounts().then((rows) => rows.map(adapt.account)),
+            registration: () => adminApi.listRegistrations().then((rows) => rows.map(adapt.registration)),
+            item: () => adminApi.listItems().then((rows) => rows.map(adapt.item)),
+            volunteer: () => adminApi.listVolunteers().then((rows) => rows.map(adapt.volunteer)),
+        };
+
         this.init();
     }
 
     // 🚀 Initialize the application
     async init() {
-        if (!this.token) {
-            alert('No token present. Please login first.');
+        const user = await getCurrentUser().catch(() => null);
+        if (!user) {
+            alert('Bitte zuerst einloggen.');
             window.location.href = './login.html';
+            return;
+        }
+        if (!isAdmin(user)) {
+            alert('Kein Adminzugriff.');
+            window.location.href = './';
             return;
         }
 
         console.log('🔧 Initializing Poolparty Admin Dashboard...');
-        
+
         // Set initial loading states
         this.setLoading('music', true); // Music will be processed from registrations
-        
+
         this.setupEventListeners();
         await this.loadAllData();
-        
+
         console.log('🎉 Poolparty Admin Dashboard initialized!');
-    }
-
-    // 📡 API Methods
-    async apiCall(endpoint, options = {}) {
-        const defaultOptions = {
-            headers: { Authorization: this.token, 'Content-Type': 'application/json' },
-            ...options
-        };
-
-        try {
-            console.log(`📡 API Call: ${endpoint}`);
-            const response = await fetch(`${this.config.baseURL}${endpoint}`, defaultOptions);
-            const data = await response.json();
-            
-            if (!response.ok) throw new Error(data.message || `HTTP ${response.status}`);
-            console.log(`✅ API Success: ${endpoint}`);
-            return data;
-        } catch (error) {
-            console.error(`❌ API Error (${endpoint}):`, error);
-            this.showNotification(`Error: ${error.message}`, 'error');
-            throw error;
-        }
     }
 
     // ➕ Register User
@@ -111,19 +128,12 @@ class PoolpartyAdmin {
             return;
         }
 
-        const userData = {
-            name: nameValue,
-            email: emailValue,
-            password: passwordValue,
-        };
-        if (roleValue) {
-            userData.role = roleValue;
-        }
-
         try {
-            await this.apiCall('admin/register', {
-                method: 'POST',
-                body: JSON.stringify(userData)
+            await adminApi.createAccount({
+                name: nameValue,
+                email: emailValue,
+                password: passwordValue,
+                roles: roleValue ? [roleValue] : ['user'],
             });
             this.showNotification('User registered successfully!', 'success');
             
@@ -157,20 +167,20 @@ class PoolpartyAdmin {
     // 📊 Data Loading
     async loadAllData() {
         console.log('📊 Loading all data...');
-        const sections = Object.keys(this.dataMapping);
+        const sections = Object.keys(this.loaders);
 
         const promises = sections.map(async (section) => {
-            const { endpoint } = this.dataMapping[section];
             this.setLoading(section, true);
-            
             try {
                 console.log(`Loading ${section}...`);
-                const data = await this.apiCall(endpoint);
-                this.state.data[section] = Array.isArray(data) ? 
-                    data.sort((a, b) => (b.lastActivity || 0) - (a.lastActivity || 0)) : [];
+                const data = await this.loaders[section]();
+                this.state.data[section] = Array.isArray(data)
+                    ? data.sort((a, b) => (b.lastActivity || 0) - (a.lastActivity || 0))
+                    : [];
                 console.log(`✅ ${section} loaded: ${this.state.data[section].length} items`);
             } catch (error) {
                 console.warn(`⚠️ Failed to load ${section}:`, error);
+                this.showNotification(`Error loading ${section}: ${error.message}`, 'error');
                 this.state.data[section] = [];
             } finally {
                 this.setLoading(section, false);
@@ -505,15 +515,15 @@ class PoolpartyAdmin {
     }
 
     async deleteItem(type, id) {
-        const endpoints = {
-            registration: `admin/poolparty/registration/${id}`,
-            item: `admin/poolparty/item/${id}`,
-            volunteer: `admin/poolparty/volunteer/${id}`,
-            account: `admin/register/${id}` // Changed line
+        const deleteFns = {
+            registration: adminApi.deleteRegistration,
+            item: adminApi.deleteItem,
+            volunteer: adminApi.deleteVolunteer,
+            account: adminApi.deleteAccount,
         };
 
         try {
-            await this.apiCall(endpoints[type], { method: 'DELETE' });
+            await deleteFns[type](id);
             
             // Update local data
             this.state.data[type] = this.state.data[type].filter(item => item.id !== id);
@@ -573,9 +583,9 @@ class PoolpartyAdmin {
         // Show progress notification
         this.showNotification(`Deleting ${totalCount} ${type}(s)... Please wait.`, 'info');
         
-        const endpoints = {
-            registration: 'admin/poolparty/registration',
-            volunteer: 'admin/poolparty/volunteer'
+        const deleteFns = {
+            registration: adminApi.deleteRegistration,
+            volunteer: adminApi.deleteVolunteer,
         };
 
         let successCount = 0;
@@ -586,10 +596,10 @@ class PoolpartyAdmin {
         const batchSize = 5;
         for (let i = 0; i < items.length; i += batchSize) {
             const batch = items.slice(i, i + batchSize);
-            
+
             const batchPromises = batch.map(async (item) => {
                 try {
-                    await this.apiCall(`${endpoints[type]}/${item.id}`, { method: 'DELETE' });
+                    await deleteFns[type](item.id);
                     successCount++;
                     console.log(`✅ Deleted ${type} ${item.id}: ${item.name}`);
                 } catch (error) {
@@ -648,11 +658,7 @@ class PoolpartyAdmin {
         }
 
         try {
-            const result = await this.apiCall('admin/poolparty/item', {
-                method: 'POST',
-                body: JSON.stringify({ name })
-            });
-
+            await adminApi.createItem(name);
             input.value = '';
             await this.loadItems();
             this.showNotification('Item added successfully', 'success');
@@ -664,8 +670,10 @@ class PoolpartyAdmin {
     async loadItems() {
         this.setLoading('item', true);
         try {
-            const data = await this.apiCall('admin/poolparty/item');
-            this.state.data.item = Array.isArray(data) ? data.sort((a, b) => (b.lastActivity || 0) - (a.lastActivity || 0)) : [];
+            const data = await this.loaders.item();
+            this.state.data.item = Array.isArray(data)
+                ? data.sort((a, b) => (b.lastActivity || 0) - (a.lastActivity || 0))
+                : [];
             this.renderTable('item');
             this.updateStats();
         } finally {
@@ -867,7 +875,7 @@ Das Poolparty Team`);
                                 // For 'register' tab, content is static, ensure no loading indicators interfere
                                 console.log(`✅ 'register' tab is static, no table rendering needed.`);
                                 // Hide any potential loading spinners for other sections if they were active
-                                Object.keys(this.dataMapping).forEach(key => this.setLoading(key, false));
+                                Object.keys(this.loaders).forEach(key => this.setLoading(key, false));
                                 this.setLoading('music', false); // music is special
                             }
                         }, 100);

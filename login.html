@@ -1,27 +1,94 @@
 <!DOCTYPE html>
 <html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Login · Poolparty 2026</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <meta name="theme-color" content="#fdfbf7" />
+  </head>
+  <body>
+    <nav class="border split-nav fixed">
+      <div class="nav-brand">
+        <h3><a href="/">JP Poolparty</a></h3>
+      </div>
+    </nav>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Poolparty 2020</title>
+    <div class="paper">
+      <div class="row flex-center">
+        <h1 class="caption">Login</h1>
+      </div>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/login.css">
+      <form id="loginForm" autocomplete="on" novalidate>
+        <div class="form-section">
+          <div class="form-group">
+            <label for="emailInput">E-Mail</label>
+            <input
+              id="emailInput"
+              class="input-block"
+              type="email"
+              name="email"
+              autocomplete="username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="passwordInput">Passwort</label>
+            <input
+              id="passwordInput"
+              class="input-block"
+              type="password"
+              name="password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
 
-    <meta name="theme-color" content="#ffffff">
-</head>
+          <div id="loginError" class="alert" style="display:none;color:var(--accent);font-weight:bold;margin-top:1rem;"></div>
 
-<body>
+          <div class="form-actions">
+            <button type="submit" class="btn-large btn-block btn-cta" id="submitLogin">
+              Einloggen
+            </button>
+          </div>
 
-    <div class="paper margin-none">
-        <h1>
-            Wird angemeldet <div class="spin">😊</div>
-        </h1>
-        <div class="progress margin-bottom">
-            <div class="bar success w-20" id="progress"></div>
+          <p style="text-align:center;margin-top:1.5rem;font-size:1rem;">
+            <a href="/forgot-password.html">Passwort vergessen?</a>
+          </p>
         </div>
+      </form>
     </div>
-    <script src="js/login.js"></script>
-</body>
+
+    <script type="module">
+      import { login } from './js/api/auth.js';
+      import { ApiError } from './js/api/client.js';
+
+      const form = document.getElementById('loginForm');
+      const errorEl = document.getElementById('loginError');
+      const submitBtn = document.getElementById('submitLogin');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorEl.style.display = 'none';
+        submitBtn.disabled = true;
+        const originalLabel = submitBtn.innerText;
+        submitBtn.innerText = 'Wird angemeldet…';
+
+        const email = document.getElementById('emailInput').value.trim();
+        const password = document.getElementById('passwordInput').value;
+
+        try {
+          await login(email, password);
+          window.location.href = '/';
+        } catch (err) {
+          errorEl.textContent =
+            err instanceof ApiError ? err.message : 'Unbekannter Fehler beim Anmelden.';
+          errorEl.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.innerText = originalLabel;
+        }
+      });
+    </script>
+  </body>
+</html>

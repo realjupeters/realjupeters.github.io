@@ -1,460 +1,378 @@
-const AUTH_DOMAIN = 'https://jpCore.logge.top'
-// const AUTH_DOMAIN = 'http://localhost:3000'
-const BASE_ENDPOINT_URL = AUTH_DOMAIN + '/api/'
+import { getCurrentUser, logout as sessionLogout, isAdmin } from './api/session.js';
+import {
+  listItems,
+  getMe as getPoolpartyMe,
+  createRegistration,
+  updateRegistration,
+  deleteRegistration,
+  createVolunteer,
+  deleteVolunteer,
+} from './api/poolparty.js';
+import { ApiError } from './api/client.js';
 
+// ===== Active / inactive toggle =====
 // Toggle this to swap between active and inactive mode
-const ACTIVE = true
+const ACTIVE = true;
 
 if (ACTIVE) {
-  document.documentElement.style.setProperty('--display-active', 'initial')
-  document.documentElement.style.setProperty('--display-inactive', 'none')
+  document.documentElement.style.setProperty('--display-active', 'initial');
+  document.documentElement.style.setProperty('--display-inactive', 'none');
 } else {
-  document.documentElement.style.setProperty('--display-active', 'none')
-  document.documentElement.style.setProperty('--display-inactive', 'initial')
+  document.documentElement.style.setProperty('--display-active', 'none');
+  document.documentElement.style.setProperty('--display-inactive', 'initial');
 }
 
-function jsonToQS(json) {
-  var qs = []
-  for (element in json) {
-    qs.push(element + '=' + json[element])
-  }
-  return '?' + qs.join('&')
-}
+// ===== Auth UI glue =====
+// Expose cloudAuth / handleLogout on window so existing inline onclicks in index.html still resolve.
+window.cloudAuth = function cloudAuth() {
+  window.location.href = '/login.html';
+};
+window.handleLogout = async function handleLogout() {
+  await sessionLogout();
+  window.location.reload();
+};
 
-// Populate Select with items
-function fillSelect(elements) {
-  var input = document.getElementById('mitbringenInput')
-  if (!input) return
-  // Sort by name
-  elements.sort((a, b) => (a.name > b.name ? 1 : -1))
-  console.log(elements)
-  for (i = 0; i < elements.length; i++) {
-    if (!elements[i]) continue
-    var option = document.createElement('option')
-    option.setAttribute('value', elements[i]._id)
-    option.innerText = elements[i].name
-    input.append(option)
-  }
-}
+// ===== Page bootstrap (auth + poolparty state) =====
+if (ACTIVE) {
+  (async () => {
+    let user;
+    try {
+      user = await getCurrentUser();
+    } catch (err) {
+      console.error('Failed to fetch current user', err);
+      return;
+    }
+    if (!user) return;
 
-var token = localStorage.getItem('token')
-var email, name
-if (token && ACTIVE) {
-  try {
-    ;(async () => {
-      const { id, email, name, roles } = JSON.parse(atob(token.split('.')[1]))
+    document.getElementById('personName').innerText =
+      'Eingeloggt als ' + user.name + ' (' + user.email + ').';
 
-      if (!id || !email || !name) {
-        localStorage.removeItem('token')
-        alert('Altes Token Format. Bitte neu anmelden!')
-        window.reload(true)
+    document.body.classList.add('signedIn');
+    if (isAdmin(user)) {
+      document.body.classList.add('admin');
+    }
+
+    let me;
+    try {
+      me = await getPoolpartyMe();
+    } catch (err) {
+      console.error('Failed to fetch poolparty state', err);
+      return;
+    }
+
+    const { item, registration, volunteer } = me;
+
+    if (registration && item) {
+      document.getElementById('volunteerForm').style.display = '';
+
+      async function unregister() {
+        try {
+          await deleteRegistration();
+          alert('Dein Registrierungsstatus wurde erfolgreich gelöscht.');
+          location.reload();
+        } catch (err) {
+          alert(err.message);
+        }
       }
 
-      document.getElementById('personName').innerText =
-        'Eingeloggt als ' + name + ' (' + email + ').'
+      const anmeldenForm = document.getElementById('anmeldenForm');
+      anmeldenForm.innerHTML =
+        '<div class="alert alert-success"><b>Du hast dich am ' +
+        new Date(registration.updatedAt).toLocaleDateString() +
+        ' mit ' +
+        registration.peopleCount +
+        ' Person' +
+        (registration.peopleCount > 1 ? 'en' : '') +
+        ' angemeldet. Du bringst "' +
+        item.name +
+        '" mit.</b></div>' +
+        '<div class="form-section"><h3>Änderungen:</h3>' +
+        anmeldenForm.innerHTML +
+        '</div>';
 
-      document.body.classList.add('signedIn')
-      if (roles == 'admin') {
-        document.body.classList.add('admin')
+      const abmeldenButton = document.createElement('button');
+      abmeldenButton.innerText = 'Anmeldung zurückziehen';
+      abmeldenButton.className = 'btn-danger';
+      abmeldenButton.onclick = () => {
+        abmeldenButton.className = 'btn-danger';
+        abmeldenButton.innerText = 'Sicher?';
+        abmeldenButton.onclick = () => unregister();
+      };
+
+      const formActions = anmeldenForm.querySelector('.form-actions');
+      if (formActions) {
+        formActions.appendChild(abmeldenButton);
+      } else {
+        anmeldenForm.append(abmeldenButton);
       }
 
-      const response = await fetch(BASE_ENDPOINT_URL + 'private/poolparty/me', {
-        method: 'get',
-        headers: new Headers({
-          Authorization: token,
-        }),
-      })
-      const data = await response.json()
-
-      const { item, registration, volunteer } = data
-
-      if (registration && item) {
-        document.getElementById('volunteerForm').style.display = ''
-
-        async function unregister() {
-          const unregisterResp = await fetch(
-            BASE_ENDPOINT_URL + 'private/poolparty/registration',
-            {
-              method: 'DELETE',
-              headers: new Headers({
-                Authorization: token,
-              }),
-            }
-          )
-          const success = await unregisterResp.json()
-          if (success) {
-            alert('Dein Registrierungsstatus wurde erfolgreich gelöscht.')
-            location.reload(true)
+      if (volunteer) {
+        async function volunteerAbmelden() {
+          try {
+            await deleteVolunteer();
+            alert('Dein Registrierungsstatus wurde erfolgreich gelöscht.');
+            location.reload();
+          } catch (err) {
+            alert(err.message);
           }
         }
 
-        var anmeldenForm = document.getElementById('anmeldenForm')
-        anmeldenForm.innerHTML =
-          '<div class="alert alert-success"><b>Du hast dich am ' +
-          new Date(registration.lastActivity).toLocaleDateString() +
-          ' mit ' +
-          registration.people +
-          ' Person' +
-          (registration.people > 0 ? 'en' : '') +
-          ' angemeldet. Du bringst "' +
-          item.name +
-          '" mit.</b></div>' +
-          '<div class="form-section"><h3>Änderungen:</h3>' +
-          anmeldenForm.innerHTML.replace('<div class="form-actions">', '<div class="form-actions">') +
-          '</div>'
-        
-        var abmeldenButon = document.createElement('button')
-        abmeldenButon.innerText = 'Anmeldung zurückziehen'
-        abmeldenButon.className = 'btn-danger'
-        abmeldenButon.onclick = () => {
-          abmeldenButon.className = 'btn-danger'
-          abmeldenButon.innerText = 'Sicher?'
-          abmeldenButon.onclick = () => unregister()
-        }
-        
-        // Add the button to the form actions
-        const formActions = anmeldenForm.querySelector('.form-actions')
-        if (formActions) {
-          formActions.appendChild(abmeldenButon)
-        } else {
-          anmeldenForm.append(abmeldenButon)
-        }
+        const volunteerForm = document.getElementById('volunteerForm');
+        volunteerForm.innerHTML =
+          '<h3>Volunteer Status</h3>' +
+          '<div class="alert alert-success">Du hast dich am ' +
+          new Date(volunteer.updatedAt).toLocaleDateString() +
+          ' mit einer Dauer von "' +
+          volunteer.duration +
+          '" angemeldet.</div>' +
+          '<div class="form-actions"></div>';
 
-        if (volunteer) {
-          async function volunteerAbmelden() {
-            const volunteerResp = await fetch(
-              BASE_ENDPOINT_URL + 'private/poolparty/volunteer',
-              {
-                method: 'DELETE',
-                headers: new Headers({
-                  Authorization: token,
-                }),
-              }
-            )
-            const success = await volunteerResp.json()
-            if (success) {
-              alert('Dein Registrierungsstatus wurde erfolgreich gelöscht.')
-              location.reload(true)
-            }
+        const button = document.createElement('button');
+        button.innerText = 'Volunteer Anmeldung zurückziehen';
+        button.className = 'btn-warning';
+        button.onclick = () => {
+          button.className = 'btn-danger';
+          button.innerText = 'Sicher?';
+          button.onclick = () => volunteerAbmelden();
+        };
+
+        volunteerForm.querySelector('.form-actions').appendChild(button);
+      } else {
+        document.getElementById('submitVolunteer').onclick = () => {
+          const duration = document.getElementById('durationInput').value;
+          if (duration.length < 3 || duration.length > 512) {
+            document.getElementById('durationInput').classList.add('invalid');
+            return;
           }
+          document.getElementById('durationInput').classList.remove('invalid');
 
-          var volunteerForm = document.getElementById('volunteerForm')
-          volunteerForm.innerHTML =
-            '<h3>Volunteer Status</h3>' +
-            '<div class="alert alert-success">Du hast dich am ' +
-            new Date(volunteer.lastActivity).toLocaleDateString() +
-            ' mit einer Dauer von "' +
-            volunteer.duration +
-            '" angemeldet.</div>' +
-            '<div class="form-actions"></div>'
-          
-          var button = document.createElement('button')
-          button.innerText = 'Volunteer Anmeldung zurückziehen'
-          button.className = 'btn-warning'
-          button.onclick = () => {
-            button.className = 'btn-danger'
-            button.innerText = 'Sicher?'
-            button.onclick = () => volunteerAbmelden()
-          }
-          
-          const formActions = volunteerForm.querySelector('.form-actions')
-          formActions.appendChild(button)
-        } else {
-          document.getElementById('submitVolunteer').onclick = () => {
-            var duration = document.getElementById('durationInput').value
-            if (duration.length < 3 || duration.length > 512)
-              return document
-                .getElementById('durationInput')
-                .classList.add('invalid')
-            else
-              document
-                .getElementById('durationInput')
-                .classList.remove('invalid')
-
-            sendHandler({
-              path: 'private/poolparty/volunteer',
-              method: 'POST',
-              data: { duration },
-            })
-          }
-        }
+          sendHandler({
+            kind: 'volunteer',
+            data: { duration },
+          });
+        };
       }
+    }
 
-      const itemInput = document.getElementById('itemInput')
+    const itemInput = document.getElementById('itemInput');
 
-      const itemResponse = await fetch(
-        BASE_ENDPOINT_URL + 'private/poolparty/item',
-        {
-          method: 'get',
-          headers: new Headers({
-            Authorization: token,
-          }),
-        }
-      )
+    let items;
+    try {
+      items = await listItems();
+    } catch (err) {
+      console.error('Failed to fetch item list', err);
+      items = [];
+    }
 
-      const items = await itemResponse.json()
+    items.sort((a, b) => (a.name > b.name ? 1 : -1));
 
-      // Sort by name
-      items.sort((a, b) => (a.name > b.name ? 1 : -1))
+    for (const it of items) {
+      const opt = document.createElement('option');
+      opt.value = it.id;
+      opt.innerHTML = it.name;
+      itemInput.appendChild(opt);
+    }
 
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i]
-        const opt = document.createElement('option')
-        opt.value = item.id
-        opt.innerHTML = item.name // whatever property it has
-        itemInput.appendChild(opt)
+    if (item && registration) {
+      document.getElementById('submitRegistration').innerText = 'Anmeldung anpassen';
+      document.getElementById('submitRegistration').classList.add('btn-warning');
+      document.getElementById('peopleInput').value = registration.peopleCount;
+      document.getElementById('musicInput').value = registration.music ?? '';
+
+      // Inject the currently-held item so the select shows it as selected
+      itemInput.children[0].selected = true;
+      itemInput.children[0].innerText = item.name;
+      itemInput.children[0].value = item.id;
+      itemInput.children[0].disabled = false;
+      itemInput.value = item.id;
+
+      document.querySelector('.modal-title').innerText = 'Anmeldung anpassen';
+      document.querySelector('.modal button').innerText = 'Anpassen';
+    }
+
+    document.getElementById('submitRegistration').onclick = () => {
+      const itemId = Number(itemInput.value);
+      const peopleCount = Number(document.getElementById('peopleInput').value);
+      const music = document.getElementById('musicInput').value;
+
+      if (!itemId) {
+        itemInput.classList.add('invalid');
+        return;
       }
-
-      if (item && registration) {
-        document.getElementById('submitRegistration').innerText =
-          'Anmeldung anpassen'
-        document
-          .getElementById('submitRegistration')
-          .classList.add('btn-warning')
-        document.getElementById('peopleInput').value = registration.people
-        document.getElementById('musicInput').value = registration.music
-
-        // Inject item id
-        const itemInput = document.getElementById('itemInput')
-        // Change first option to selected
-        itemInput.children[0].selected = true
-        itemInput.children[0].innerText = item.name
-        itemInput.children[0].value = item.id
-        itemInput.children[0].disabled = false
-
-        console.log(item)
-        document.getElementById('itemInput').value = item.id
-
-        document.querySelector('.modal-title').innerText = 'Anmeldung anpassen'
-        document.querySelector('.modal button').innerText = 'Anpassen'
+      itemInput.classList.remove('invalid');
+      if (!peopleCount || peopleCount < 1 || peopleCount > 2) {
+        document.getElementById('peopleInput').classList.add('invalid');
+        return;
       }
+      document.getElementById('peopleInput').classList.remove('invalid');
 
-      // Create or update registration
-      document.getElementById('submitRegistration').onclick = () => {
-        const itemID = itemInput.value
-        const people = Number(document.getElementById('peopleInput').value)
-        const music = document.getElementById('musicInput').value
-
-        console.log(itemID, people, music)
-
-        if (!Number(itemID)) return itemInput.classList.add('invalid')
-        itemInput.classList.remove('invalid')
-        if (!people)
-          return document.getElementById('peopleInput').classList.add('invalid')
-        if (people < 1 || people > 2)
-          return document.getElementById('peopleInput').classList.add('invalid')
-        document.getElementById('peopleInput').classList.remove('invalid')
-
-        sendHandler({
-          path: 'private/poolparty/registration',
-          method: registration && item ? 'PATCH' : 'POST', // If item is already set, update, else create
-          data: { people, itemID, music },
-        })
-      }
-    })()
-    // End of async block
-  } catch (e) {
-    alert('Etwas ist schief gelaufen...')
-    console.error(e)
-  }
+      sendHandler({
+        kind: 'registration',
+        mode: registration && item ? 'update' : 'create',
+        data: { peopleCount, itemId, music },
+      });
+    };
+  })();
 }
 
-
+// ===== Photo gallery =====
 function createPhotos(year, count) {
-  var photos = document.getElementById('photos' + year)
-  let photosString = ''
-  for (i = 1; i <= count; i++) {
+  const photos = document.getElementById('photos' + year);
+  let photosString = '';
+  for (let i = 1; i <= count; i++) {
     photosString += `
         <div>
             <a data-fslightbox="gallery${year}" href="img/${year}/large/img${i}.jpg">
                 <img src="img/${year}/thumb/img${i}.${imgType}" class="thumb" type="image/${imgType}" alt="Img${i}" onload='thumbnailHandler(this)'>
             </a>
         </div>
-        `
+        `;
   }
-  photos.innerHTML = photosString
+  photos.innerHTML = photosString;
 }
 
-function thumbnailHandler(elem) {
+// Exposed on window so the inline onload="thumbnailHandler(this)" in the gallery HTML keeps working.
+window.thumbnailHandler = function thumbnailHandler(elem) {
   if (elem.src.includes('/thumb/')) {
-    const width = elem.width * window.devicePixelRatio || 1
-    let size = 'large'
-    if (width > 600) {
-      size = 'large'
-    } else if (width > 400) {
-      size = 'medium'
-    } else {
-      size = 'small'
-    }
-    elem.setAttribute('src', elem.src.replace('thumb', size))
+    const width = elem.width * window.devicePixelRatio || 1;
+    let size = 'large';
+    if (width > 600) size = 'large';
+    else if (width > 400) size = 'medium';
+    else size = 'small';
+    elem.setAttribute('src', elem.src.replace('thumb', size));
   } else {
-    elem.classList.remove('thumb')
+    elem.classList.remove('thumb');
   }
-}
+};
 
-function cloudAuth() {
-  window.location = AUTH_DOMAIN + '/login.html'
-}
+let imgType = 'jpg';
+createPhotos(2025, 10);
+createPhotos(2024, 13);
+createPhotos(2023, 15);
+createPhotos(2022, 12);
+createPhotos(2021, 18);
+createPhotos(2020, 25);
+createPhotos(2019, 18);
+createPhotos(2018, 7);
 
-let imgType = 'jpg'
-createPhotos(2025, 10)
-createPhotos(2024, 13)
-createPhotos(2023, 15)
-createPhotos(2022, 12)
-createPhotos(2021, 18)
-createPhotos(2020, 25)
-createPhotos(2019, 18)
-createPhotos(2018, 7)
+// ===== Submit modal =====
+let submitData;
 
-var submitData
+function sendHandler(submission) {
+  submitData = submission;
 
-function sendHandler(data) {
-  submitData = data
-
-  var str = ''
-  for (key in submitData.data) {
-    switch (key) {
-      case 'people':
-        str += `Personen: ${submitData.data[key]}\n`
-        break
-      case 'itemID':
-        if (
-          document.querySelector(
-            '#itemInput option[value="' + submitData.data[key] + '"]'
-          )
-        )
-          break
-        const itemName = document.querySelector(
-          '#itemInput option[value="' + submitData.data[key] + '"]'
-        ).innerText
-        str += `Mitbringen: ${itemName}\n`
-        break
-      case 'music':
-        str += `Musik: ${submitData.data[key]}\n`
-        break
-      case 'duration':
-        str += `Dauer: ${submitData.data[key]}\n`
-    }
-    // str += key + ': ' + submitData.data[key] + '\n'
+  let str = '';
+  if (submission.kind === 'registration') {
+    const d = submission.data;
+    const itemOpt = document.querySelector(`#itemInput option[value="${d.itemId}"]`);
+    if (itemOpt) str += `Mitbringen: ${itemOpt.innerText}\n`;
+    str += `Personen: ${d.peopleCount}\n`;
+    if (d.music) str += `Musik: ${d.music}\n`;
+  } else if (submission.kind === 'volunteer') {
+    str += `Dauer: ${submission.data.duration}\n`;
   }
-  document.getElementById('confirmationData').innerText = str
-  showModal(data)
+
+  document.getElementById('confirmationData').innerText = str;
+  showModal();
 }
 
-var modalState = document.getElementById('confirmModal')
-var closeTimer
+const modalState = document.getElementById('confirmModal');
+let closeTimer;
 
 modalState.addEventListener('change', function (e) {
-  if (!event.target.checked) {
-    // window.location.reload(true)
-    hideModal()
-  }
-})
+  if (!e.target.checked) hideModal();
+});
 
 function hideModal() {
-  //window.location.reload(true)
-  if (closeTimer) clearInterval(closeTimer)
-  modalState.checked = false
-  progress.style.visibility = 'hidden'
-  success.style.display = 'none'
-  error.style.display = 'none'
-  progress.children[0].className = 'bar success w-0'
-  progress.children[0].style.width = '0%'
+  if (closeTimer) clearInterval(closeTimer);
+  modalState.checked = false;
+  progress.style.visibility = 'hidden';
+  success.style.display = 'none';
+  error.style.display = 'none';
+  progress.children[0].className = 'bar success w-0';
+  progress.children[0].style.width = '0%';
 }
 
 function showModal() {
-  modalState.checked = true
+  modalState.checked = true;
 }
 
-var progress = document.getElementById('progress')
-var success = document.getElementById('success')
-var error = document.getElementById('error')
+const progress = document.getElementById('progress');
+const success = document.getElementById('success');
+const error = document.getElementById('error');
 
-// Send Data to Backend
-function submitModal() {
-  console.log('Daten in DB eintragen: ' + JSON.stringify(submitData.data))
-  progress.style.visibility = 'visible'
-  progress.children[0].style.width = '100%'
-  fetch(BASE_ENDPOINT_URL + submitData.path, {
-    method: submitData.method,
-    headers: new Headers({
-      Authorization: token,
-    }),
-    body: new URLSearchParams(jsonToQS(submitData.data)),
-  })
-    .then((response) =>
-      response.json().then((json) => {
-        modalFeedback(json)
-      })
-    )
-    .catch(console.error)
-}
+// ===== Submit to backend =====
+// Exposed on window so the existing inline onclick="submitModal()" in index.html still resolves.
+window.submitModal = async function submitModal() {
+  if (!submitData) return;
+  progress.style.visibility = 'visible';
+  progress.children[0].style.width = '100%';
 
-// Answer from Backend
+  try {
+    if (submitData.kind === 'registration') {
+      if (submitData.mode === 'update') await updateRegistration(submitData.data);
+      else await createRegistration(submitData.data);
+    } else if (submitData.kind === 'volunteer') {
+      await createVolunteer(submitData.data.duration);
+    }
+    modalFeedback({ success: 'Erfolgreich gespeichert' });
+  } catch (err) {
+    modalFeedback({ error: err instanceof ApiError ? err.message : 'Fehler beim Senden' });
+  }
+};
+
 function modalFeedback(data) {
   if (data.error) {
-    error.style.display = 'block'
-    error.innerText = data.error
-    progress.children[0].className = 'bar danger w-0'
+    error.style.display = 'block';
+    error.innerText = data.error;
+    progress.children[0].className = 'bar danger w-0';
   } else {
-    success.style.display = 'block'
-    success.innerText = data.success
+    success.style.display = 'block';
+    success.innerText = data.success;
   }
-  closeTimer = setTimeout(function () {
-    window.location.reload(true)
-  }, 3000)
+  closeTimer = setTimeout(() => {
+    window.location.reload();
+  }, 3000);
 }
 
-if (!submitData) hideModal()
+if (!submitData) hideModal();
 
 console.info(`Wilkommen in der Entewicklerkonsole
     ,~~.
     (  6 )-_,
-(\___ )=='-'
-\ .   ) )
- \ \`- ' /    
+(\\___ )=='-'
+\\ .   ) )
+ \\ \`- ' /
 ~'\`~'\`~'\`~'\`~
-    
-Falls dir WebDev auch Spaß macht schreib mir doch auf Discord: logge.top`)
 
-// Mobile Navigation Enhancements
-document.addEventListener('DOMContentLoaded', function() {
+Falls dir WebDev auch Spaß macht schreib mir doch auf Discord: logge.top`);
+
+// ===== Mobile nav =====
+document.addEventListener('DOMContentLoaded', function () {
   const mobileNavCheckbox = document.getElementById('collapsibleMenu');
   const navLinks = document.querySelectorAll('.collapsible-body a');
-  
-  // Close mobile nav when clicking any navigation link
-  navLinks.forEach(link => {
-    link.addEventListener('click', function() {
-      if (window.innerWidth <= 768) {
-        mobileNavCheckbox.checked = false;
-      }
+
+  navLinks.forEach((link) => {
+    link.addEventListener('click', function () {
+      if (window.innerWidth <= 768) mobileNavCheckbox.checked = false;
     });
   });
-  
-  // Close mobile nav when clicking outside (on page content)
-  document.addEventListener('click', function(e) {
+
+  document.addEventListener('click', function (e) {
     if (window.innerWidth <= 768 && mobileNavCheckbox.checked) {
       const navElement = document.querySelector('.collapsible');
       const navBody = document.querySelector('.collapsible-body');
-      
-      // If click is outside the navigation area, close it
       if (!navElement.contains(e.target) && !navBody.contains(e.target)) {
         mobileNavCheckbox.checked = false;
       }
     }
   });
-  
-  // Prevent body scroll when mobile nav is open
-  mobileNavCheckbox.addEventListener('change', function() {
-    if (this.checked) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+
+  mobileNavCheckbox.addEventListener('change', function () {
+    document.body.style.overflow = this.checked ? 'hidden' : '';
   });
-  
-  // Close nav on window resize if moving to desktop
-  window.addEventListener('resize', function() {
+
+  window.addEventListener('resize', function () {
     if (window.innerWidth > 768 && mobileNavCheckbox.checked) {
       mobileNavCheckbox.checked = false;
       document.body.style.overflow = '';
