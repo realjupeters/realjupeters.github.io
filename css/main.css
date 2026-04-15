@@ -1804,3 +1804,41 @@ h2::after {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--pencil);
 }
+
+/* ===== Toast notifications ===== */
+.toast {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-family: 'Kalam', cursive;
+  font-size: 1rem;
+  color: #fff;
+  opacity: 0;
+  transform: translateX(60px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  max-width: 360px;
+  word-wrap: break-word;
+}
+
+.toast-show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast-success {
+  background: var(--accent);
+}
+
+.toast-error {
+  background: #e74c3c;
+}
+
+#toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

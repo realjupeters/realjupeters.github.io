@@ -11,7 +11,6 @@ import {
 import { ApiError } from './api/client.js';
 
 // ===== Active / inactive toggle =====
-// Toggle this to swap between active and inactive mode
 const ACTIVE = true;
 
 if (ACTIVE) {
@@ -22,8 +21,28 @@ if (ACTIVE) {
   document.documentElement.style.setProperty('--display-inactive', 'initial');
 }
 
+// ===== Toast system =====
+function showToast(message, type = 'success') {
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    container.style.cssText = 'position:fixed;top:20px;right:20px;z-index:99999;display:flex;flex-direction:column;gap:8px;';
+    document.body.appendChild(container);
+  }
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  container.appendChild(toast);
+  // Trigger animation
+  requestAnimationFrame(() => toast.classList.add('toast-show'));
+  setTimeout(() => {
+    toast.classList.remove('toast-show');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
 // ===== Auth UI glue =====
-// Expose cloudAuth / handleLogout on window so existing inline onclicks in index.html still resolve.
 window.cloudAuth = function cloudAuth() {
   window.location.href = '/login.html';
 };
@@ -65,16 +84,6 @@ if (ACTIVE) {
     if (registration && item) {
       document.getElementById('volunteerForm').style.display = '';
 
-      async function unregister() {
-        try {
-          await deleteRegistration();
-          alert('Dein Registrierungsstatus wurde erfolgreich gelöscht.');
-          location.reload();
-        } catch (err) {
-          alert(err.message);
-        }
-      }
-
       const anmeldenForm = document.getElementById('anmeldenForm');
       anmeldenForm.innerHTML =
         '<div class="alert alert-success"><b>Du hast dich am ' +
@@ -94,9 +103,16 @@ if (ACTIVE) {
       abmeldenButton.innerText = 'Anmeldung zurückziehen';
       abmeldenButton.className = 'btn-danger';
       abmeldenButton.onclick = () => {
-        abmeldenButton.className = 'btn-danger';
         abmeldenButton.innerText = 'Sicher?';
-        abmeldenButton.onclick = () => unregister();
+        abmeldenButton.onclick = async () => {
+          try {
+            await deleteRegistration();
+            showToast('Anmeldung erfolgreich zurückgezogen');
+            setTimeout(() => location.reload(), 1500);
+          } catch (err) {
+            showToast(err instanceof ApiError ? err.message : 'Fehler beim Abmelden', 'error');
+          }
+        };
       };
 
       const formActions = anmeldenForm.querySelector('.form-actions');
@@ -107,16 +123,6 @@ if (ACTIVE) {
       }
 
       if (volunteer) {
-        async function volunteerAbmelden() {
-          try {
-            await deleteVolunteer();
-            alert('Dein Registrierungsstatus wurde erfolgreich gelöscht.');
-            location.reload();
-          } catch (err) {
-            alert(err.message);
-          }
-        }
-
         const volunteerForm = document.getElementById('volunteerForm');
         volunteerForm.innerHTML =
           '<h3>Volunteer Status</h3>' +
@@ -133,12 +139,21 @@ if (ACTIVE) {
         button.onclick = () => {
           button.className = 'btn-danger';
           button.innerText = 'Sicher?';
-          button.onclick = () => volunteerAbmelden();
+          button.onclick = async () => {
+            try {
+              await deleteVolunteer();
+              showToast('Volunteer Anmeldung zurückgezogen');
+              setTimeout(() => location.reload(), 1500);
+            } catch (err) {
+              showToast(err instanceof ApiError ? err.message : 'Fehler beim Abmelden', 'error');
+            }
+          };
         };
 
         volunteerForm.querySelector('.form-actions').appendChild(button);
       } else {
-        document.getElementById('submitVolunteer').onclick = () => {
+        // Volunteer sign-up: submit directly without the registration modal
+        document.getElementById('submitVolunteer').onclick = async () => {
           const duration = document.getElementById('durationInput').value;
           if (duration.length < 3 || duration.length > 512) {
             document.getElementById('durationInput').classList.add('invalid');
@@ -146,10 +161,13 @@ if (ACTIVE) {
           }
           document.getElementById('durationInput').classList.remove('invalid');
 
-          sendHandler({
-            kind: 'volunteer',
-            data: { duration },
-          });
+          try {
+            await createVolunteer(duration);
+            showToast('Volunteer Anmeldung erfolgreich!');
+            setTimeout(() => location.reload(), 1500);
+          } catch (err) {
+            showToast(err instanceof ApiError ? err.message : 'Fehler bei der Volunteer Anmeldung', 'error');
+          }
         };
       }
     }
@@ -185,9 +203,6 @@ if (ACTIVE) {
       itemInput.children[0].value = item.id;
       itemInput.children[0].disabled = false;
       itemInput.value = item.id;
-
-      document.querySelector('.modal-title').innerText = 'Anmeldung anpassen';
-      document.querySelector('.modal button').innerText = 'Anpassen';
     }
 
     document.getElementById('submitRegistration').onclick = () => {
@@ -255,29 +270,21 @@ createPhotos(2020, 25);
 createPhotos(2019, 18);
 createPhotos(2018, 7);
 
-// ===== Submit modal =====
+// ===== Submit modal (registration only) =====
 let submitData;
 
 function sendHandler(submission) {
   submitData = submission;
 
+  const d = submission.data;
   let str = '';
-  if (submission.kind === 'registration') {
-    const d = submission.data;
-    const itemOpt = document.querySelector(`#itemInput option[value="${d.itemId}"]`);
-    if (itemOpt) str += `Mitbringen: ${itemOpt.innerText}\n`;
-    str += `Personen: ${d.peopleCount}\n`;
-    if (d.music) str += `Musik: ${d.music}\n`;
-    document.querySelector('.modal-title').innerText =
-      submission.mode === 'update' ? 'Anmeldung anpassen' : 'Anmeldung bestätigen';
-    document.querySelector('.modal button').innerText =
-      submission.mode === 'update' ? 'Anpassen' : 'Bestätigen';
-  } else if (submission.kind === 'volunteer') {
-    str += `Dauer: ${submission.data.duration}\n`;
-    document.querySelector('.modal-title').innerText = 'Volunteer Anmeldung';
-    document.querySelector('.modal button').innerText = 'Bestätigen';
-  }
+  const itemOpt = document.querySelector(`#itemInput option[value="${d.itemId}"]`);
+  if (itemOpt) str += `Mitbringen: ${itemOpt.innerText}\n`;
+  str += `Personen: ${d.peopleCount}\n`;
+  if (d.music) str += `Musik: ${d.music}\n`;
 
+  document.querySelector('.modal-title').innerText =
+    submission.mode === 'update' ? 'Anmeldung anpassen' : 'Anmeldung bestätigen';
   document.getElementById('confirmationData').innerText = str;
   showModal();
 }
@@ -308,19 +315,14 @@ const success = document.getElementById('success');
 const error = document.getElementById('error');
 
 // ===== Submit to backend =====
-// Exposed on window so the existing inline onclick="submitModal()" in index.html still resolves.
 window.submitModal = async function submitModal() {
   if (!submitData) return;
   progress.style.visibility = 'visible';
   progress.children[0].style.width = '100%';
 
   try {
-    if (submitData.kind === 'registration') {
-      if (submitData.mode === 'update') await updateRegistration(submitData.data);
-      else await createRegistration(submitData.data);
-    } else if (submitData.kind === 'volunteer') {
-      await createVolunteer(submitData.data.duration);
-    }
+    if (submitData.mode === 'update') await updateRegistration(submitData.data);
+    else await createRegistration(submitData.data);
     modalFeedback({ success: 'Erfolgreich gespeichert' });
   } catch (err) {
     modalFeedback({ error: err instanceof ApiError ? err.message : 'Fehler beim Senden' });
