@@ -1902,3 +1902,21 @@ h2::after {
   flex-direction: column;
   gap: 8px;
 }
+
+.toast-info {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.toast-warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.row-assigned {
+  background: #f0f7f0;
+}
+
+.row-unassigned {
+  background: transparent;
+}

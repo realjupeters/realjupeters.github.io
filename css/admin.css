@@ -954,3 +954,40 @@ tr:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Toast notifications ===== */
+.toast {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateX(60px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  max-width: 400px;
+  word-wrap: break-word;
+}
+
+.toast-show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast-success { background: #d4edda; color: #155724; }
+.toast-error { background: #f8d7da; color: #721c24; }
+.toast-info { background: #d1ecf1; color: #0c5460; }
+.toast-warning { background: #fff3cd; color: #856404; }
+
+#toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row-assigned { background: #f0f7f0; }
+.row-unassigned { background: transparent; }

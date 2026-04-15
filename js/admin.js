@@ -81,13 +81,13 @@ class PoolpartyAdmin {
     async init() {
         const user = await getCurrentUser().catch(() => null);
         if (!user) {
-            alert('Bitte zuerst einloggen.');
-            window.location.href = './login.html';
+            this.showNotification('Bitte zuerst einloggen.', 'error');
+            setTimeout(() => window.location.href = './login.html', 1500);
             return;
         }
         if (!isAdmin(user)) {
-            alert('Kein Adminzugriff.');
-            window.location.href = './';
+            this.showNotification('Kein Adminzugriff.', 'error');
+            setTimeout(() => window.location.href = './', 1500);
             return;
         }
 
@@ -116,15 +116,15 @@ class PoolpartyAdmin {
 
         // Basic validation
         if (!nameValue || !emailValue || !passwordValue) {
-            this.showNotification('Name, Email, and Password are required.', 'error');
+            this.showNotification('Name, E-Mail und Passwort sind Pflicht.', 'error');
             return;
         }
         if (!emailValue.includes('@') || !emailValue.includes('.')) {
-            this.showNotification('Please enter a valid email address.', 'error');
+            this.showNotification('Bitte eine g&uuml;ltige E-Mail-Adresse eingeben.', 'error');
             return;
         }
         if (passwordValue.length < 8) {
-            this.showNotification('Password must be at least 8 characters long.', 'error');
+            this.showNotification('Passwort muss mindestens 8 Zeichen haben.', 'error');
             return;
         }
 
@@ -135,7 +135,7 @@ class PoolpartyAdmin {
                 password: passwordValue,
                 roles: roleValue ? [roleValue] : ['user'],
             });
-            this.showNotification('User registered successfully!', 'success');
+            this.showNotification('Account erstellt!', 'success');
             
             // Reset the form
             const registerForm = document.getElementById('registerUserForm');
@@ -160,7 +160,7 @@ class PoolpartyAdmin {
             // this.renderTable('account');
 
         } catch (error) {
-            this.showNotification(error.message || 'Failed to register user.', 'error');
+            this.showNotification(error.message || 'Account-Erstellung fehlgeschlagen.', 'error');
         }
     }
 
@@ -180,7 +180,7 @@ class PoolpartyAdmin {
                 console.log(`✅ ${section} loaded: ${this.state.data[section].length} items`);
             } catch (error) {
                 console.warn(`⚠️ Failed to load ${section}:`, error);
-                this.showNotification(`Error loading ${section}: ${error.message}`, 'error');
+                this.showNotification(`Fehler beim Laden von ${section}: ${error.message}`, 'error');
                 this.state.data[section] = [];
             } finally {
                 this.setLoading(section, false);
@@ -286,28 +286,28 @@ class PoolpartyAdmin {
             account: (acc) => `
                 <tr>
                     <td>${acc.id || ''}</td>
-                    <td>${acc.name || ''}</td>
-                    <td>${acc.email || ''}</td>
+                    <td>${this.escapeHtml(acc.name || '')}</td>
+                    <td>${this.escapeHtml(acc.email || '')}</td>
                     <td>${this.createStatusBadge(acc.verifiedMail)}</td>
-                    <td>${acc.roles || ''}</td>
+                    <td>${this.escapeHtml(acc.roles || '')}</td>
                     <td>${this.formatDate(acc.lastActivity)}</td>
-                    <td><button class="action-btn btn-danger" data-action="delete" data-type="account" data-id="${acc.id}" data-name="${this.escapeHtml(acc.name || '')}">Delete</button></td>
+                    <td><button class="action-btn btn-danger" data-action="delete" data-type="account" data-id="${acc.id}" data-name="${this.escapeHtml(acc.name || '')}">Löschen</button></td>
                 </tr>`,
             
             registration: (reg) => `
                 <tr>
                     <td>${reg.id || ''}</td>
-                    <td>${reg.name || ''}</td>
+                    <td>${this.escapeHtml(reg.name || '')}</td>
                     <td>${reg.people || ''}</td>
                     <td>${this.formatDate(reg.lastActivity)}</td>
                     <td>${this.createActionButtons('registration', reg)}</td>
                 </tr>`,
             
             item: (item) => `
-                <tr ${item.accountName ? 'style="background:#f8f9fa"' : ''}>
+                <tr class="${item.accountName ? 'row-assigned' : 'row-unassigned'}">
                     <td>${item.id || ''}</td>
-                    <td>${item.itemName || ''}</td>
-                    <td>${item.accountName || 'Unassigned'}</td>
+                    <td>${this.escapeHtml(item.itemName || '')}</td>
+                    <td>${item.accountName ? this.escapeHtml(item.accountName) : '<em>Frei</em>'}</td>
                     <td>${this.formatDate(item.lastActivity)}</td>
                     <td>${this.createActionButtons('item', item)}</td>
                 </tr>`,
@@ -315,8 +315,8 @@ class PoolpartyAdmin {
             volunteer: (vol) => `
                 <tr>
                     <td>${vol.id || ''}</td>
-                    <td>${vol.name || ''}</td>
-                    <td>${vol.duration || ''}</td>
+                    <td>${this.escapeHtml(vol.name || '')}</td>
+                    <td>${this.escapeHtml(vol.duration || '')}</td>
                     <td>${this.formatDate(vol.lastActivity)}</td>
                     <td>${this.createActionButtons('volunteer', vol)}</td>
                 </tr>`,
@@ -324,8 +324,8 @@ class PoolpartyAdmin {
             music: (mus) => `
                 <tr>
                     <td>${mus.id || ''}</td>
-                    <td>${mus.name || ''}</td>
-                    <td>${mus.music || ''}</td>
+                    <td>${this.escapeHtml(mus.name || '')}</td>
+                    <td>${this.escapeHtml(mus.music || '')}</td>
                 </tr>`
         };
 
@@ -371,15 +371,12 @@ class PoolpartyAdmin {
         const deleteTypes = ['registration', 'item', 'volunteer'];
         if (!deleteTypes.includes(type)) return '';
         
-        return `<button class="action-btn btn-danger" data-action="delete" data-type="${type}" data-id="${item.id}" data-name="${this.escapeHtml(item.name || item.itemName || '')}">Delete</button>`;
+        return `<button class="action-btn btn-danger" data-action="delete" data-type="${type}" data-id="${item.id}" data-name="${this.escapeHtml(item.name || item.itemName || '')}">Löschen</button>`;
     }
 
     createEmptyState() {
         return `<tr><td colspan="10" class="empty-state">
-            <svg viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-            </svg>
-            <div>No data found</div>
+            <div>Keine Eintr&auml;ge gefunden</div>
         </td></tr>`;
     }
 
@@ -508,7 +505,7 @@ class PoolpartyAdmin {
 
     // 🗑️ Delete Operations
     showDeleteConfirm(type, id, name) {
-        const confirmed = confirm(`Are you sure you want to delete ${type} "${name}"?`);
+        const confirmed = confirm(`${type === 'account' ? 'Account' : type === 'registration' ? 'Anmeldung' : type === 'item' ? 'Item' : 'Volunteer'} "${name}" wirklich löschen?`);
         if (confirmed) this.deleteItem(type, id);
     }
 
@@ -535,9 +532,9 @@ class PoolpartyAdmin {
             this.renderTable(type);
             if (type === 'registration') this.renderTable('music');
             
-            this.showNotification(`${type} deleted successfully`, 'success');
+            this.showNotification(`${type === 'account' ? 'Account' : type === 'registration' ? 'Anmeldung' : type === 'item' ? 'Item' : 'Volunteer'} gelöscht`, 'success');
         } catch (error) {
-            this.showNotification(`Failed to delete ${type}`, 'error');
+            this.showNotification(`Fehler beim Löschen`, 'error');
         }
     }
 
@@ -546,24 +543,21 @@ class PoolpartyAdmin {
         const count = this.state.data[type].length;
         
         if (count === 0) {
-            this.showNotification(`No ${type}s to delete`, 'info');
+            this.showNotification(`Keine ${type}s zum Löschen`, 'info');
             return;
         }
 
         // Enhanced confirmation dialog
-        const message = `⚠️ DANGER: This will permanently delete ALL ${count} ${type}(s)!\n\n` +
-                       `This action cannot be undone and will:\n` +
-                       `• Remove all ${type} records\n` +
-                       `• Clear related data\n` +
-                       `• Update statistics\n\n` +
-                       `Type "DELETE ALL" to confirm:`;
+        const message = `⚠️ ACHTUNG: Alle ${count} ${type === 'registration' ? 'Anmeldungen' : 'Volunteers'} werden permanent gel&ouml;scht!\n\n` +
+                       `Das kann nicht r&uuml;ckg&auml;ngig gemacht werden.\n\n` +
+                       `Tippe "DELETE ALL" zum Best&auml;tigen:`;
         
         const userInput = prompt(message);
         
         if (userInput === "DELETE ALL") {
             await this.bulkDeleteItems(type);
         } else if (userInput !== null) {
-            this.showNotification('Bulk delete cancelled - incorrect confirmation text', 'info');
+            this.showNotification('Bulk-L&ouml;schung abgebrochen - Falscher Best&auml;tigungstext', 'info');
         }
     }
 
@@ -572,14 +566,14 @@ class PoolpartyAdmin {
         const totalCount = items.length;
         
         if (totalCount === 0) {
-            this.showNotification(`No ${type}s to delete`, 'info');
+            this.showNotification(`Keine ${type}s zum Löschen`, 'info');
             return;
         }
 
         console.log(`🗑️ Starting bulk delete of ${totalCount} ${type}(s)...`);
         
         // Show progress notification
-        this.showNotification(`Deleting ${totalCount} ${type}(s)... Please wait.`, 'info');
+        this.showNotification(`Lösche ${totalCount} ${type}(s)... Bitte warten.`, 'info');
         
         const deleteFns = {
             registration: adminApi.deleteRegistration,
@@ -631,14 +625,14 @@ class PoolpartyAdmin {
 
         // Show results
         if (errorCount === 0) {
-            this.showNotification(`✅ Successfully deleted all ${successCount} ${type}(s)!`, 'success');
+            this.showNotification(`✅ Alle ${successCount} ${type}(s) gelöscht!`, 'success');
         } else {
             const message = `⚠️ Bulk delete completed with ${errorCount} errors:\n` +
                           `• Successful: ${successCount}\n` +
                           `• Failed: ${errorCount}\n\n` +
                           `Failed items: ${errors.join(', ')}`;
             
-            this.showNotification(`Partially completed: ${successCount}/${totalCount} deleted`, 'warning');
+            this.showNotification(`Teilweise erledigt: ${successCount}/${totalCount} gelöscht`, 'warning');
             console.warn(message);
         }
 
@@ -651,7 +645,7 @@ class PoolpartyAdmin {
         const name = input.value.trim();
         
         if (name.length < 3 || name.length > 512) {
-            this.showNotification('Item name must be 3-512 characters', 'error');
+            this.showNotification('Item-Name muss 3-512 Zeichen haben', 'error');
             return;
         }
 
@@ -659,9 +653,9 @@ class PoolpartyAdmin {
             await adminApi.createItem(name);
             input.value = '';
             await this.loadItems();
-            this.showNotification('Item added successfully', 'success');
+            this.showNotification('Item hinzugef&uuml;gt', 'success');
         } catch (error) {
-            this.showNotification('Failed to add item', 'error');
+            this.showNotification('Item hinzufügen fehlgeschlagen', 'error');
         }
     }
 
@@ -688,7 +682,7 @@ class PoolpartyAdmin {
         const registeredAccounts = this.state.data.account.filter(acc => registeredNames.includes(acc.name));
         
         if (registeredAccounts.length === 0) {
-            this.showNotification('No registered users found with email addresses.', 'warning');
+            this.showNotification('Keine angemeldeten User mit E-Mail gefunden.', 'warning');
             return;
         }
         
@@ -699,7 +693,7 @@ class PoolpartyAdmin {
             .filter((email, index, self) => self.indexOf(email) === index); // Remove duplicates
         
         if (emailAddresses.length === 0) {
-            this.showNotification('No valid email addresses found for registered users.', 'warning');
+            this.showNotification('Keine g&uuml;ltigen E-Mail-Adressen gefunden.', 'warning');
             return;
         }
         
@@ -719,7 +713,7 @@ Das Poolparty Team`);
         window.location.href = mailtoLink;
         
         // Show success notification
-        this.showNotification(`Email client opened with ${emailAddresses.length} recipients in BCC.`, 'success');
+        this.showNotification(`E-Mail-Client geöffnet mit ${emailAddresses.length} Empfängern im BCC.`, 'success');
         
         console.log(`📧 Email generated for ${emailAddresses.length} registered users:`, emailAddresses);
     }
@@ -732,7 +726,7 @@ Das Poolparty Team`);
         const allAccounts = this.state.data.account;
         
         if (allAccounts.length === 0) {
-            this.showNotification('No accounts found.', 'warning');
+            this.showNotification('Keine Accounts gefunden.', 'warning');
             return;
         }
         
@@ -743,7 +737,7 @@ Das Poolparty Team`);
             .filter((email, index, self) => self.indexOf(email) === index); // Remove duplicates
         
         if (emailAddresses.length === 0) {
-            this.showNotification('No valid email addresses found for account holders.', 'warning');
+            this.showNotification('Keine g&uuml;ltigen E-Mail-Adressen gefunden.', 'warning');
             return;
         }
         
@@ -763,7 +757,7 @@ Das Poolparty Team`);
         window.location.href = mailtoLink;
         
         // Show success notification
-        this.showNotification(`Email client opened with ${emailAddresses.length} recipients in BCC.`, 'success');
+        this.showNotification(`E-Mail-Client geöffnet mit ${emailAddresses.length} Empfängern im BCC.`, 'success');
         
         console.log(`📧 Email generated for ${emailAddresses.length} account holders:`, emailAddresses);
     }
@@ -808,26 +802,22 @@ Das Poolparty Team`);
 
     // 🔔 Notifications
     showNotification(message, type = 'info') {
-        const colors = {
-            success: { bg: '#d4edda', color: '#155724' },
-            error: { bg: '#f8d7da', color: '#721c24' },
-            info: { bg: '#d1ecf1', color: '#0c5460' },
-            warning: { bg: '#fff3cd', color: '#856404' }
-        };
+        const notification = document.createElement('div');
+        notification.className = `toast toast-${type}`;
+        notification.textContent = message;
 
-        const notification = Object.assign(document.createElement('div'), {
-            textContent: message,
-            style: `
-                position: fixed; top: 20px; right: 20px; padding: 12px 20px;
-                background: ${colors[type].bg}; color: ${colors[type].color};
-                border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                z-index: 1000; animation: slideIn 0.3s ease;
-            `
-        });
+        const container = document.getElementById('toast-container') || (() => {
+            const c = document.createElement('div');
+            c.id = 'toast-container';
+            document.body.appendChild(c);
+            return c;
+        })();
 
-        document.body.appendChild(notification);
+        container.appendChild(notification);
+        requestAnimationFrame(() => notification.classList.add('toast-show'));
+
         setTimeout(() => {
-            notification.style.animation = 'slideOut 0.3s ease forwards';
+            notification.classList.remove('toast-show');
             setTimeout(() => notification.remove(), 300);
         }, 3000);
     }
