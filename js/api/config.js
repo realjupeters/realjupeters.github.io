@@ -1,12 +1,11 @@
 // Single source of truth for the backend base URL.
-// In production jp-site and jpCore live under the same domain (reverse proxy), so an empty
-// base lets fetch use relative URLs. Override via <meta name="api-base" content="..."> in
-// an HTML page if you ever need to point at a different host.
+// Production currently serves the static site from GitHub Pages while jpCore lives on its own
+// host, so default to the public API origin. A page can still override this explicitly via
+// <meta name="api-base" content="..."> when needed.
 function resolveBase() {
   const meta = document.querySelector('meta[name="api-base"]');
   if (meta && meta.getAttribute('content')) return meta.getAttribute('content').replace(/\/$/, '');
-  // Same-origin default — backend mounts itself at / and serves jp-site via @fastify/static
-  return '';
+  return 'https://jpcore.logge.top';
 }
 
 export const BASE_URL = resolveBase();
