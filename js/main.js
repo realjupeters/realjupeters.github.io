@@ -268,8 +268,14 @@ function sendHandler(submission) {
     if (itemOpt) str += `Mitbringen: ${itemOpt.innerText}\n`;
     str += `Personen: ${d.peopleCount}\n`;
     if (d.music) str += `Musik: ${d.music}\n`;
+    document.querySelector('.modal-title').innerText =
+      submission.mode === 'update' ? 'Anmeldung anpassen' : 'Anmeldung bestätigen';
+    document.querySelector('.modal button').innerText =
+      submission.mode === 'update' ? 'Anpassen' : 'Bestätigen';
   } else if (submission.kind === 'volunteer') {
     str += `Dauer: ${submission.data.duration}\n`;
+    document.querySelector('.modal-title').innerText = 'Volunteer Anmeldung';
+    document.querySelector('.modal button').innerText = 'Bestätigen';
   }
 
   document.getElementById('confirmationData').innerText = str;
