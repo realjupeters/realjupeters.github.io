@@ -311,13 +311,13 @@
         </ol>
 
         <div class="hideForGuest">
-          <div class="alert alert-secondary" id="personName"></div>
-          <div class="form-section">
+          <div class="poolparty-card" id="personName"></div>
+          <div class="form-section poolparty-form-card">
             <div id="anmeldenForm">
               <div class="row">
                 <div class="sm-12 md-6 col">
                   <div class="form-group">
-                    <label for="itemInput">Mitbringen</label>
+                    <label for="itemInput">🎒 Mitbringen</label>
                     <select id="itemInput" class="input-block">
                       <option selected disabled>Bitte ausw&auml;hlen</option>
                     </select>
@@ -325,7 +325,7 @@
                 </div>
                 <div class="sm-12 md-6 col">
                   <div class="form-group">
-                    <label for="peopleInput">Anzahl Personen</label>
+                    <label for="peopleInput">👥 Anzahl Personen</label>
                     <select id="peopleInput" class="input-block">
                       <option selected disabled>Bitte ausw&auml;hlen</option>
                       <option value="1">1 Person</option>
@@ -335,12 +335,12 @@
                 </div>
                 <div class="sm-12 md-12 col">
                   <div class="form-group">
-                    <label for="musicInput">Liedwunsch (optional)</label>
+                    <label for="musicInput">🎵 Liedwunsch (optional)</label>
                     <input
                       class="input-block"
                       type="text"
                       maxlength="100"
-                      placeholder="Liedwunsch"
+                      placeholder="Was soll der DJ spielen?"
                       id="musicInput"
                     />
                   </div>
@@ -349,11 +349,11 @@
 
               <div class="form-actions">
                 <button
-                  class="btn-large btn-block"
+                  class="btn-large btn-block btn-cta"
                   type="submit"
                   id="submitRegistration"
                 >
-                  Zur Party anmelden
+                  🏊 Zur Party anmelden
                 </button>
               </div>
             </div>
@@ -384,12 +384,13 @@
           Volunteers
         </h2>
         Da der Aufbau Zeit braucht, suchen wir helfende H&auml;nde f&uuml;r Freitag/Samstag morgen (Aufbau) und Sonntag (Abbau). Wer Lust und Zeit hat, kann sich hier nach der Anmeldung eintragen und die m&ouml;gliche Einsatzzeit angeben. Wir melden uns dann. Wenn es doch nicht klappt, sagt bitte wieder ab.
-        <div class="form-section hideForGuest" id="volunteerForm" style="display: none !important">
-          <h3>Volunteer Anmeldung</h3>
+        <div class="form-section poolparty-form-card hideForGuest" id="volunteerForm" style="display: none !important">
+          <h3 class="volunteer-title">🙌 Helfer werden</h3>
+          <p class="volunteer-subtitle">Du m&ouml;chtest beim Auf- oder Abbau helfen? Trag dich hier ein!</p>
           <div class="row">
             <div class="col-12">
               <div class="form-group">
-                <label for="durationInput">Dauer (Von - Bis)</label>
+                <label for="durationInput">⏰ Wann kannst du helfen?</label>
                 <input
                   class="input-block"
                   type="text"
@@ -405,11 +406,11 @@
 
           <div class="form-actions">
             <button
-              class="btn-large btn-block"
+              class="btn-large btn-block btn-cta"
               type="submit"
               id="submitVolunteer"
             >
-              Volunteer Anmeldung absenden
+              🙋 Als Helfer eintragen
             </button>
           </div>
         </div>

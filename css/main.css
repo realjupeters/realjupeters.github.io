@@ -1805,6 +1805,66 @@ h2::after {
   background: var(--pencil);
 }
 
+/* ===== Poolparty cards & forms ===== */
+.poolparty-card {
+  background: var(--postit);
+  border: 2px solid var(--pencil);
+  border-radius: var(--wobbly-card);
+  padding: var(--space-4) var(--space-6);
+  margin-bottom: var(--space-4);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  box-shadow: var(--shadow-sm);
+  color: var(--pencil);
+}
+
+.poolparty-form-card {
+  background: var(--paper);
+  border: 2px solid var(--pencil);
+  border-radius: var(--wobbly-card);
+  padding: var(--space-6);
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow);
+}
+
+.poolparty-form-card .form-group label {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--pencil);
+  margin-bottom: var(--space-2);
+}
+
+.poolparty-form-card .input-block {
+  border: 2px solid var(--pencil);
+  border-radius: var(--wobbly-sm);
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  background: var(--white, #fff);
+  transition: var(--transition);
+}
+
+.poolparty-form-card .input-block:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--shadow-accent);
+}
+
+.volunteer-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  color: var(--accent);
+  margin-bottom: var(--space-2);
+}
+
+.volunteer-subtitle {
+  font-family: var(--font-body);
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: var(--space-4);
+}
+
 /* ===== Toast notifications ===== */
 .toast {
   padding: 12px 20px;

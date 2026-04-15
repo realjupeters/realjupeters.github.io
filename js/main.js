@@ -86,7 +86,7 @@ if (ACTIVE) {
 
       const anmeldenForm = document.getElementById('anmeldenForm');
       anmeldenForm.innerHTML =
-        '<div class="alert alert-success"><b>Du hast dich am ' +
+        '<div class="poolparty-card" style="background:var(--success-light);border-color:var(--success)"><b>✅ Du hast dich am ' +
         new Date(registration.updatedAt).toLocaleDateString() +
         ' mit ' +
         registration.peopleCount +
@@ -125,12 +125,12 @@ if (ACTIVE) {
       if (volunteer) {
         const volunteerForm = document.getElementById('volunteerForm');
         volunteerForm.innerHTML =
-          '<h3>Volunteer Status</h3>' +
-          '<div class="alert alert-success">Du hast dich am ' +
+          '<h3 class="volunteer-title">🙌 Volunteer Status</h3>' +
+          '<div class="poolparty-card" style="background:var(--success-light);border-color:var(--success)">Du hilfst am ' +
           new Date(volunteer.updatedAt).toLocaleDateString() +
-          ' mit einer Dauer von "' +
+          ' — <b>"' +
           volunteer.duration +
-          '" angemeldet.</div>' +
+          '"</b></div>' +
           '<div class="form-actions"></div>';
 
         const button = document.createElement('button');
