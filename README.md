@@ -2,7 +2,7 @@
 
 > The official site for **JP Poolparty** — an annual event in Ramsen, Germany. Static, hand-drawn, vanilla-JS, no build step.
 
-🌐 **Production**: <https://poolparty.jupeters.de> · 📅 **Save the date**: Samstag, 04. Juli 2026 · 📍 Kolpingwiese Ramsen
+🌐 **Production**: <https://poolparty.jupeters.de> · 📅 **Save the date**: Samstag, 27. Juni 2026 · 📍 Kolpingwiese Ramsen
 
 The backend that powers login, registration, and the admin dashboard lives at [`LoggeL/jpCore`](https://github.com/LoggeL/jpCore).
 
