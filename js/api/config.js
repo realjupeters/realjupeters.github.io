@@ -5,8 +5,8 @@
 function resolveBase() {
   const meta = document.querySelector('meta[name="api-base"]');
   if (meta && meta.getAttribute('content')) return meta.getAttribute('content').replace(/\/$/, '');
-  // Same-origin default — backend mounts itself at / and serves jp-site via @fastify/static
-  return '';
+  // Default to the public API host — backend mounts itself at / and serves jp-site via @fastify/static
+  return 'https://jpcore.logge.top';
 }
 
 export const BASE_URL = resolveBase();
