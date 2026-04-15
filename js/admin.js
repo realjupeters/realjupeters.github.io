@@ -291,7 +291,7 @@ class PoolpartyAdmin {
                     <td>${this.createStatusBadge(acc.verifiedMail)}</td>
                     <td>${acc.roles || ''}</td>
                     <td>${this.formatDate(acc.lastActivity)}</td>
-                    <td><button class="action-btn btn-danger" onclick="admin.showDeleteConfirm('account', ${acc.id}, '${String(acc.name).replace(/'/g, "\\'")}')">Delete</button></td>
+                    <td><button class="action-btn btn-danger" data-action="delete" data-type="account" data-id="${acc.id}" data-name="${this.escapeHtml(acc.name || '')}">Delete</button></td>
                 </tr>`,
             
             registration: (reg) => `
@@ -371,9 +371,7 @@ class PoolpartyAdmin {
         const deleteTypes = ['registration', 'item', 'volunteer'];
         if (!deleteTypes.includes(type)) return '';
         
-        return `<button class="action-btn btn-danger" onclick="admin.showDeleteConfirm('${type}', ${item.id}, '${item.name}')">
-            Delete
-        </button>`;
+        return `<button class="action-btn btn-danger" data-action="delete" data-type="${type}" data-id="${item.id}" data-name="${this.escapeHtml(item.name || item.itemName || '')}">Delete</button>`;
     }
 
     createEmptyState() {
@@ -486,7 +484,7 @@ class PoolpartyAdmin {
             const columns = this.columnMapping[section];
             if (index < columns.length) {
                 header.style.cursor = 'pointer';
-                header.onclick = () => this.sortTable(section, index);
+                // Sort is handled by event delegation via data-action="sort"
                 
                 // Add hover effect
                 header.addEventListener('mouseenter', () => {
@@ -836,6 +834,22 @@ Das Poolparty Team`);
 
     // 🎧 Event Listeners
     setupEventListeners() {
+        // Global event delegation for data-action buttons
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-action]');
+            if (!btn) return;
+
+            const action = btn.dataset.action;
+            if (action === 'delete') {
+                const { type, id, name } = btn.dataset;
+                this.showDeleteConfirm(type, Number(id), name);
+            } else if (action === 'sort') {
+                const section = btn.dataset.table.replace('Table', '');
+                const column = Number(btn.dataset.column);
+                this.sortTable(section, column);
+            }
+        });
+
         // Search inputs with debouncing
         ['account', 'registration', 'item', 'volunteer', 'music'].forEach(section => {
             const searchInput = document.getElementById(`${section}Search`);
@@ -1293,25 +1307,7 @@ Das Poolparty Team`);
         return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
     }
 }
-
 // 🚀 Initialize on DOM ready
-let admin;
 document.addEventListener('DOMContentLoaded', () => {
-    admin = new PoolpartyAdmin();
-    window.admin = admin;
-    
-    // Expose theme function globally
-    window.setThemeColor = (color) => admin.setThemeColor(color);
-    
-    // Expose admin methods globally for HTML onclick handlers
-    window.sortTable = (tableId, columnIndex) => {
-        // Extract section from tableId (e.g., 'accountTable' -> 'account')
-        const section = tableId.replace('Table', '');
-        admin.sortTable(section, columnIndex);
-    };
+    new PoolpartyAdmin();
 });
-
-// 🎨 Theme examples (uncomment to test)
-// setTimeout(() => admin?.setThemeColor('#FF6B6B'), 1000); // Coral Red
-// setTimeout(() => admin?.setThemeColor('#4ECDC4'), 1000); // Teal
-// setTimeout(() => admin?.setThemeColor('#45B7D1'), 1000); // Sky Blue 
