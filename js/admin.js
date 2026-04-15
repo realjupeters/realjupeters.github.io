@@ -1298,6 +1298,7 @@ Das Poolparty Team`);
 let admin;
 document.addEventListener('DOMContentLoaded', () => {
     admin = new PoolpartyAdmin();
+    window.admin = admin;
     
     // Expose theme function globally
     window.setThemeColor = (color) => admin.setThemeColor(color);
