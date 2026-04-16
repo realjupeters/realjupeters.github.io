@@ -40,12 +40,19 @@ const adapt = {
         duration: v.duration,
         lastActivity: v.updatedAt,
     }),
+    audit: (a) => ({
+        id: a.id,
+        eventType: a.eventType,
+        message: a.message,
+        ipAddress: a.ipAddress,
+        createdAt: a.createdAt,
+    }),
 };
 
 class PoolpartyAdmin {
     constructor() {
         this.state = {
-            data: { account: [], registration: [], item: [], volunteer: [], music: [] },
+            data: { account: [], registration: [], item: [], volunteer: [], music: [], audit: [] },
             loading: new Set(),
             currentTab: 'account',
             sortState: {
@@ -53,7 +60,8 @@ class PoolpartyAdmin {
                 registration: { column: null, direction: 'asc' },
                 item: { column: null, direction: 'asc' },
                 volunteer: { column: null, direction: 'asc' },
-                music: { column: null, direction: 'asc' }
+                music: { column: null, direction: 'asc' },
+                audit: { column: 'createdAt', direction: 'desc' }
             }
         };
 
@@ -63,7 +71,8 @@ class PoolpartyAdmin {
             registration: ['id', 'name', 'people', 'lastActivity'],
             item: ['id', 'itemName', 'accountName', 'lastActivity'],
             volunteer: ['id', 'name', 'duration', 'lastActivity'],
-            music: ['id', 'name', 'music']
+            music: ['id', 'name', 'music'],
+            audit: ['createdAt', 'eventType', 'message', 'ipAddress']
         };
 
         // Loader map: each section knows how to fetch + adapt its own data.
@@ -72,6 +81,7 @@ class PoolpartyAdmin {
             registration: () => adminApi.listRegistrations().then((rows) => rows.map(adapt.registration)),
             item: () => adminApi.listItems().then((rows) => rows.map(adapt.item)),
             volunteer: () => adminApi.listVolunteers().then((rows) => rows.map(adapt.volunteer)),
+            audit: () => adminApi.listAuditLogs().then((rows) => rows.map(adapt.audit)),
         };
 
         this.init();
@@ -326,6 +336,14 @@ class PoolpartyAdmin {
                     <td>${mus.id || ''}</td>
                     <td>${this.escapeHtml(mus.name || '')}</td>
                     <td>${this.escapeHtml(mus.music || '')}</td>
+                </tr>`,
+
+            audit: (log) => `
+                <tr>
+                    <td>${this.formatDate(log.createdAt)}</td>
+                    <td>${this.escapeHtml(log.eventType || '')}</td>
+                    <td>${this.escapeHtml(log.message || '')}</td>
+                    <td>${this.escapeHtml(log.ipAddress || '-')}</td>
                 </tr>`
         };
 
@@ -841,7 +859,7 @@ Das Poolparty Team`);
         });
 
         // Search inputs with debouncing
-        ['account', 'registration', 'item', 'volunteer', 'music'].forEach(section => {
+        ['account', 'registration', 'item', 'volunteer', 'music', 'audit'].forEach(section => {
             const searchInput = document.getElementById(`${section}Search`);
             const filterSelect = document.getElementById(`${section}Filter`);
             
@@ -862,7 +880,7 @@ Das Poolparty Team`);
         document.querySelectorAll('input[name="tabs"]').forEach(tab => {
             tab.addEventListener('change', (e) => {
                 if (e.target.checked) {
-                    const sections = ['account', 'registration', 'item', 'volunteer', 'music', 'register', 'mail'];
+                    const sections = ['account', 'registration', 'item', 'volunteer', 'music', 'register', 'mail', 'audit'];
                     const tabIndex = parseInt(e.target.id.replace('tab', '')) - 1;
 
                     if (tabIndex < sections.length) {

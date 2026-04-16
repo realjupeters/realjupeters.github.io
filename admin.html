@@ -102,6 +102,7 @@
             <input id="tab5" type="radio" name="tabs">
             <input id="tab6" type="radio" name="tabs">
             <input id="tab7" type="radio" name="tabs">
+            <input id="tab8" type="radio" name="tabs">
 
             <div class="tab-header">
                 <label for="tab1">👥 Accounts</label>
@@ -111,6 +112,7 @@
                 <label for="tab5">🎵 Music</label>
                 <label for="tab6">➕ Register User</label>
                 <label for="tab7">📧 Mails</label>
+                <label for="tab8">📜 Logs</label>
             </div>
 
             <div class="content tab-content" id="content1">
@@ -330,6 +332,27 @@
                     <section class="mail-empty-pane" id="mailEmptyPane">
                         <p>Wähle einen Entwurf aus der Liste oder erstelle einen neuen.</p>
                     </section>
+                </div>
+            </div>
+
+            <div class="content tab-content" id="content8">
+                <h3>Audit Logs</h3>
+                <div class="search-filter-bar">
+                    <input type="text" class="search-input" placeholder="Search logs..." id="auditSearch">
+                </div>
+                <div class="loading" id="auditLoading">Loading audit logs...</div>
+                <div class="enhanced-table-wrapper">
+                    <table class="enhanced-table" id="auditTableContainer" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th data-action="sort" data-table="auditTable" data-column="0">Zeit</th>
+                                <th data-action="sort" data-table="auditTable" data-column="1">Event</th>
+                                <th data-action="sort" data-table="auditTable" data-column="2">Nachricht</th>
+                                <th data-action="sort" data-table="auditTable" data-column="3">IP</th>
+                            </tr>
+                        </thead>
+                        <tbody id="auditTable"></tbody>
+                    </table>
                 </div>
             </div>
         </div>
