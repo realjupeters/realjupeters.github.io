@@ -1,4 +1,5 @@
 import { BASE_URL } from './config.js';
+import { getSessionToken } from './token.js';
 
 export class ApiError extends Error {
   constructor(status, body) {
@@ -22,6 +23,8 @@ export async function apiFetch(path, options = {}) {
   const { method = 'GET', body } = options;
   const headers = {};
   if (body !== undefined) headers['Content-Type'] = 'application/json';
+  const sessionToken = getSessionToken();
+  if (sessionToken) headers['Authorization'] = `Bearer ${sessionToken}`;
 
   const res = await fetch(`${BASE_URL}${path}`, {
     method,

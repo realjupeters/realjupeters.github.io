@@ -1,4 +1,5 @@
 import { apiFetch, ApiError } from './client.js';
+import { clearSessionToken } from './token.js';
 
 /**
  * Returns the currently authenticated user object, or null if no valid session exists.
@@ -21,6 +22,8 @@ export async function logout() {
   try {
     await apiFetch('/api/public/logout', { method: 'POST' });
   } catch {
-    // Even if the request fails, the cookie is cleared client-side by the browser on navigation.
+    // ignore
+  } finally {
+    clearSessionToken();
   }
 }

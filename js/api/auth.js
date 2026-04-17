@@ -1,7 +1,12 @@
 import { apiFetch } from './client.js';
+import { setSessionToken } from './token.js';
 
-export const login = (email, password) =>
-  apiFetch('/api/public/login', { method: 'POST', body: { email, password } });
+export const login = async (email, password) => {
+  const result = await apiFetch('/api/public/login', { method: 'POST', body: { email, password } });
+  if (result?.sessionToken) setSessionToken(result.sessionToken);
+  return result;
+};
+
 
 export const requestPasswordReset = (email) =>
   apiFetch('/api/public/sendPasswordReset', { method: 'POST', body: { email } });
