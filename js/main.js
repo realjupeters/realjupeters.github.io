@@ -85,6 +85,7 @@ if (ACTIVE) {
       document.getElementById('volunteerForm').style.display = '';
 
       const anmeldenForm = document.getElementById('anmeldenForm');
+      const originalFormHtml = anmeldenForm.innerHTML;
       anmeldenForm.innerHTML =
         '<div class="poolparty-card" style="background:var(--success-light);border-color:var(--success)"><b>✅ Du hast dich am ' +
         new Date(registration.updatedAt).toLocaleDateString() +
@@ -95,8 +96,9 @@ if (ACTIVE) {
         ' angemeldet. Du bringst "' +
         item.name +
         '" mit.</b></div>' +
-        '<div class="form-section"><h3>Änderungen:</h3>' +
-        anmeldenForm.innerHTML +
+        '<div class="form-actions" style="margin-top:1rem;justify-content:center;"><button type="button" class="btn-warning" id="toggleRegistrationEdit">Anmeldung ändern</button></div>' +
+        '<div class="form-section" id="registrationEditSection" style="display:none;"><h3>Änderungen:</h3>' +
+        originalFormHtml +
         '</div>';
 
       const abmeldenButton = document.createElement('button');
@@ -115,11 +117,21 @@ if (ACTIVE) {
         };
       };
 
-      const formActions = anmeldenForm.querySelector('.form-actions');
-      if (formActions) {
-        formActions.appendChild(abmeldenButton);
+      const summaryActions = anmeldenForm.querySelector('.form-actions');
+      if (summaryActions) {
+        summaryActions.appendChild(abmeldenButton);
       } else {
         anmeldenForm.append(abmeldenButton);
+      }
+
+      const toggleRegistrationEdit = document.getElementById('toggleRegistrationEdit');
+      const registrationEditSection = document.getElementById('registrationEditSection');
+      if (toggleRegistrationEdit && registrationEditSection) {
+        toggleRegistrationEdit.onclick = () => {
+          const isHidden = registrationEditSection.style.display === 'none';
+          registrationEditSection.style.display = isHidden ? '' : 'none';
+          toggleRegistrationEdit.innerText = isHidden ? 'Änderungen ausblenden' : 'Anmeldung ändern';
+        };
       }
 
       if (volunteer) {
