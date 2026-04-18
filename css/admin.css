@@ -454,7 +454,9 @@ tr:hover {
 .enhanced-tabs input[type="radio"]:nth-of-type(3):checked ~ .tab-header label:nth-of-type(3),
 .enhanced-tabs input[type="radio"]:nth-of-type(4):checked ~ .tab-header label:nth-of-type(4),
 .enhanced-tabs input[type="radio"]:nth-of-type(5):checked ~ .tab-header label:nth-of-type(5),
-.enhanced-tabs input[type="radio"]:nth-of-type(6):checked ~ .tab-header label:nth-of-type(6) {
+.enhanced-tabs input[type="radio"]:nth-of-type(6):checked ~ .tab-header label:nth-of-type(6),
+.enhanced-tabs input[type="radio"]:nth-of-type(7):checked ~ .tab-header label:nth-of-type(7),
+.enhanced-tabs input[type="radio"]:nth-of-type(8):checked ~ .tab-header label:nth-of-type(8) {
     background: var(--primary-color);
     color: var(--pencil);
     font-weight: 700;
@@ -473,7 +475,9 @@ tr:hover {
 .enhanced-tabs input[type="radio"]:nth-of-type(3):checked ~ #content3,
 .enhanced-tabs input[type="radio"]:nth-of-type(4):checked ~ #content4,
 .enhanced-tabs input[type="radio"]:nth-of-type(5):checked ~ #content5,
-.enhanced-tabs input[type="radio"]:nth-of-type(6):checked ~ #content6 {
+.enhanced-tabs input[type="radio"]:nth-of-type(6):checked ~ #content6,
+.enhanced-tabs input[type="radio"]:nth-of-type(7):checked ~ #content7,
+.enhanced-tabs input[type="radio"]:nth-of-type(8):checked ~ #content8 {
     display: block;
 }
 
