@@ -107,6 +107,7 @@ class PoolpartyAdmin {
         this.setLoading('music', true); // Music will be processed from registrations
 
         this.setupEventListeners();
+        document.getElementById('content1')?.style.setProperty('display', 'block');
         await this.loadAllData();
 
         console.log('🎉 Poolparty Admin Dashboard initialized!');
@@ -887,6 +888,12 @@ Das Poolparty Team`);
                         const section = sections[tabIndex];
                         this.state.currentTab = section;
                         console.log(`🔄 Switching to tab: ${section}`);
+
+                        document.querySelectorAll('.tab-content').forEach((el) => {
+                            el.style.display = 'none';
+                        });
+                        const activeContent = document.getElementById(`content${tabIndex + 1}`);
+                        if (activeContent) activeContent.style.display = 'block';
 
                         setTimeout(() => {
                             if (section === 'register') {
