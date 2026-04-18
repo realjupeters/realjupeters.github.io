@@ -107,7 +107,7 @@ button, .btn {
 }
 
 button:hover, .btn:hover {
-    background: var(--accent-red);
+    background: var(--primary-color);
     color: var(--white);
     box-shadow: var(--shadow-hard-hover);
     translate: 2px 2px;
@@ -126,14 +126,14 @@ button:active, .btn:active {
 }
 
 .btn-primary:hover {
-    background: var(--accent-red);
+    background: var(--primary-color);
     color: var(--white);
     box-shadow: var(--shadow-hard-hover);
     translate: 2px 2px;
 }
 
 .btn-danger {
-    background: var(--accent-red);
+    background: var(--primary-color);
     color: white !important;
 }
 
@@ -331,7 +331,7 @@ tr:hover {
 }
 
 .back-link:hover {
-    background: var(--accent-red);
+    background: var(--primary-color);
     color: var(--white);
     translate: 1px 1px;
     box-shadow: 1px 1px 0px 0px var(--pencil);
@@ -379,7 +379,7 @@ tr:hover {
     right: 15px;
     width: 10px;
     height: 10px;
-    background: var(--accent-red);
+    background: var(--primary-color);
     border-radius: 50%;
     border: 2px solid var(--pencil);
 }
@@ -514,7 +514,7 @@ tr:hover {
 }
 
 .action-btn.btn-danger {
-    background: var(--accent-red);
+    background: var(--primary-color);
     color: var(--white);
     border-color: var(--pencil);
 }
@@ -606,7 +606,7 @@ tr:hover {
 }
 
 .pagination button:hover:not(:disabled) {
-    background: var(--accent-red);
+    background: var(--primary-color);
     color: var(--white);
     border-color: var(--pencil);
     translate: 1px 1px;
