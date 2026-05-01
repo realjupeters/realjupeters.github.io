@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>E-Mail bestätigen · Poolparty 2026</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <meta name="theme-color" content="#fdfbf7" />
+    <meta name="api-base" content="https://jpcore.logge.top" />
+  </head>
+  <body>
+    <nav class="border split-nav fixed">
+      <div class="nav-brand">
+        <h3><a href="/">JP Poolparty</a></h3>
+      </div>
+    </nav>
+
+    <div class="paper">
+      <div class="row flex-center">
+        <h1 class="caption">E-Mail bestätigen</h1>
+      </div>
+
+      <div class="form-section">
+        <p id="verifyStatus" style="font-size:1.05rem; text-align:center;">
+          Deine E-Mail wird bestätigt…
+        </p>
+        <div id="verifyMessage" class="alert" style="display:none;font-weight:bold;margin-top:1rem;"></div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { verifyEmail } from './js/api/auth.js';
+      import { ApiError } from './js/api/client.js';
+
+      const token = new URLSearchParams(window.location.search).get('token');
+      const statusEl = document.getElementById('verifyStatus');
+      const messageEl = document.getElementById('verifyMessage');
+
+      if (!token) {
+        statusEl.textContent = 'Kein Verifikations-Token gefunden. Bitte nutze den Link aus der E-Mail.';
+      } else {
+        (async () => {
+          try {
+            await verifyEmail(token);
+            messageEl.style.color = 'var(--success)';
+            messageEl.textContent = 'E-Mail erfolgreich bestätigt. Du wirst gleich weitergeleitet…';
+            messageEl.style.display = 'block';
+            statusEl.textContent = 'Erfolgreich.';
+            setTimeout(() => {
+              window.location.href = '/';
+            }, 1500);
+          } catch (err) {
+            messageEl.style.color = 'var(--accent)';
+            messageEl.textContent = err instanceof ApiError ? err.message : 'Unbekannter Fehler.';
+            messageEl.style.display = 'block';
+            statusEl.textContent = 'Bestätigung fehlgeschlagen.';
+          }
+        })();
+      }
+    </script>
+  </body>
+</html>
