@@ -70,25 +70,29 @@
 
         <!-- Stats Overview -->
         <div class="stats-grid">
-            <div class="stat-card">
+            <div class="stat-card admin-only-panel">
                 <div class="stat-value" id="totalAccounts">-</div>
                 <div class="stat-label">Total Accounts</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card admin-only-panel">
                 <div class="stat-value" id="totalRegistrations">-</div>
                 <div class="stat-label">Registrations</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card admin-only-panel">
                 <div class="stat-value" id="totalPeople">-</div>
                 <div class="stat-label">Total People</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card admin-only-panel">
                 <div class="stat-value" id="totalItems">-</div>
                 <div class="stat-label">Items</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card admin-only-panel">
                 <div class="stat-value" id="totalVolunteers">-</div>
                 <div class="stat-label">Volunteers</div>
+            </div>
+            <div class="stat-card dj-panel">
+                <div class="stat-value" id="totalMusic">-</div>
+                <div class="stat-label">Songwünsche</div>
             </div>
         </div>
 
@@ -105,17 +109,17 @@
             <input id="tab8" type="radio" name="tabs">
 
             <div class="tab-header">
-                <label for="tab1">👥 Accounts</label>
-                <label for="tab2">📝 Registrations</label>
-                <label for="tab3">📦 Items</label>
-                <label for="tab4">🙋 Volunteers</label>
+                <label for="tab1" class="admin-only-panel">👥 Accounts</label>
+                <label for="tab2" class="admin-only-panel">📝 Registrations</label>
+                <label for="tab3" class="admin-only-panel">📦 Items</label>
+                <label for="tab4" class="admin-only-panel">🙋 Volunteers</label>
                 <label for="tab5">🎵 Music</label>
-                <label for="tab6">➕ Register User</label>
-                <label for="tab7">📧 Mails</label>
-                <label for="tab8">📜 Logs</label>
+                <label for="tab6" class="admin-only-panel">➕ Register User</label>
+                <label for="tab7" class="admin-only-panel">📧 Mails</label>
+                <label for="tab8" class="admin-only-panel">📜 Logs</label>
             </div>
 
-            <div class="content tab-content" id="content1">
+            <div class="content tab-content admin-only-panel" id="content1">
                 <h3>Account Management</h3>
                 <div class="search-filter-bar">
                     <input type="text" class="search-input" placeholder="Search accounts..." id="accountSearch">
@@ -147,7 +151,7 @@
                 </div>
             </div>
 
-            <div class="content tab-content" id="content2">
+            <div class="content tab-content admin-only-panel" id="content2">
                 <h3>Registration Management</h3>
                 <div class="search-filter-bar">
                     <input type="text" class="search-input" placeholder="Search registrations..." id="registrationSearch">
@@ -175,7 +179,7 @@
                 </div>
             </div>
 
-            <div class="content tab-content" id="content3">
+            <div class="content tab-content admin-only-panel" id="content3">
                 <h3>Item Management</h3>
                 <div class="add-item-form">
                     <h4>Add New Item</h4>
@@ -212,7 +216,7 @@
                 </div>
             </div>
 
-            <div class="content tab-content" id="content4">
+            <div class="content tab-content admin-only-panel" id="content4">
                 <h3>Volunteer Management</h3>
                 <div class="search-filter-bar">
                     <input type="text" class="search-input" placeholder="Search volunteers..." id="volunteerSearch">
@@ -238,7 +242,7 @@
             </div>
 
             <div class="content tab-content" id="content5">
-                <h3>Music Requests</h3>
+                <h3>Songwünsche</h3>
                 <div class="search-filter-bar">
                     <input type="text" class="search-input" placeholder="Search music requests..." id="musicSearch">
                 </div>
@@ -249,7 +253,7 @@
                             <tr>
                                 <th data-action="sort" data-table="musicTable" data-column="0">ID</th>
                                 <th data-action="sort" data-table="musicTable" data-column="1">Name</th>
-                                <th data-action="sort" data-table="musicTable" data-column="2">Music Requests</th>
+                                <th data-action="sort" data-table="musicTable" data-column="2">Songwunsch</th>
                             </tr>
                         </thead>
                         <tbody id="musicTable"></tbody>
@@ -257,7 +261,7 @@
                 </div>
             </div>
 
-            <div class="content tab-content" id="content6"><h3>User Registration</h3>
+            <div class="content tab-content admin-only-panel" id="content6"><h3>User Registration</h3>
                 <form id="registerUserForm">
                     <div class="form-group">
                         <label for="registerName">Name</label>
@@ -279,7 +283,7 @@
                 </form>
             </div>
 
-            <div class="content tab-content" id="content7">
+            <div class="content tab-content admin-only-panel" id="content7">
                 <h3>Mail Drafts</h3>
                 <div class="mail-layout">
                     <aside class="mail-sidebar">
@@ -335,7 +339,7 @@
                 </div>
             </div>
 
-            <div class="content tab-content" id="content8">
+            <div class="content tab-content admin-only-panel" id="content8">
                 <h3>Audit Logs</h3>
                 <div class="search-filter-bar">
                     <input type="text" class="search-input" placeholder="Search logs..." id="auditSearch">

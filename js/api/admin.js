@@ -5,6 +5,7 @@ export const listRegistrations = () => apiFetch('/api/admin/poolparty/registrati
 export const listItems = () => apiFetch('/api/admin/poolparty/item');
 export const listVolunteers = () => apiFetch('/api/admin/poolparty/volunteer');
 export const listAuditLogs = () => apiFetch('/api/admin/poolparty/audit');
+export const listMusicRequests = () => apiFetch('/api/admin/poolparty/music');
 
 export const createAccount = ({ name, email, password, roles }) =>
   apiFetch('/api/admin/register', {

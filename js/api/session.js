@@ -18,6 +18,14 @@ export function isAdmin(user) {
   return !!(user && Array.isArray(user.roles) && user.roles.includes('admin'));
 }
 
+export function isDj(user) {
+  return !!(user && Array.isArray(user.roles) && user.roles.includes('dj'));
+}
+
+export function hasAdminPanelAccess(user) {
+  return isAdmin(user) || isDj(user);
+}
+
 export async function logout() {
   try {
     await apiFetch('/api/public/logout', { method: 'POST' });

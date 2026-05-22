@@ -1,4 +1,4 @@
-import { getCurrentUser, logout as sessionLogout, isAdmin } from './api/session.js';
+import { getCurrentUser, logout as sessionLogout, hasAdminPanelAccess } from './api/session.js';
 import {
   listItems,
   getMe as getPoolpartyMe,
@@ -67,7 +67,7 @@ if (ACTIVE) {
       'Eingeloggt als ' + user.name + ' (' + user.email + ').';
 
     document.body.classList.add('signedIn');
-    if (isAdmin(user)) {
+    if (hasAdminPanelAccess(user)) {
       document.body.classList.add('admin');
     }
 

@@ -15,7 +15,7 @@ The site:
 - shows facts about the event (when, where, how to get there, what to bring)
 - lets logged-in attendees register, pick what they're bringing, and sign up to volunteer
 - has a year-by-year photo gallery (2018 → 2025) with a lightbox
-- has an admin panel for managing accounts, registrations, items, and volunteers
+- has an admin panel for managing accounts, registrations, items, volunteers, mails, logs, and a DJ-only song request view
 - has a small easter egg or two (don't tell)
 
 ## Stack

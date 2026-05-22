@@ -3,7 +3,7 @@
  * ES6+ Class-based architecture with modern JavaScript patterns
  */
 
-import { getCurrentUser, isAdmin } from './api/session.js';
+import { getCurrentUser, hasAdminPanelAccess, isAdmin, isDj } from './api/session.js';
 import * as adminApi from './api/admin.js';
 
 // Adapters: the new backend returns field names that differ from what the rendering
@@ -47,6 +47,12 @@ const adapt = {
         ipAddress: a.ipAddress,
         createdAt: a.createdAt,
     }),
+    music: (m) => ({
+        id: m.id,
+        name: m.accountName ?? '',
+        music: m.music,
+        lastActivity: m.updatedAt,
+    }),
 };
 
 class PoolpartyAdmin {
@@ -55,6 +61,9 @@ class PoolpartyAdmin {
             data: { account: [], registration: [], item: [], volunteer: [], music: [], audit: [] },
             loading: new Set(),
             currentTab: 'account',
+            user: null,
+            isFullAdmin: false,
+            isDjOnly: false,
             sortState: {
                 account: { column: null, direction: 'asc' },
                 registration: { column: null, direction: 'asc' },
@@ -81,6 +90,7 @@ class PoolpartyAdmin {
             registration: () => adminApi.listRegistrations().then((rows) => rows.map(adapt.registration)),
             item: () => adminApi.listItems().then((rows) => rows.map(adapt.item)),
             volunteer: () => adminApi.listVolunteers().then((rows) => rows.map(adapt.volunteer)),
+            music: () => adminApi.listMusicRequests().then((rows) => rows.map(adapt.music)),
             audit: () => adminApi.listAuditLogs().then((rows) => rows.map(adapt.audit)),
         };
 
@@ -95,22 +105,43 @@ class PoolpartyAdmin {
             setTimeout(() => window.location.href = './login.html', 1500);
             return;
         }
-        if (!isAdmin(user)) {
+        if (!hasAdminPanelAccess(user)) {
             this.showNotification('Kein Adminzugriff.', 'error');
             setTimeout(() => window.location.href = './', 1500);
             return;
         }
+        this.state.user = user;
+        this.state.isFullAdmin = isAdmin(user);
+        this.state.isDjOnly = isDj(user) && !isAdmin(user);
 
         console.log('🔧 Initializing Poolparty Admin Dashboard...');
 
         // Set initial loading states
-        this.setLoading('music', true); // Music will be processed from registrations
+        this.applyRoleUi();
+        this.setLoading('music', true);
 
         this.setupEventListeners();
-        document.getElementById('content1')?.style.setProperty('display', 'block');
+        const initialContent = this.state.isDjOnly ? 'content5' : 'content1';
+        document.getElementById(initialContent)?.style.setProperty('display', 'block');
         await this.loadAllData();
 
         console.log('🎉 Poolparty Admin Dashboard initialized!');
+    }
+
+    applyRoleUi() {
+        document.body.classList.toggle('dj-only', this.state.isDjOnly);
+        document.body.classList.toggle('full-admin', this.state.isFullAdmin);
+
+        if (this.state.isDjOnly) {
+            const musicTab = document.getElementById('tab5');
+            if (musicTab) musicTab.checked = true;
+            this.state.currentTab = 'music';
+            const title = document.querySelector('.admin-header h1');
+            if (title) {
+                const text = Array.from(title.childNodes).find((node) => node.nodeType === Node.TEXT_NODE);
+                if (text) text.textContent = ' Songwünsche';
+            }
+        }
     }
 
     // ➕ Register User
@@ -178,7 +209,7 @@ class PoolpartyAdmin {
     // 📊 Data Loading
     async loadAllData() {
         console.log('📊 Loading all data...');
-        const sections = Object.keys(this.loaders);
+        const sections = this.state.isDjOnly ? ['music'] : Object.keys(this.loaders);
 
         const promises = sections.map(async (section) => {
             this.setLoading(section, true);
@@ -200,8 +231,9 @@ class PoolpartyAdmin {
 
         await Promise.all(promises);
         
-        // Process music data from registrations
-        this.processMusic();
+        if (!this.state.isDjOnly) {
+            this.processMusic();
+        }
         
         // Update statistics
         this.updateStats();
@@ -243,7 +275,8 @@ class PoolpartyAdmin {
     // 🎨 Rendering Methods
     renderAllTables() {
         console.log('🎨 Rendering all tables...');
-        Object.keys(this.state.data).forEach(section => {
+        const sections = this.state.isDjOnly ? ['music'] : Object.keys(this.state.data);
+        sections.forEach(section => {
             this.renderTable(section);
             console.log(`✅ ${section} table rendered`);
         });
@@ -785,8 +818,9 @@ Das Poolparty Team`);
     updateStats() {
         const { account, registration, item, volunteer } = this.state.data;
         const totalPeople = registration.reduce((sum, reg) => sum + (reg.people || 0), 0);
-        
-        const stats = {
+        const stats = this.state.isDjOnly ? {
+            totalMusic: this.state.data.music.length,
+        } : {
             totalAccounts: account.length,
             totalRegistrations: registration.length,
             totalPeople,

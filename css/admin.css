@@ -351,6 +351,39 @@ tr:hover {
     margin-bottom: var(--space-8);
 }
 
+.dj-panel {
+    display: none;
+}
+
+body.dj-only .admin-only-panel {
+    display: none !important;
+}
+
+body.dj-only .dj-panel {
+    display: block;
+}
+
+body.dj-only .stats-grid {
+    grid-template-columns: minmax(180px, 280px);
+}
+
+body.dj-only .enhanced-tabs {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+body.dj-only .tab-header {
+    display: none;
+}
+
+body.dj-only .tab-content {
+    display: block;
+}
+
+body.dj-only .enhanced-table {
+    min-width: 520px;
+}
+
 .stat-card {
     background: var(--white);
     padding: var(--space-6);
