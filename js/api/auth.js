@@ -22,3 +22,9 @@ export const changePassword = (currentPassword, newPassword) =>
     method: 'POST',
     body: { currentPassword, newPassword },
   });
+
+export const changeEmail = (email) =>
+  apiFetch('/api/private/changeEmail', {
+    method: 'POST',
+    body: { email },
+  });

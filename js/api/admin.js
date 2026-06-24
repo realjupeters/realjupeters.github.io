@@ -16,6 +16,12 @@ export const createAccount = ({ name, email, password, roles }) =>
 export const deleteAccount = (id) =>
   apiFetch(`/api/admin/register/${encodeURIComponent(id)}`, { method: 'DELETE' });
 
+export const updateAccount = (id, patch) =>
+  apiFetch(`/api/admin/poolparty/account/${encodeURIComponent(id)}`, {
+    method: 'PATCH',
+    body: patch,
+  });
+
 export const createItem = (name) =>
   apiFetch('/api/admin/poolparty/item', { method: 'POST', body: { name } });
 

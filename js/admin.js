@@ -335,7 +335,10 @@ class PoolpartyAdmin {
                     <td>${this.createStatusBadge(acc.verifiedMail)}</td>
                     <td>${this.escapeHtml(acc.roles || '')}</td>
                     <td>${this.formatDate(acc.lastActivity)}</td>
-                    <td><button class="action-btn btn-danger" data-action="delete" data-type="account" data-id="${acc.id}" data-name="${this.escapeHtml(acc.name || '')}">Löschen</button></td>
+                    <td>
+                        <button class="action-btn" data-action="edit" data-type="account" data-id="${acc.id}">Bearbeiten</button>
+                        <button class="action-btn btn-danger" data-action="delete" data-type="account" data-id="${acc.id}" data-name="${this.escapeHtml(acc.name || '')}">Löschen</button>
+                    </td>
                 </tr>`,
             
             registration: (reg) => `
@@ -552,6 +555,49 @@ class PoolpartyAdmin {
             if (columnIndex !== -1) {
                 this.updateSortIndicators(section, columnIndex);
             }
+        }
+    }
+
+    // 👤 Account Editing
+    async showEditAccountPrompt(id) {
+        const account = this.state.data.account.find((item) => item.id === id);
+        if (!account) {
+            this.showNotification('Account nicht gefunden.', 'error');
+            return;
+        }
+
+        const name = prompt('Name ändern:', account.name || '');
+        if (name === null) return;
+        const email = prompt('E-Mail ändern:', account.email || '');
+        if (email === null) return;
+        const roles = prompt('Rollen ändern (Komma-getrennt: user, admin, dj):', account.roles || 'user');
+        if (roles === null) return;
+
+        const roleList = roles
+            .split(',')
+            .map((role) => role.trim())
+            .filter(Boolean);
+
+        if (!name.trim() || !email.trim() || roleList.length === 0) {
+            this.showNotification('Name, E-Mail und mindestens eine Rolle sind Pflicht.', 'error');
+            return;
+        }
+        if (!email.includes('@') || !email.includes('.')) {
+            this.showNotification('Bitte eine gültige E-Mail-Adresse eingeben.', 'error');
+            return;
+        }
+        if (!roleList.every((role) => ['user', 'admin', 'dj'].includes(role))) {
+            this.showNotification('Erlaubte Rollen: user, admin, dj.', 'error');
+            return;
+        }
+
+        try {
+            await adminApi.updateAccount(id, { name: name.trim(), email: email.trim(), roles: roleList });
+            this.showNotification('Account aktualisiert.', 'success');
+            await this.loadAllData();
+            this.renderTable('account');
+        } catch (error) {
+            this.showNotification(error.message || 'Account konnte nicht aktualisiert werden.', 'error');
         }
     }
 
@@ -886,6 +932,9 @@ Das Poolparty Team`);
             if (action === 'delete') {
                 const { type, id, name } = btn.dataset;
                 this.showDeleteConfirm(type, Number(id), name);
+            } else if (action === 'edit') {
+                const { type, id } = btn.dataset;
+                if (type === 'account') this.showEditAccountPrompt(Number(id));
             } else if (action === 'sort') {
                 const section = btn.dataset.table.replace('Table', '');
                 const column = Number(btn.dataset.column);
