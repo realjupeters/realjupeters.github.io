@@ -559,45 +559,73 @@ class PoolpartyAdmin {
     }
 
     // 👤 Account Editing
-    async showEditAccountPrompt(id) {
+    openAccountEditor(id) {
         const account = this.state.data.account.find((item) => item.id === id);
         if (!account) {
             this.showNotification('Account nicht gefunden.', 'error');
             return;
         }
 
-        const name = prompt('Name ändern:', account.name || '');
-        if (name === null) return;
-        const email = prompt('E-Mail ändern:', account.email || '');
-        if (email === null) return;
-        const roles = prompt('Rollen ändern (Komma-getrennt: user, admin, dj):', account.roles || 'user');
-        if (roles === null) return;
+        document.getElementById('accountEditId').value = String(account.id);
+        document.getElementById('accountEditName').value = account.name || '';
+        document.getElementById('accountEditEmail').value = account.email || '';
+        document.getElementById('accountEditError').hidden = true;
+        document.getElementById('accountEditError').textContent = '';
 
-        const roleList = roles
-            .split(',')
-            .map((role) => role.trim())
-            .filter(Boolean);
+        const roles = new Set((account.roles || 'user').split(',').map((role) => role.trim()).filter(Boolean));
+        document.querySelectorAll('input[name="accountEditRole"]').forEach((input) => {
+            input.checked = roles.has(input.value);
+        });
 
-        if (!name.trim() || !email.trim() || roleList.length === 0) {
-            this.showNotification('Name, E-Mail und mindestens eine Rolle sind Pflicht.', 'error');
+        const modal = document.getElementById('accountEditModal');
+        modal.hidden = false;
+        document.body.classList.add('modal-open');
+        setTimeout(() => document.getElementById('accountEditName')?.focus(), 50);
+    }
+
+    closeAccountEditor() {
+        const modal = document.getElementById('accountEditModal');
+        if (modal) modal.hidden = true;
+        document.body.classList.remove('modal-open');
+    }
+
+    setAccountEditorError(message) {
+        const error = document.getElementById('accountEditError');
+        error.textContent = message;
+        error.hidden = false;
+    }
+
+    async saveAccountEditor(event) {
+        event?.preventDefault();
+        const id = Number(document.getElementById('accountEditId').value);
+        const name = document.getElementById('accountEditName').value.trim();
+        const email = document.getElementById('accountEditEmail').value.trim();
+        const roleList = Array.from(document.querySelectorAll('input[name="accountEditRole"]:checked'))
+            .map((input) => input.value);
+        const saveButton = document.getElementById('accountEditSave');
+
+        if (!name || !email || roleList.length === 0) {
+            this.setAccountEditorError('Name, E-Mail und mindestens eine Rolle sind Pflicht.');
             return;
         }
         if (!email.includes('@') || !email.includes('.')) {
-            this.showNotification('Bitte eine gültige E-Mail-Adresse eingeben.', 'error');
-            return;
-        }
-        if (!roleList.every((role) => ['user', 'admin', 'dj'].includes(role))) {
-            this.showNotification('Erlaubte Rollen: user, admin, dj.', 'error');
+            this.setAccountEditorError('Bitte eine gültige E-Mail-Adresse eingeben.');
             return;
         }
 
         try {
-            await adminApi.updateAccount(id, { name: name.trim(), email: email.trim(), roles: roleList });
+            saveButton.disabled = true;
+            saveButton.textContent = 'Speichere…';
+            await adminApi.updateAccount(id, { name, email, roles: roleList });
+            this.closeAccountEditor();
             this.showNotification('Account aktualisiert.', 'success');
             await this.loadAllData();
             this.renderTable('account');
         } catch (error) {
-            this.showNotification(error.message || 'Account konnte nicht aktualisiert werden.', 'error');
+            this.setAccountEditorError(error.message || 'Account konnte nicht aktualisiert werden.');
+        } finally {
+            saveButton.disabled = false;
+            saveButton.textContent = 'Änderungen speichern';
         }
     }
 
@@ -934,7 +962,7 @@ Das Poolparty Team`);
                 this.showDeleteConfirm(type, Number(id), name);
             } else if (action === 'edit') {
                 const { type, id } = btn.dataset;
-                if (type === 'account') this.showEditAccountPrompt(Number(id));
+                if (type === 'account') this.openAccountEditor(Number(id));
             } else if (action === 'sort') {
                 const section = btn.dataset.table.replace('Table', '');
                 const column = Number(btn.dataset.column);
@@ -1053,6 +1081,20 @@ Das Poolparty Team`);
                 this.registerUser();
             });
         }
+
+        // Account edit modal
+        const accountEditForm = document.getElementById('accountEditForm');
+        const accountEditModal = document.getElementById('accountEditModal');
+        const closeAccountModal = () => this.closeAccountEditor();
+        if (accountEditForm) accountEditForm.addEventListener('submit', (event) => this.saveAccountEditor(event));
+        document.getElementById('accountEditCancel')?.addEventListener('click', closeAccountModal);
+        document.getElementById('accountEditClose')?.addEventListener('click', closeAccountModal);
+        accountEditModal?.addEventListener('click', (event) => {
+            if (event.target === accountEditModal) closeAccountModal();
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !accountEditModal?.hidden) closeAccountModal();
+        });
     }
 
     // 🕰️ Debounce utility

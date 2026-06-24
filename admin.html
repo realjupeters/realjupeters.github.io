@@ -362,6 +362,41 @@
         </div>
     </div>
 
+    <div class="account-modal-backdrop" id="accountEditModal" hidden>
+        <div class="account-modal-card" role="dialog" aria-modal="true" aria-labelledby="accountEditTitle">
+            <button type="button" class="account-modal-close" id="accountEditClose" aria-label="Schließen">×</button>
+            <div class="account-modal-header">
+                <span class="account-modal-kicker">👤 Account bearbeiten</span>
+                <h2 id="accountEditTitle">Userverwaltung</h2>
+                <p>Name, E-Mail und Rollen sauber ändern. E-Mail-Änderungen setzen die Verifizierung zurück.</p>
+            </div>
+            <form id="accountEditForm" class="account-edit-form">
+                <input type="hidden" id="accountEditId">
+                <div class="account-form-grid">
+                    <label class="account-field">
+                        <span>Name</span>
+                        <input type="text" id="accountEditName" placeholder="z.B. Julian Peters" required>
+                    </label>
+                    <label class="account-field">
+                        <span>E-Mail</span>
+                        <input type="email" id="accountEditEmail" placeholder="name@example.com" required>
+                    </label>
+                </div>
+                <div class="account-role-box">
+                    <span class="account-role-label">Rollen</span>
+                    <label class="role-chip"><input type="checkbox" value="user" name="accountEditRole"> User</label>
+                    <label class="role-chip"><input type="checkbox" value="admin" name="accountEditRole"> Admin</label>
+                    <label class="role-chip"><input type="checkbox" value="dj" name="accountEditRole"> DJ</label>
+                </div>
+                <p class="account-modal-error" id="accountEditError" hidden></p>
+                <div class="account-modal-actions">
+                    <button type="button" class="btn btn-secondary" id="accountEditCancel">Abbrechen</button>
+                    <button type="submit" class="btn btn-primary" id="accountEditSave">Änderungen speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Quill WYSIWYG (loaded before admin.js so the editor is ready when initMailTab runs) -->
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.min.js"></script>
