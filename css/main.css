@@ -1087,6 +1087,57 @@ span.background-success, span.background-danger {
   margin: 2rem 0;
 }
 
+.recap-placeholder-section {
+  margin-bottom: 1.5rem;
+}
+
+.recap-placeholder-card {
+  border: 3px dashed var(--pencil);
+  border-radius: var(--wobbly-md);
+  background: var(--paper-alt);
+  padding: 2rem;
+  text-align: center;
+  color: var(--pencil);
+}
+
+.recap-placeholder-card h4 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+}
+
+.recap-placeholder-card p {
+  margin: 0;
+}
+
+.recap-placeholder-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.recap-placeholder-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 2rem 0;
+}
+
+.recap-placeholder-grid > div {
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  border: 3px dashed var(--pencil);
+  border-radius: var(--wobbly-sm);
+  background: var(--paper-alt);
+  color: var(--pencil);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  box-shadow: var(--shadow-sm);
+}
+
 .photos > div {
   break-inside: avoid;
   margin-bottom: 14px;
@@ -1140,15 +1191,18 @@ span.background-success, span.background-danger {
 
 @media (max-width: 1000px) {
   .photos { column-count: 3; }
+  .recap-placeholder-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 800px) {
   .photos { column-count: 2; column-gap: 10px; }
   .photos img { margin-bottom: 10px; border-width: 2px; }
+  .recap-placeholder-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 }
 
 @media (max-width: 400px) {
   .photos { column-count: 1; }
+  .recap-placeholder-grid { grid-template-columns: 1fr; }
 }
 
 /* ===== fslightbox Theming ===== */
