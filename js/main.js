@@ -11,7 +11,7 @@ import {
 import { ApiError } from './api/client.js';
 
 // ===== Active / inactive toggle =====
-const ACTIVE = true;
+const ACTIVE = false;
 
 if (ACTIVE) {
   document.documentElement.style.setProperty('--display-active', 'initial');
