@@ -14,7 +14,7 @@ The site:
 
 - shows facts about the event (when, where, how to get there, what to bring)
 - lets logged-in attendees register, pick what they're bringing, and sign up to volunteer
-- has a year-by-year photo gallery (2018 → 2025) with a lightbox
+- has a year-by-year photo gallery (2018 → 2026) with a lightbox
 - has an admin panel for managing accounts, registrations, items, volunteers, mails, logs, and a DJ-only song request view
 - has a small easter egg or two (don't tell)
 
@@ -53,7 +53,7 @@ The site:
 │       ├── poolparty.js    # getMe, listItems, registration / volunteer CRUD
 │       └── admin.js        # admin list / create / delete endpoints
 └── img/
-    └── 20{18..25}/{thumb,small,medium,large}/img*.jpg   # gallery (resized variants only — originals live offline)
+    └── 20{18..26}/{thumb,small,medium,large}/img*.jpg   # gallery (resized variants only — originals live offline)
 ```
 
 ## Auth model

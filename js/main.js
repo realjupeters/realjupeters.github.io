@@ -250,7 +250,7 @@ function createPhotos(year, count) {
     photosString += `
         <div>
             <a data-fslightbox="gallery${year}" href="img/${year}/large/img${i}.jpg">
-                <img src="img/${year}/thumb/img${i}.${imgType}" class="thumb" type="image/${imgType}" alt="Img${i}" onload='thumbnailHandler(this)'>
+                <img src="img/${year}/thumb/img${i}.${imgType}" class="thumb" type="image/${imgType}" alt="Poolparty ${year} – Foto ${i}" onload='thumbnailHandler(this)'>
             </a>
         </div>
         `;
@@ -273,6 +273,7 @@ window.thumbnailHandler = function thumbnailHandler(elem) {
 };
 
 let imgType = 'jpg';
+createPhotos(2026, 18);
 createPhotos(2025, 10);
 createPhotos(2024, 13);
 createPhotos(2023, 15);
@@ -281,6 +282,7 @@ createPhotos(2021, 18);
 createPhotos(2020, 25);
 createPhotos(2019, 18);
 createPhotos(2018, 7);
+window.refreshFsLightbox?.();
 
 // ===== Submit modal (registration only) =====
 let submitData;
