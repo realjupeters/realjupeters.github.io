@@ -243,6 +243,70 @@ if (ACTIVE) {
 }
 
 // ===== Photo gallery =====
+const pendingPhotoLayouts = new Set();
+let photoLayoutFrame;
+
+function layoutPhotoGallery(gallery) {
+  const items = [...gallery.children];
+  if (!items.length || !gallery.clientWidth) return;
+
+  const styles = getComputedStyle(gallery);
+  const columnCount = Math.max(1, Number.parseInt(styles.getPropertyValue('--photo-columns'), 10) || 1);
+  const gap = Number.parseFloat(styles.getPropertyValue('--photo-gap')) || 0;
+  const columnWidth = (gallery.clientWidth - gap * (columnCount - 1)) / columnCount;
+
+  for (const item of items) {
+    item.style.width = `${columnWidth}px`;
+  }
+
+  const columns = Array.from({ length: columnCount }, () => ({ height: 0, items: [] }));
+  const measuredItems = items
+    .map((item, index) => ({ element: item, height: item.offsetHeight, index }))
+    .sort((first, second) => second.height - first.height || first.index - second.index);
+
+  for (const item of measuredItems) {
+    const shortestColumn = columns.reduce(
+      (shortest, column) => (column.height < shortest.height ? column : shortest),
+      columns[0],
+    );
+    shortestColumn.items.push(item);
+    shortestColumn.height += item.height + gap;
+  }
+
+  for (const column of columns) {
+    column.items.sort((first, second) => first.index - second.index);
+  }
+  columns.sort(
+    (first, second) => (first.items[0]?.index ?? Number.POSITIVE_INFINITY)
+      - (second.items[0]?.index ?? Number.POSITIVE_INFINITY),
+  );
+
+  for (const [columnIndex, column] of columns.entries()) {
+    let top = 0;
+    for (const item of column.items) {
+      item.element.style.left = `${columnIndex * (columnWidth + gap)}px`;
+      item.element.style.top = `${top}px`;
+      top += item.height + gap;
+    }
+  }
+
+  gallery.style.height = `${Math.max(...columns.map((column) => column.height)) - gap}px`;
+}
+
+function schedulePhotoLayout(gallery) {
+  if (!gallery) return;
+  pendingPhotoLayouts.add(gallery);
+  if (photoLayoutFrame) return;
+
+  photoLayoutFrame = requestAnimationFrame(() => {
+    for (const pendingGallery of pendingPhotoLayouts) {
+      layoutPhotoGallery(pendingGallery);
+    }
+    pendingPhotoLayouts.clear();
+    photoLayoutFrame = undefined;
+  });
+}
+
 function createPhotos(year, count) {
   const photos = document.getElementById('photos' + year);
   let photosString = '';
@@ -256,6 +320,7 @@ function createPhotos(year, count) {
         `;
   }
   photos.innerHTML = photosString;
+  schedulePhotoLayout(photos);
 }
 
 // Exposed on window so the inline onload="thumbnailHandler(this)" in the gallery HTML keeps working.
@@ -270,6 +335,7 @@ window.thumbnailHandler = function thumbnailHandler(elem) {
   } else {
     elem.classList.remove('thumb');
   }
+  schedulePhotoLayout(elem.closest('.photos'));
 };
 
 let imgType = 'jpg';
@@ -283,6 +349,10 @@ createPhotos(2020, 25);
 createPhotos(2019, 18);
 createPhotos(2018, 7);
 window.refreshFsLightbox?.();
+
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.photos').forEach(schedulePhotoLayout);
+});
 
 // ===== Submit modal (registration only) =====
 let submitData;
