@@ -87,17 +87,17 @@ if (REGISTRATION_OPEN) {
       const anmeldenForm = document.getElementById('anmeldenForm');
       const originalFormHtml = anmeldenForm.innerHTML;
       anmeldenForm.innerHTML =
-        '<div class="poolparty-card" style="background:var(--success-light);border-color:var(--success)"><b>✅ Du hast dich am ' +
-        new Date(registration.updatedAt).toLocaleDateString() +
+        '<div class="poolparty-card reg-success"><span class="reg-success-stamp">Angemeldet!</span><p>Du hast dich am ' +
+        new Date(registration.updatedAt).toLocaleDateString('de-DE') +
         ' mit ' +
         registration.peopleCount +
         ' Person' +
         (registration.peopleCount > 1 ? 'en' : '') +
-        ' angemeldet. Du bringst "' +
+        ' angemeldet. Du bringst „' +
         item.name +
-        '" mit.</b></div>' +
-        '<div class="form-actions" style="margin-top:1rem;justify-content:center;"><button type="button" class="btn-warning" id="toggleRegistrationEdit">Anmeldung ändern</button></div>' +
-        '<div class="form-section" id="registrationEditSection" style="display:none;"><h3>Änderungen:</h3>' +
+        '“ mit.</p></div>' +
+        '<div class="form-actions reg-success-actions"><button type="button" class="btn-warning" id="toggleRegistrationEdit">Anmeldung ändern</button></div>' +
+        '<div class="form-section reg-edit" id="registrationEditSection" style="display:none;"><h3 class="reg-edit-title">Änderungen:</h3>' +
         originalFormHtml +
         '</div>';
 
@@ -106,6 +106,7 @@ if (REGISTRATION_OPEN) {
       abmeldenButton.className = 'btn-danger';
       abmeldenButton.onclick = () => {
         abmeldenButton.innerText = 'Sicher?';
+        abmeldenButton.classList.add('is-confirming');
         abmeldenButton.onclick = async () => {
           try {
             await deleteRegistration();
@@ -137,19 +138,19 @@ if (REGISTRATION_OPEN) {
       if (volunteer) {
         const volunteerForm = document.getElementById('volunteerForm');
         volunteerForm.innerHTML =
-          '<h3 class="volunteer-title">🙌 Volunteer Status</h3>' +
-          '<div class="poolparty-card" style="background:var(--success-light);border-color:var(--success)">Du hilfst am ' +
-          new Date(volunteer.updatedAt).toLocaleDateString() +
-          ' — <b>"' +
+          '<h3 class="volunteer-title">Dein Helfereinsatz</h3>' +
+          '<div class="poolparty-card reg-success reg-success--small"><span class="reg-success-stamp">Du hilfst mit!</span><p>' +
+          (volunteer.updatedAt ? 'Eingetragen am ' + new Date(volunteer.updatedAt).toLocaleDateString('de-DE') + ': ' : '') +
+          '<b>„' +
           volunteer.duration +
-          '"</b></div>' +
+          '“</b></p></div>' +
           '<div class="form-actions"></div>';
 
         const button = document.createElement('button');
         button.innerText = 'Volunteer Anmeldung zurückziehen';
         button.className = 'btn-warning';
         button.onclick = () => {
-          button.className = 'btn-danger';
+          button.className = 'btn-danger is-confirming';
           button.innerText = 'Sicher?';
           button.onclick = async () => {
             try {
@@ -393,6 +394,9 @@ function hideModal() {
 function showModal() {
   modalState.checked = true;
 }
+
+// Der Abbrechen-Button im Modal ruft hideModal() per onclick auf.
+window.hideModal = hideModal;
 
 const progress = document.getElementById('progress');
 const success = document.getElementById('success');

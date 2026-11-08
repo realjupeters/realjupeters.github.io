@@ -1,23 +1,8 @@
 /* =====================================================================
-   Poolparty 2027 – Party-Scrapbook
-   Nur für index.html. Baut auf main.css (Papier-Grammatik) und
-   anniversary.css auf. Dramaturgie: Sommertag → Nachmittag →
-   Sonnenuntergang → Neon-Nacht.
+   Poolparty 2027 – Party-Scrapbook (nur index.html)
+   Baut auf scrapbook.css auf. Dramaturgie: Sommertag → Nachmittag →
+   Sonnenuntergang → Dämmerung (Anmeldung) → Neon-Nacht.
    ===================================================================== */
-
-:root {
-  --ink: #2d2d2d;
-  --pink: #ff2d87;
-  --pink-deep: #d6005f;
-  --cta: #e6007a;
-  --sun: #ffe14d;
-  --night-text: #f6f0ff;
-  --night-muted: #d7cdf0;
-  --bounce: cubic-bezier(0.2, 1.35, 0.4, 1);
-  --rainbow-x: linear-gradient(90deg, #ff0000, #f5601d, #e0e722, #6be607, #51fcf8, #d800ff, #ff2d87);
-  --dots: radial-gradient(rgba(45, 45, 45, 0.13) 1.2px, transparent 1.5px);
-  --gutter: 16px;
-}
 
 /* ===== Seite ===== */
 body.party-page {
@@ -35,10 +20,9 @@ body.party-page {
   overflow-x: clip;
 }
 
-html { scroll-padding-top: 88px; }
-
-@media (max-width: 768px) {
-  html { scroll-padding-top: 72px; }
+.party ul {
+  list-style: none;
+  padding: 0;
 }
 
 .noscript-note {
@@ -49,45 +33,7 @@ html { scroll-padding-top: 88px; }
   border-bottom: 3px solid var(--ink);
 }
 
-/* Navigation bekommt einen Regenbogen-Klebestreifen */
-.party-page nav::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -8px;
-  height: 5px;
-  background: var(--rainbow-x);
-  border-bottom: 2px solid var(--ink);
-  pointer-events: none;
-}
-
-.party-page .nav-brand h3 { text-align: left; }
-
-/* Navigationsleiste über die volle Breite, damit kein dunkler Rand neben ihr steht */
-.party-page nav.split-nav {
-  max-width: none;
-  padding-inline: max(clamp(1rem, 2.5vw, 2rem), calc(50% - 640px + 2rem));
-}
-
-/* main.css setzt mobile Menülinks auf display:block und blendet so „Anmeldung“/„Volunteers“
-   auch bei geschlossener Anmeldung ein. Nur diesen Zustand korrigieren; die hideFor*-Regeln
-   aus main.css (Login/Logout/Admin) bleiben unangetastet. */
-html:not([style*="--display-active: initial"]) .collapsible-body a.only-active { display: none; }
-
 /* ===== Gemeinsame Bausteine ===== */
-.tape {
-  position: absolute;
-  z-index: 3;
-  width: 112px;
-  height: 30px;
-  background:
-    repeating-linear-gradient(45deg, rgba(255, 45, 135, 0.5) 0 7px, rgba(255, 255, 255, 0.55) 7px 14px);
-  border: 1px solid rgba(45, 45, 45, 0.15);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
-  pointer-events: none;
-}
-
 .polaroid {
   --tx: 0deg;
   --ty: 0deg;
@@ -176,75 +122,11 @@ html:not([style*="--display-active: initial"]) .collapsible-body a.only-active {
 
 .sticker--pink { background: var(--pink-deep); color: #fff; }
 .sticker--yellow { background: var(--sun); color: var(--ink); font-size: 1.15rem; }
-
-.stamp {
-  display: inline-block;
-  margin: 0.25rem 0 0.75rem;
-  padding: 0.2rem 0.8rem 0.1rem;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1.35rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: #c3004f;
-  border: 3px solid currentColor;
-  border-radius: 10px 4px 12px 5px;
-  rotate: -3deg;
-  mix-blend-mode: multiply;
-}
-
 .stamp--tilt {
   rotate: 6deg;
   margin: 0.4rem 0 0;
   font-size: 1.6rem;
 }
-
-/* ===== Section-Titel: Klebezettel ===== */
-.party h2.section-title {
-  display: flex;
-  justify-content: center;
-  margin: 0 0 clamp(2rem, 5vw, 3.2rem);
-  padding: 0;
-  background: none;
-  border: 0;
-  box-shadow: none;
-  transform: none;
-}
-
-.party h2.section-title::after { display: none; }
-.party h2.section-title:hover { transform: none; box-shadow: none; }
-
-.section-title > span {
-  position: relative;
-  display: inline-block;
-  padding: 0.3em 0.75em 0.25em;
-  font-family: var(--font-heading);
-  font-size: clamp(2.3rem, 8vw, 3.8rem);
-  line-height: 1;
-  color: var(--ink);
-  background: #fff;
-  background-image: var(--dots);
-  background-size: 18px 18px;
-  border: 3px solid var(--ink);
-  border-radius: var(--wobbly-sm);
-  box-shadow: 7px 7px 0 var(--ink);
-  rotate: -2deg;
-}
-
-.section-title > span::before {
-  content: '';
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  width: 96px;
-  height: 26px;
-  translate: -50% 0;
-  rotate: 3deg;
-  background: repeating-linear-gradient(-45deg, rgba(81, 252, 248, 0.6) 0 7px, rgba(255, 255, 255, 0.6) 7px 14px);
-  border: 1px solid rgba(45, 45, 45, 0.15);
-}
-
-.section-title--small > span { font-size: clamp(1.8rem, 5vw, 2.4rem); }
 
 /* Neon-Schild für die Nacht */
 .section-title--neon > span {
@@ -263,45 +145,6 @@ html:not([style*="--display-active: initial"]) .collapsible-body a.only-active {
 }
 
 .section-title--neon > span::before { display: none; }
-
-/* ===== Buttons ===== */
-.btn-party {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 50px;
-  padding: 0.6rem 1.4rem;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1.25rem;
-  line-height: 1.1;
-  color: #fff;
-  background: var(--cta);
-  border: 3px solid var(--ink);
-  border-radius: var(--wobbly-btn);
-  box-shadow: 4px 4px 0 var(--ink);
-  text-decoration: none;
-  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
-}
-
-.btn-party:hover,
-.btn-party:focus-visible {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--ink);
-  color: #fff;
-  background: #c40068;
-}
-
-.btn-party--paper {
-  color: var(--ink);
-  background: #fff;
-}
-
-.btn-party--paper:hover,
-.btn-party--paper:focus-visible {
-  color: var(--ink);
-  background: var(--sun);
-}
 
 .btn-party:focus-visible,
 .gallery-toggle:focus-visible,
@@ -448,6 +291,9 @@ html:not([style*="--display-active: initial"]) .collapsible-body a.only-active {
 
 .party .hero-logo {
   display: block;
+  width: auto;
+  max-width: 100%;
+  transition: transform 0.12s ease;
   flex: 0 0 auto;
   height: var(--logo-h);
   margin: 0;
@@ -957,22 +803,347 @@ html[style*="--display-inactive: none"] .hero-note { display: none; }
   rotate: -8deg;
 }
 
-/* Anmeldung (nur bei REGISTRATION_OPEN) */
-.registration-wrap { margin-top: 3.5rem; }
+/* =====================================================================
+   Dämmerung – Anmeldung & Volunteers (nur bei REGISTRATION_OPEN)
+   ===================================================================== */
+.scene--dusk {
+  color: var(--night-text);
+  padding-top: clamp(4.5rem, 9vw, 6.5rem);
+  background:
+    radial-gradient(120% 55% at 50% 0%, rgba(255, 90, 168, 0.42), transparent 70%),
+    #5a2183;
+}
 
-.reg-card {
-  display: block;
-  padding: 2rem clamp(1rem, 4vw, 2.2rem);
+.scene--dusk::before {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1.2px, transparent 1.5px);
+}
+
+.reg { max-width: 1040px; }
+
+.reg-title { margin-bottom: 1.6rem; }
+.reg-title > span { rotate: 1.5deg; }
+
+.reg-lead {
+  max-width: 36rem;
+  margin: 0 auto 1.4rem;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 4vw, 1.5rem);
+  line-height: 1.35;
+  color: var(--night-muted);
+}
+
+/* Ablauf als nummerierte Klebepunkte */
+.party .reg-steps {
+  counter-reset: reg-step;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem 0.8rem;
+  max-width: 52rem;
+  margin: 0 auto clamp(2.6rem, 6vw, 3.6rem);
+}
+
+.reg-steps li {
+  counter-increment: reg-step;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0.95rem 0.35rem 0.4rem;
+  font-size: 1.1rem;
+  line-height: 1.25;
+  color: var(--ink);
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.55);
+}
+
+.reg-steps li:nth-child(odd) { rotate: -1.2deg; }
+.reg-steps li:nth-child(even) { rotate: 1deg; }
+
+.reg-steps li::before {
+  content: counter(reg-step);
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 1.9rem;
+  height: 1.9rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: #fff;
+  background: var(--cta);
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+}
+
+.reg-steps li:last-child { background: var(--sun); }
+
+/* Eingeloggt führt das Formular selbst durch die Schritte */
+body.signedIn .reg-steps { display: none; }
+body.signedIn .reg-lead { margin-bottom: clamp(2.4rem, 6vw, 3.2rem); }
+
+/* Der große Anmeldezettel */
+.reg-sheet {
+  position: relative;
+  padding: clamp(2.2rem, 5vw, 3rem) clamp(1.1rem, 4.5vw, 2.8rem) clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--ink);
+  background-color: #fffdf8;
+  background-image: linear-gradient(rgba(45, 93, 161, 0.09) 1px, transparent 1px);
+  background-size: 100% 34px;
+  border: 3px solid var(--ink);
+  border-radius: var(--wobbly-md);
+  box-shadow: 9px 9px 0 rgba(0, 0, 0, 0.6);
+  rotate: -0.4deg;
+}
+
+.reg-sheet-tape {
+  top: -16px;
+  left: 50%;
+  translate: -50% 0;
+  rotate: -2deg;
+  width: 140px;
+}
+
+/* Gast */
+body:not(.signedIn) .reg-sheet { max-width: 640px; margin-inline: auto; }
+
+.reg-login {
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  padding: 0.6rem 0 0.4rem;
+  text-align: center;
+}
+
+.reg-login-text {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 4vw, 1.6rem);
+  line-height: 1.3;
+}
+
+/* „Eingeloggt als …“ als Namens-Sticker */
+.reg-whoami {
+  display: table;
+  margin: 0 auto 2rem;
+  padding: 0.35rem 1rem;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  text-align: center;
+  background: var(--sun);
+  border: 2px solid var(--ink);
+  border-radius: 6px 12px 5px 10px;
+  box-shadow: 3px 3px 0 var(--ink);
+  rotate: -1.5deg;
+  overflow-wrap: anywhere;
+}
+
+.reg-whoami:empty { display: none; }
+
+/* Die drei Schritte */
+.reg-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+}
+
+.reg-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.7rem 1.2rem 1.3rem;
+  background: var(--postit-yellow);
+  border: 3px solid var(--ink);
+  border-radius: var(--wobbly-sm);
+  box-shadow: 5px 5px 0 var(--ink);
+  rotate: -0.6deg;
+}
+
+.reg-field--people { background: var(--mint); rotate: 0.7deg; }
+.reg-field--music { background: var(--lilac); rotate: -0.3deg; }
+
+.reg-num {
+  position: absolute;
+  top: -18px;
+  left: 14px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1;
+  color: #fff;
+  background: var(--cta);
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  rotate: -8deg;
+}
+
+.reg-field .field-label { font-size: 1.35rem; }
+.reg-field .field-label small { font-family: var(--font-body); font-weight: 400; font-size: 1.05rem; color: var(--text-soft); }
+.reg-field .form-hint { color: #4a4a4a; }
+
+/* Validierung: main.js setzt .invalid auf Mitbringen/Personen */
+.reg-field:has(.invalid)::after {
+  content: 'Bitte noch auswählen.';
+  order: 3;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--error);
+}
+
+.reg-actions {
+  justify-content: center;
+  margin-top: 2.2rem;
+}
+
+.reg-actions .btn-party { width: 100%; }
+
+/* Angemeldet */
+.reg-success {
+  position: relative;
+  padding: 1.6rem 1.2rem 1.3rem;
+  text-align: center;
+  background: var(--success-light);
+  border: 3px solid var(--ink);
+  border-radius: var(--wobbly-sm);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.reg-success p {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 3.6vw, 1.45rem);
+  line-height: 1.35;
+}
+
+.reg-success-stamp {
+  display: inline-block;
+  margin: 0 0 0.8rem;
+  padding: 0.15rem 0.8rem 0.05rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--success);
+  border: 3px solid currentColor;
+  border-radius: 10px 4px 12px 5px;
+  rotate: -4deg;
+}
+
+.reg-success--small p { font-size: 1.2rem; }
+.reg-success--small .reg-success-stamp { font-size: 1.2rem; }
+
+.reg-success-actions {
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+
+.reg-success-actions > button,
+.volunteer-card .form-actions > button { flex: 1 1 220px; max-width: 320px; }
+
+.btn-danger.is-confirming {
+  background: #9a0025;
+  box-shadow: 4px 4px 0 var(--ink), 0 0 0 4px rgba(195, 0, 47, 0.3);
+}
+
+html.motion-ok .is-confirming { animation: confirm-shake 0.4s ease; }
+
+@keyframes confirm-shake {
+  0%, 100% { translate: 0 0; }
+  25% { translate: -4px 0; }
+  75% { translate: 4px 0; }
+}
+
+.reg-edit {
+  margin-top: 2rem;
+  padding-top: 2.2rem;
+  border-top: 3px dashed rgba(45, 45, 45, 0.35);
+}
+
+.reg-edit-title {
+  margin: 0 0 1.8rem;
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+.reg-fineprint {
+  max-width: 44rem;
+  margin: 1.8rem auto 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--night-muted);
+}
+
+/* Volunteers */
+.volunteer-board { margin-top: clamp(3.8rem, 9vw, 5.5rem); }
+
+.volunteer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.4rem;
+  align-items: start;
+}
+
+.volunteer-note {
+  position: relative;
+  max-width: 40rem;
+  justify-self: center;
+  padding: 1.7rem 1.3rem 1.3rem;
+  color: var(--ink);
+  background: var(--postit-yellow);
+  border: 3px solid var(--ink);
+  border-radius: var(--wobbly-sm);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.55);
+  rotate: 1deg;
+}
+
+.volunteer-note p { margin: 0; }
+
+.volunteer-card {
+  position: relative;
+  padding: 1.8rem 1.2rem 1.5rem;
+  color: var(--ink);
   background: #fff;
   border: 3px solid var(--ink);
   border-radius: var(--wobbly-md);
-  box-shadow: 8px 8px 0 var(--ink);
+  box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.6);
+  rotate: -0.6deg;
 }
 
-.reg-card .section-title { margin-top: 1.5rem; }
-.reg-card .section-title:first-child { margin-top: 0; }
-.reg-card ol { margin: 0.5rem 0 1rem; }
-.reg-fineprint { font-size: 1rem; color: #555; margin-top: 1rem; }
+.volunteer-title { margin: 0 0 0.3rem; font-size: 1.7rem; }
+.volunteer-subtitle { margin: 0 0 1.3rem; color: var(--text-soft); }
+.volunteer-card .reg-success { margin-top: 0.8rem; }
+.volunteer-card .form-actions { margin-top: 1.4rem; }
+.volunteer-card .form-actions .btn-party { width: 100%; }
+
+@media (min-width: 760px) {
+  .reg-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.4rem 2rem;
+  }
+
+  .reg-field--music { grid-column: 1 / -1; }
+
+  .reg-actions .btn-party { width: auto; min-width: 340px; }
+}
+
+@media (min-width: 900px) {
+  .volunteer-grid:has(> .volunteer-card:not([style*="none"])) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .volunteer-note { margin-top: 1rem; }
+}
 
 /* Horizont mit sinkender Sonne */
 .horizon {
@@ -1304,6 +1475,55 @@ html[style*="--display-inactive: none"] .hero-note { display: none; }
   font-size: 0.9rem;
 }
 
+/* Galerien: main.js setzt die Kacheln absolut (Masonry) und liest dafür
+   --photo-columns und --photo-gap. */
+.photos {
+  --photo-columns: 4;
+  --photo-gap: 14px;
+  position: relative;
+  line-height: 0;
+}
+
+.photos > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+}
+
+.photos img {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.3s ease;
+}
+
+/* Vorschaubilder unscharf, bis die große Fassung geladen ist */
+.photos img.thumb { filter: blur(5px); }
+
+.photos > div:nth-child(odd) img { transform: rotate(-0.8deg); }
+.photos > div:nth-child(even) img { transform: rotate(0.6deg); }
+.photos > div:nth-child(3n) img { transform: rotate(1.2deg); }
+
+@media (hover: hover) {
+  .photos img:hover {
+    position: relative;
+    z-index: 2;
+    transform: rotate(0deg) scale(1.03);
+  }
+}
+
+.photos img:active { transform: scale(0.96); }
+
+@media (max-width: 1000px) {
+  .photos { --photo-columns: 3; }
+}
+
+@media (max-width: 800px) {
+  .photos { --photo-columns: 2; --photo-gap: 10px; }
+}
+
 /* Galerien bei Nacht */
 .year-gallery { min-width: 0; }
 
@@ -1361,10 +1581,57 @@ html[style*="--display-inactive: none"] .hero-note { display: none; }
 
 .gallery-toggle[hidden] { display: none; }
 
-/* fslightbox auf Nacht stimmen */
-.party-page .fslightbox-container {
+/* fslightbox bei Nacht */
+.fslightbox-container {
   background: rgba(12, 6, 36, 0.94) !important;
+  font-family: var(--font-body) !important;
 }
+
+.fslightbox-source {
+  border: 5px solid #fff !important;
+  border-radius: 3px !important;
+  box-shadow: 6px 7px 0 #000 !important;
+}
+
+.fslightbox-toolbar {
+  background: transparent !important;
+  padding: 0.75rem !important;
+}
+
+.fslightbox-toolbar-button,
+.fslightbox-slide-btn {
+  width: 46px !important;
+  height: 46px !important;
+  padding: 0 !important;
+  margin-left: 8px !important;
+  background: #fff !important;
+  border: 3px solid #000 !important;
+  border-radius: 50% !important;
+  box-shadow: 3px 3px 0 #000 !important;
+  opacity: 1 !important;
+  cursor: pointer !important;
+}
+
+.fslightbox-slide-btn { margin-left: 0 !important; }
+
+.fslightbox-toolbar-button:hover,
+.fslightbox-slide-btn:hover { background: var(--sun) !important; }
+
+.fslightbox-svg-path { fill: var(--ink) !important; }
+
+.fslightbox-slide-number-container {
+  padding: 4px 12px !important;
+  font-family: var(--font-heading) !important;
+  font-size: 1.1rem !important;
+  color: var(--ink) !important;
+  background: #fff !important;
+  border: 2px solid #000 !important;
+  border-radius: var(--wobbly-sm) !important;
+  box-shadow: 2px 2px 0 #000 !important;
+}
+
+.fslightbox-slash { margin: 0 4px !important; background: var(--ink) !important; }
+.fslightbox-loader > div { border-color: #fff transparent transparent transparent !important; }
 
 /* =====================================================================
    Footer – Nacht

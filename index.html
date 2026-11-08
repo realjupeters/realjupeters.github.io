@@ -29,9 +29,9 @@
     <!-- CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="css/main.css?v=20261109-party" />
-    <link rel="stylesheet" href="css/anniversary.css?v=20261109-party" />
-    <link rel="stylesheet" href="css/party.css?v=20261109-party" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" />
+    <link rel="stylesheet" href="css/scrapbook.css?v=20261110" />
+    <link rel="stylesheet" href="css/party.css?v=20261110" />
 
     <script>
       /* Bewegung nur ohne prefers-reduced-motion; Fallback, falls party.js nicht lädt. */
@@ -306,123 +306,113 @@
               </article>
             </div>
           </div>
+        </div>
+        <div class="horizon" aria-hidden="true"><div class="horizon-sun"></div></div>
+      </section>
 
-          <!-- Anmeldung + Volunteers (nur sichtbar, wenn REGISTRATION_OPEN) -->
-          <div class="only-active registration-wrap">
-            <div class="event-registration reg-card" id="anmeldung">
-              <h2 class="section-title section-title--small"><span>Anmeldung</span></h2>
-              <p>Hier könnt ihr euch für die Poolparty anmelden. Das geht ganz einfach:</p>
-              <ol>
-                <li class="hideForUser">Klickt den „Anmelden“-Button</li>
-                <li class="hideForUser">Meldet euch mit euren Nutzerdaten an</li>
-                <li>Tragt ein, was ihr mitbringt</li>
-                <li>Optional: Musikwunsch äußern</li>
-                <li>Fertig!</li>
-              </ol>
+      <!-- ===== Anmeldung: Dämmerung (nur sichtbar, wenn REGISTRATION_OPEN) ===== -->
+      <section class="scene scene--dusk only-active" id="anmeldung" aria-labelledby="anmeldung-title">
+        <div class="scene-inner reg">
+          <h2 class="section-title reg-title" id="anmeldung-title"><span>Anmeldung</span></h2>
+          <p class="reg-lead">Hier könnt ihr euch für die Poolparty anmelden. Das geht ganz einfach:</p>
+          <ol class="reg-steps">
+            <li class="hideForUser">Klickt den „Anmelden“-Button</li>
+            <li class="hideForUser">Meldet euch mit euren Nutzerdaten an</li>
+            <li>Tragt ein, was ihr mitbringt</li>
+            <li>Optional: Musikwunsch äußern</li>
+            <li>Fertig!</li>
+          </ol>
 
-              <div class="hideForGuest">
-                <div class="poolparty-card" id="personName"></div>
-                <div class="form-section poolparty-form-card">
-                  <div id="anmeldenForm">
-                    <div class="row">
-                      <div class="sm-12 md-6 col">
-                        <div class="form-group">
-                          <label for="itemInput">🎒 Mitbringen</label>
-                          <select id="itemInput" class="input-block">
-                            <option selected disabled>Bitte auswählen</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="sm-12 md-6 col">
-                        <div class="form-group">
-                          <label for="peopleInput">👥 Anzahl Personen</label>
-                          <select id="peopleInput" class="input-block">
-                            <option selected disabled>Bitte auswählen</option>
-                            <option value="1">1 Person</option>
-                            <option value="2">2 Personen</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="sm-12 md-12 col">
-                        <div class="form-group">
-                          <label for="musicInput">🎵 Liedwunsch (optional, bitte genau EIN Song, keine Playlists, keine DJ-Sets, keine Lebenswerke 😌)</label>
-                          <input
-                            class="input-block"
-                            type="text"
-                            maxlength="100"
-                            placeholder="Ein Song. Wirklich nur einer. 😌"
-                            id="musicInput"
-                          />
-                        </div>
-                      </div>
-                    </div>
+          <div class="reg-sheet">
+            <span class="tape reg-sheet-tape" aria-hidden="true"></span>
 
-                    <div class="form-actions">
-                      <button
-                        class="btn-large btn-block btn-cta"
-                        type="submit"
-                        id="submitRegistration"
-                      >
-                        🏊 Zur Party anmelden
-                      </button>
-                    </div>
+            <!-- Gast: erst einloggen -->
+            <div class="reg-login hideForUser">
+              <p class="reg-login-text">Für die Anmeldung braucht ihr euren Login.</p>
+              <button class="btn-party btn-party--big" type="button" onclick="cloudAuth()">Anmelden</button>
+            </div>
+
+            <!-- Eingeloggt -->
+            <div class="hideForGuest">
+              <p class="reg-whoami" id="personName"></p>
+              <div class="form-section reg-form" id="anmeldenForm">
+                <div class="reg-fields">
+                  <div class="reg-field reg-field--item">
+                    <span class="reg-num" aria-hidden="true">1</span>
+                    <label class="field-label" for="itemInput">Was bringst du mit?</label>
+                    <select id="itemInput" class="input-block" aria-describedby="itemHint">
+                      <option selected disabled>Bitte auswählen</option>
+                    </select>
+                    <p class="form-hint" id="itemHint">Was zum Essen oder Trinken für alle.</p>
+                  </div>
+                  <div class="reg-field reg-field--people">
+                    <span class="reg-num" aria-hidden="true">2</span>
+                    <label class="field-label" for="peopleInput">Wie viele Personen?</label>
+                    <select id="peopleInput" class="input-block">
+                      <option selected disabled>Bitte auswählen</option>
+                      <option value="1">1 Person</option>
+                      <option value="2">2 Personen</option>
+                    </select>
+                  </div>
+                  <div class="reg-field reg-field--music">
+                    <span class="reg-num" aria-hidden="true">3</span>
+                    <label class="field-label" for="musicInput">Liedwunsch <small>(optional)</small></label>
+                    <input
+                      class="input-block"
+                      type="text"
+                      maxlength="100"
+                      placeholder="Ein Song. Wirklich nur einer. 😌"
+                      id="musicInput"
+                      aria-describedby="musicHint"
+                    />
+                    <p class="form-hint" id="musicHint">Bitte genau EIN Song, keine Playlists, keine DJ-Sets, keine Lebenswerke 😌</p>
                   </div>
                 </div>
-              </div>
 
-              <div class="row hideForUser">
-                <div class="col-12">
-                  <div class="form-group">
-                    <button class="btn-large btn-block btn-cta" onclick="cloudAuth()">
-                      Anmelden
-                    </button>
-                  </div>
+                <div class="form-actions reg-actions">
+                  <button class="btn-party btn-party--big reg-submit" type="submit" id="submitRegistration">Zur Party anmelden</button>
                 </div>
               </div>
-              <p class="reg-fineprint">
-                Wir weisen darauf hin, dass nach der Anmeldung euer Name und euer mitgebrachtes Item gespeichert werden. Diese sensiblen Daten werden wir natürlich gewinnbringend an Google verhökern.
-                Außerdem gibt es während der Party Fotos und Videos für diese Seite. Keine Sorge, wir veröffentlichen nichts Peinliches – das heben wir für eure Hochzeiten auf.
-              </p>
+            </div>
+          </div>
 
-              <!-- Volunteers -->
-              <h2 class="section-title section-title--small" id="volunteers"><span>Volunteers</span></h2>
-              <p>
-                Der Aufbau braucht Zeit, darum suchen wir helfende Hände für Freitag/Samstagmorgen (Aufbau) und Sonntag (Abbau). Wer Lust und Zeit hat, trägt sich hier nach der Anmeldung mit seiner möglichen Einsatzzeit ein. Wir melden uns dann. Wenn es doch nicht klappt, sagt bitte wieder ab.
-              </p>
-              <div class="form-section poolparty-form-card hideForGuest" id="volunteerForm" style="display: none !important">
-                <h3 class="volunteer-title">🙌 Helfer werden</h3>
+          <p class="reg-fineprint">
+            Wir weisen darauf hin, dass nach der Anmeldung euer Name und euer mitgebrachtes Item gespeichert werden. Diese sensiblen Daten werden wir natürlich gewinnbringend an Google verhökern.
+            Außerdem gibt es während der Party Fotos und Videos für diese Seite. Keine Sorge, wir veröffentlichen nichts Peinliches – das heben wir für eure Hochzeiten auf.
+          </p>
+
+          <!-- Volunteers -->
+          <div class="volunteer-board">
+            <h2 class="section-title section-title--small" id="volunteers"><span>Volunteers</span></h2>
+            <div class="volunteer-grid">
+              <div class="volunteer-note">
+                <span class="pin pin--green" aria-hidden="true"></span>
+                <p>
+                  Der Aufbau braucht Zeit, darum suchen wir helfende Hände für Freitag/Samstagmorgen (Aufbau) und Sonntag (Abbau). Wer Lust und Zeit hat, trägt sich hier nach der Anmeldung mit seiner möglichen Einsatzzeit ein. Wir melden uns dann. Wenn es doch nicht klappt, sagt bitte wieder ab.
+                </p>
+              </div>
+              <div class="form-section volunteer-card hideForGuest" id="volunteerForm" style="display: none !important">
+                <h3 class="volunteer-title">Helfer werden</h3>
                 <p class="volunteer-subtitle">Du möchtest beim Auf- oder Abbau helfen? Trag dich hier ein!</p>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <label for="durationInput">⏰ Wann kannst du helfen?</label>
-                      <input
-                        class="input-block"
-                        type="text"
-                        placeholder="z.B. Freitag 14:00 - 18:00"
-                        id="durationInput"
-                        pattern=".{3,512}"
-                        required
-                        title="3 bis 512 Zeichen"
-                      />
-                    </div>
-                  </div>
+                <div class="field">
+                  <label for="durationInput">Wann kannst du helfen?</label>
+                  <input
+                    class="input-block"
+                    type="text"
+                    placeholder="z. B. Freitag 14:00–18:00"
+                    id="durationInput"
+                    pattern=".{3,512}"
+                    required
+                    title="3 bis 512 Zeichen"
+                  />
                 </div>
-
                 <div class="form-actions">
-                  <button
-                    class="btn-large btn-block btn-cta"
-                    type="submit"
-                    id="submitVolunteer"
-                  >
-                    🙋 Als Helfer eintragen
-                  </button>
+                  <button class="btn-party" type="submit" id="submitVolunteer">Als Helfer eintragen</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="horizon" aria-hidden="true"><div class="horizon-sun"></div></div>
       </section>
 
       <!-- ===== Recap: Neon-Nacht ===== -->
@@ -560,30 +550,19 @@
     <input class="modal-state" id="confirmModal" type="checkbox" />
     <div class="modal">
       <label class="modal-bg" for="confirmModal"></label>
-      <div class="modal-body">
-        <label class="btn-close" for="confirmModal">X</label>
-        <h4 class="modal-title">Anmeldung Best&auml;tigen</h4>
-        <span class="background-success note margin-small" id="success"
-          >Erfolgreich eingetragen</span
-        >
-        <span class="background-danger note margin-small" id="error"
-          >Fehler beim Eintragen</span
-        >
-        <p class="modal-text">
-          Bitte &uuml;berpr&uuml;fe folgende Angaben um deine Anmeldung zu best&auml;tigen:
-        </p>
-
-        <p id="confirmationData"></p>
-        <div class="progress margin-bottom" id="progress">
+      <div class="modal-body" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+        <label class="btn-close" for="confirmModal" aria-label="Schließen">✕</label>
+        <h4 class="modal-title" id="confirmTitle">Anmeldung bestätigen</h4>
+        <span class="background-success note" id="success">Erfolgreich eingetragen</span>
+        <span class="background-danger note" id="error">Fehler beim Eintragen</span>
+        <p class="modal-text">Bitte überprüfe folgende Angaben, um deine Anmeldung zu bestätigen:</p>
+        <p class="modal-data" id="confirmationData"></p>
+        <div class="progress" id="progress">
           <div class="bar success w-0"></div>
         </div>
-        <div class="row flex-edges">
-          <button class="col" onclick="submitModal()">
-            <span class="text-success">Anmelden</span>
-          </button>
-          <button class="col" onclick="hideModal()">
-            <span class="text-danger">Abbrechen</span>
-          </button>
+        <div class="modal-actions">
+          <button class="btn-party" type="button" onclick="submitModal()">Anmelden</button>
+          <button class="btn-paper" type="button" onclick="hideModal()">Abbrechen</button>
         </div>
       </div>
     </div>
