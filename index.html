@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>JP Poolparty 2027 | 10 Jahre Poolparty</title>
+    <meta name="description" content="10 Jahre JP Poolparty: Samstag, 17. Juli 2027 ab 16 Uhr auf der Kolpingwiese in Ramsen. Pool, Live-Band, Bar und Tanzfläche. Die Anmeldung öffnet später." />
 
     <!-- OG -->
     <meta property="og:title" content="Poolparty 2027 | 10 Jahre Poolparty" />
@@ -26,24 +27,36 @@
     <meta property="og:type" content="website" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/main.css?v=20261108-readable-rainbow" />
-    <link rel="stylesheet" href="css/anniversary.css?v=20261108-details" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="css/main.css?v=20261109-party" />
+    <link rel="stylesheet" href="css/anniversary.css?v=20261109-party" />
+    <link rel="stylesheet" href="css/party.css?v=20261109-party" />
+
+    <script>
+      /* Bewegung nur ohne prefers-reduced-motion; Fallback, falls party.js nicht lädt. */
+      (function () {
+        var d = document.documentElement;
+        if (!window.matchMedia || !matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('motion-ok');
+        setTimeout(function () { if (!d.classList.contains('party-ready')) d.classList.remove('motion-ok'); }, 3500);
+      })();
+    </script>
 
     <!-- Favicon -->
     <meta name="theme-color" content="#fdfbf7" />
     <meta name="api-base" content="https://jpcore.logge.top" />
   </head>
 
-  <body>
+  <body class="party-page">
     <!-- Header -->
     <nav class="border split-nav fixed">
       <div class="nav-brand">
-        <h3><a href="#">JP Poolparty</a></h3>
+        <h3><a href="#top">JP Poolparty</a></h3>
       </div>
 
       <div class="collapsible">
         <input id="collapsibleMenu" type="checkbox" name="collapsibleMenu" />
-        <label for="collapsibleMenu">
+        <label for="collapsibleMenu" aria-label="Menü">
           <div class="bar1"></div>
           <div class="bar2"></div>
           <div class="bar3"></div>
@@ -74,642 +87,472 @@
       </div>
     </nav>
 
-    <!-- Body -->
-    <div class="paper">
+    <main class="party">
       <noscript>
-        <span class="danger"
-          >Viele Features dieser Seite funktionieren nur mit JavaScript!</span
-        >
+        <p class="noscript-note"><span class="danger">Viele Features dieser Seite funktionieren nur mit JavaScript!</span></p>
       </noscript>
 
-      <div class="row flex-center">
-        <h1 class="caption">Poolparty 2027</h1>
-      </div>
-      <div class="event-summary">
-        <p class="event-anniversary">10 Jahre Poolparty</p>
-        <p class="event-date"><time datetime="2027-07-17T16:00:00+02:00">Samstag, 17. Juli 2027 &middot; ab 16 Uhr</time></p>
-        <p>Kolpingwiese in Ramsen</p>
-        <p class="only-inactive event-registration-note">Termin vormerken! Die Anmeldung öffnet später.</p>
-      </div>
-      <div class="row flex-center padding-bottom-large">
-        <div class="col sm-5">
-          <object class="event-logo" data="jpLogo.svg?v=2027-rainbow-vertical" type="image/svg+xml" alt="JP Logo">
-            <img src="jpLogo.svg?v=2027-rainbow-vertical" alt="JP Logo" class="no-brder"/>
-          </object>
-        </div>
-        <div class="col sm-5">
-          <object class="event-logo" data="kolpingLogo.svg?v=2027-rainbow-vertical" type="image/svg+xml" alt="Kolping Logo">
-            <img src="kolpingLogo.svg?v=2027-rainbow-vertical" alt="Kolping Logo"/>
-          </object>
-        </div>
-      </div>
+      <!-- ===== Hero: Sommertag ===== -->
+      <header class="hero" id="top" data-water-zone>
+        <canvas class="water-canvas" data-water="day" aria-hidden="true"></canvas>
+        <div class="string-lights" aria-hidden="true"></div>
 
-      <div class="row flex-center padding-top-large">
-        <h2 class="col background-secondary anniversary-band">
-          <span class="anniversary-label">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-            </svg>
-            Featuring!
-          </span>
-        </h2>
-      </div>
+        <div class="hero-inner">
+          <div class="hero-polaroids hero-polaroids--left">
+            <figure class="polaroid hero-shot" style="--r: -8deg; --x: 6%; --y: 4%">
+              <img src="img/2026/small/img1.jpg" srcset="img/2026/small/img1.jpg 1x, img/2026/medium/img1.jpg 2x" width="600" height="452" alt="Live-Band auf der Traversen-Bühne bei der Poolparty 2026" />
+              <figcaption>2026</figcaption>
+            </figure>
+            <figure class="polaroid hero-shot" style="--r: 5deg; --x: 26%; --y: 36%">
+              <img src="img/2024/small/img2.jpg" srcset="img/2024/small/img2.jpg 1x, img/2024/medium/img2.jpg 2x" width="600" height="450" alt="Selfie mit Strohhut und Sonnenbrillen, 2024" />
+              <figcaption>2024</figcaption>
+            </figure>
+            <figure class="polaroid hero-shot hero-shot--extra" style="--r: -3deg; --x: 2%; --y: 68%">
+              <img src="img/2026/small/img9.jpg" srcset="img/2026/small/img9.jpg 1x, img/2026/medium/img9.jpg 2x" width="600" height="452" alt="Bunte Slush-Maschinen unter dem orangen Pavillon, 2026" loading="lazy" />
+              <figcaption>2026</figcaption>
+            </figure>
+          </div>
 
-      <div class="featuring-grid">
-        <div class="feature-card">
-          <img src="img/2026/medium/img6.jpg" alt="Don't tell the others auf der Bühne" />
-          <div class="feature-label">Don't tell the others</div>
-        </div>
-        <div class="feature-card">
-          <img src="img/2025/medium/img9.jpg" alt="Gäste im Pool" />
-          <div class="feature-label">Pool</div>
-        </div>
-        <div class="feature-card">
-          <img src="img/2026/medium/img7.jpg" alt="Bar bei der Poolparty" />
-          <div class="feature-label">Bar</div>
-        </div>
-        <div class="feature-card">
-          <img src="img/2026/medium/img10.jpg" alt="Gäste auf der Tanzfläche" />
-          <div class="feature-label">Tanzfläche</div>
-        </div>
-      </div>
+          <div class="poster">
+            <span class="tape tape--tl" aria-hidden="true"></span>
+            <span class="tape tape--tr" aria-hidden="true"></span>
 
-      <div>
-        <a name="facts"></a>
-        <h2 class="col background-secondary anniversary-band">
-          <span class="anniversary-label">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 372 372">
-              <path
-                d="M88.924 305.208c5.01 21.515-8.383 43.03-29.903 48.031-21.522 5.002-43.036-8.381-48.037-29.904-5.005-21.521 8.386-43.031 29.911-48.038 21.521-5.002 43.02 8.392 48.029 29.911zM72.268 190.229l-12.883 31.059c42.648 17.685 73.57 59.36 78.771 106.146l33.412-3.711c-6.527-58.786-45.51-111.191-99.3-133.494zm17.453-98.204L75.3 122.395c80.232 38.116 137.62 116.731 149.762 205.169l33.302-4.574c-13.65-99.547-78.276-188.051-168.643-230.965zM109.646 0L95.223 30.373C214.304 86.925 296.954 203.69 310.917 335.094l33.434-3.562C329.156 188.573 239.224 61.538 109.646 0z"
-              />
-            </svg>
-            Facts
-          </span>
-        </h2>
-        <table class="facts-table">
-          <tbody>
-            <tr>
-              <td>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  width="24"
-                >
-                  <path d="M0 0h24v24H0z" fill="none" />
-                  <path
-                    d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                  />
-                  <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
-                </svg>
-                Wann?
-              </td>
-              <td>Samstag, 17. Juli 2027 ab 16:00 Uhr.</td>
-            </tr>
+            <p class="jubilee-sticker">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <defs>
+                  <linearGradient id="sticker-rainbow" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#FF0000" />
+                    <stop offset="0.2" stop-color="#F5601D" />
+                    <stop offset="0.36" stop-color="#E0E722" />
+                    <stop offset="0.51" stop-color="#6BE607" />
+                    <stop offset="0.66" stop-color="#51FCF8" />
+                    <stop offset="0.81" stop-color="#D800FF" />
+                    <stop offset="1" stop-color="#FF2D87" />
+                  </linearGradient>
+                </defs>
+                <polygon points="50.0,0.0 56.0,8.4 64.1,2.0 67.4,11.8 77.0,7.9 77.5,18.3 87.8,17.3 85.3,27.3 95.5,29.2 90.3,38.2 99.5,42.9 92.0,50.0 99.5,57.1 90.3,61.8 95.5,70.8 85.3,72.7 87.8,82.7 77.5,81.7 77.0,92.1 67.4,88.2 64.1,98.0 56.0,91.6 50.0,100.0 44.0,91.6 35.9,98.0 32.6,88.2 23.0,92.1 22.5,81.7 12.2,82.7 14.7,72.7 4.5,70.8 9.7,61.8 0.5,57.1 8.0,50.0 0.5,42.9 9.7,38.2 4.5,29.2 14.7,27.3 12.2,17.3 22.5,18.3 23.0,7.9 32.6,11.8 35.9,2.0 44.0,8.4" fill="url(#sticker-rainbow)" stroke="#2d2d2d" stroke-width="2.5" stroke-linejoin="round" />
+                <circle cx="50" cy="50" r="31" fill="#fff" stroke="#2d2d2d" stroke-width="2.5" />
+              </svg>
+              <span class="jubilee-text"><b>10</b>Jahre!</span>
+            </p>
 
-            <tr>
-              <td>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  width="24"
-                >
-                  <path d="M0 0h24v24H0z" fill="none" />
-                  <path
-                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
-                  />
-                </svg>
-                Wo?
-              </td>
-              <td>
-                Kolpingwiese in Ramsen<br />
-                Klosterhof 7, 67305 Ramsen
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                  <path
-                    d="M277.347 79.644h-108c-6.283 0-10.058 4.993-10.058 11.276v147.911c0 6.283 3.775 11.479 10.058 11.479h108c47.1 0 85.422-38.278 85.422-85.333s-38.322-85.333-85.422-85.333zm0 147.912h-95.303V102.4h95.303c34.555 0 62.667 28.072 62.667 62.578s-28.111 62.578-62.667 62.578z"
-                  />
-                  <path
-                    d="M294.414 0H78.325c-6.283 0-10.058 4.993-10.058 11.276v489.245c0 6.283 3.775 11.479 10.058 11.479h91.022c6.283 0 12.697-5.196 12.697-11.479V329.956h112.37c81.605 0 149.319-66.451 149.319-148.007V147.81C443.733 66.249 376.019 0 294.414 0zm126.564 181.949c0 69.006-57.503 125.251-126.564 125.251H169.347c-6.283 0-10.058 4.993-10.058 11.276v170.768H91.022V22.756h203.392c69.061 0 126.564 56.043 126.564 125.054v34.139z"
-                  />
-                </svg>
-                Parken?
-              </td>
-              <td>
-                Direkt gegen&uuml;ber neben der Kirche gibt es Parkpl&auml;tze f&uuml;r fr&uuml;he G&auml;ste und Aufbauhelfer. Ansonsten parkt ihr
-                <a href="https://goo.gl/maps/6Jr2paPszKuscUEZ9">hier</a> &ndash; nach 3 Minuten Fu&szlig;weg seid ihr perfekt auf Temperatur, um direkt in den Pool zu springen.
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  width="24"
-                >
-                  <path d="M0 0h24v24H0V0z" fill="none" />
-                  <path d="M0 0h24v24H0V0z" fill="none" />
-                  <circle cx="15.5" cy="9.5" r="1.5" />
-                  <circle cx="8.5" cy="9.5" r="1.5" />
-                  <circle cx="15.5" cy="9.5" r="1.5" />
-                  <circle cx="8.5" cy="9.5" r="1.5" />
-                  <path
-                    d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-2.5c2.33 0 4.32-1.45 5.12-3.5h-1.67c-.69 1.19-1.97 2-3.45 2s-2.75-.81-3.45-2H6.88c.8 2.05 2.79 3.5 5.12 3.5z"
-                  />
-                </svg>
-                G&auml;ste
-              </td>
-              <td>
-                Nur geladene G&auml;ste. Dies ist <b>keine &ouml;ffentliche Party</b>. Jeder Gast wurde <b>pers&ouml;nlich</b> von den Gastgebern eingeladen. Partner und eigene Kinder sind nat&uuml;rlich willkommen.
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  width="24"
-                >
-                  <path d="M0 0h24v24H0z" fill="none" />
-                  <path
-                    d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"
-                  />
-                </svg>
-                Modus
-              </td>
-              <td>
-                Jederbringtwasmitparty!<br />Wir stellen bereit:
-                <ul>
-                  <li>Location + Pool</li>
-                  <li>Sound + Licht</li>
-                  <li>Band & DJ</li>
-                  <li>Den ein oder anderen Gag</li>
-                </ul>
-                Ihr bringt mit:
-                <ul>
-                  <li>Getr&auml;nke</li>
-                  <li>Salate, Essensbausteine, Nachtisch</li>
-                  <li>Stimmung</li>
-                </ul>
-                Die Anmeldung sorgt daf&uuml;r, dass jeder nur eine Sache mitbringen muss und trotzdem gen&uuml;gend f&uuml;r alle da ist. Dieses Jahr gibt es was besonderes zu Essen, vielleicht erratet ihr es. Ihr bekommt nach der Anmeldung eine Best&auml;tigungsmail &ndash; wer trotzdem vergisst was er mitbringen soll, schuldet uns einen Straf-Bierkasten. Gef&uuml;llt.
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  width="24"
-                >
-                  <path d="M0 0h24v24H0z" fill="none" />
-                  <path
-                    d="M13.127 14.56l1.43-1.43 6.44 6.443L19.57 21zm4.293-5.73l2.86-2.86c-3.95-3.95-10.35-3.96-14.3-.02 3.93-1.3 8.31-.25 11.44 2.88zM5.95 5.98c-3.94 3.95-3.93 10.35.02 14.3l2.86-2.86C5.7 14.29 4.65 9.91 5.95 5.98zm.02-.02l-.01.01c-.38 3.01 1.17 6.88 4.3 10.02l5.73-5.73c-3.13-3.13-7.01-4.68-10.02-4.3z"
-                  />
-                </svg>
-                Highlights
-              </td>
-              <td>
-                <ul>
-                  <li>Pool</li>
-                  <li>Cocktails</li>
-                  <li>Live-Musik</li>
-                  <li>Gem&uuml;tliche Atmosph&auml;re</li>
-                  <li>Zelten vor Ort m&ouml;glich (bitte kurz anmelden)</li>
-                  <li>leckeres Abendessen</li>
-                </ul>
-                ... alles weitere verraten wir noch nicht. Wir werden uns schon
-                was einfallen lassen.
-              </td>
-            </tr>
-          </tbody>
-        </table>
+            <div class="hero-logos">
+              <object class="event-logo hero-logo hero-logo--jp" data="jpLogo.svg?v=2027-rainbow-vertical" type="image/svg+xml" aria-label="JP Logo">
+                <img src="jpLogo.svg?v=2027-rainbow-vertical" alt="JP Logo" class="no-brder" />
+              </object>
+              <object class="event-logo hero-logo hero-logo--kolping" data="kolpingLogo.svg?v=2027-rainbow-vertical" type="image/svg+xml" aria-label="Kolping Logo">
+                <img src="kolpingLogo.svg?v=2027-rainbow-vertical" alt="Kolping Logo" />
+              </object>
+            </div>
 
+            <h1 class="caption"><span class="caption-word">Poolparty</span> <span class="caption-year">2027</span></h1>
+
+            <div class="ticket">
+              <p class="ticket-date">
+                <time datetime="2027-07-17T16:00:00+02:00"><b>Samstag, 17. Juli 2027</b> <span>ab 16 Uhr</span></time>
+              </p>
+              <p class="ticket-place">Kolpingwiese Ramsen</p>
+            </div>
+
+            <div class="countdown" data-countdown="2027-07-17T16:00:00+02:00">
+              <p class="countdown-label">Countdown bis zur Party:</p>
+              <div class="countdown-tiles" role="timer" aria-live="off">
+                <span class="cd-tile"><b data-unit="days">–</b><small>Tage</small></span>
+                <span class="cd-tile"><b data-unit="hours">–</b><small>Std</small></span>
+                <span class="cd-tile"><b data-unit="minutes">–</b><small>Min</small></span>
+                <span class="cd-tile"><b data-unit="seconds">–</b><small>Sek</small></span>
+              </div>
+              <p class="countdown-done" hidden>Jetzt geht’s los!</p>
+            </div>
+
+            <p class="only-inactive hero-note"><span class="hero-note-inner">Termin vormerken! Die Anmeldung öffnet später.</span></p>
+
+            <div class="hero-actions">
+              <a class="btn-party" href="#facts">Was abgeht</a>
+              <a class="btn-party btn-party--paper" href="#Recap">Aftermovies &amp; Fotos</a>
+            </div>
+          </div>
+
+          <div class="hero-polaroids hero-polaroids--right">
+            <figure class="polaroid hero-shot hero-shot--portrait" style="--r: 7deg; --x: 40%; --y: 2%">
+              <img src="img/2026/small/img5.jpg" srcset="img/2026/small/img5.jpg 1x, img/2026/medium/img5.jpg 2x" width="452" height="600" alt="Schlagzeuger mit Strohhut und Hawaiihemd auf der Bühne, 2026" fetchpriority="high" />
+              <figcaption>2026</figcaption>
+            </figure>
+            <figure class="polaroid hero-shot" style="--r: -6deg; --x: 4%; --y: 40%">
+              <img src="img/2024/small/img4.jpg" srcset="img/2024/small/img4.jpg 1x, img/2024/medium/img4.jpg 2x" width="600" height="450" alt="Drei Gäste mit Wasserpistolen unter dem orangen Pavillon, 2024" />
+              <figcaption>2024</figcaption>
+            </figure>
+            <figure class="polaroid hero-shot hero-shot--extra" style="--r: 4deg; --x: 34%; --y: 70%">
+              <img src="img/2022/small/img7.jpg" srcset="img/2022/small/img7.jpg 1x, img/2022/medium/img7.jpg 2x" width="600" height="450" alt="Tanzfläche mit Nebel und bunten Lichtern, 2022" loading="lazy" />
+              <figcaption>2022</figcaption>
+            </figure>
+          </div>
+        </div>
+
+      </header>
+
+      <!-- Laufband aus Klebeband -->
+      <div class="tape-marquee" aria-hidden="true">
+        <div class="tape-track">
+          <span>Sonnenbrille auf ✦ 10 Jahre Poolparty ✦ Pool ✦ Live-Band ✦ Cocktails ✦ Sonnencreme nicht vergessen ✦ Tanzfläche ✦ </span>
+          <span>Sonnenbrille auf ✦ 10 Jahre Poolparty ✦ Pool ✦ Live-Band ✦ Cocktails ✦ Sonnencreme nicht vergessen ✦ Tanzfläche ✦ </span>
+        </div>
       </div>
 
-      <div class="only-active event-registration">
-        <!-- Anmeldung -->
-        <a name="anmeldung"></a>
-        <h2 class="col background-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.021 27.022">
-            <g>
-              <g>
-                <path
-                  d="M17.855,21.223c0-1.902,1.049-3.55,2.588-4.44c-0.963-0.308-2-0.552-3.09-0.722c2.342-1.299,3.929-3.794,3.929-6.663
-                              c0-4.207-3.41-7.617-7.617-7.617s-7.617,3.41-7.617,7.617c0,2.868,1.587,5.364,3.929,6.663C4.223,16.958,0,19.897,0,23.389h18.35
-                              C18.041,22.727,17.855,22,17.855,21.223z"
-                />
-              </g>
-              <path
-                d="M23.004,17.206c-2.218,0-4.018,1.797-4.018,4.018c0,2.219,1.8,4.017,4.018,4.017c2.219,0,4.018-1.798,4.018-4.017
-                          C27.02,19.002,25.223,17.206,23.004,17.206z M25.627,21.936h-1.909v1.91h-1.427v-1.91h-1.91v-1.429h1.91v-1.911h1.427v1.911h1.909
-                          V21.936z"
-              />
-            </g>
-          </svg>
-          Anmeldung
-        </h2>
-        Hier k&ouml;nnt ihr euch f&uuml;r die Poolparty anmelden.<br />
-        Das geht ganz einfach:<br />
-        <br />
-        <ol>
-          <li class="hideForUser">Klickt den &ldquo;Anmelden&rdquo; Button</li>
-          <li class="hideForUser">
-            Meldet euch mit euren Nutzerdaten an
-          </li>
-          <li>Tragt ein, was ihr mitbringt</li>
-          <li>
-            Optional: Musikwunsch &auml;u&szlig;ern
-          </li>
-          <li>Fertig!</li>
-        </ol>
+      <!-- ===== Featuring: Nachmittag ===== -->
+      <section class="scene scene--afternoon" id="featuring" aria-labelledby="featuring-title">
+        <div class="scene-sun" aria-hidden="true"></div>
+        <div class="scene-inner">
+          <h2 class="section-title" id="featuring-title"><span>Featuring!</span></h2>
 
-        <div class="hideForGuest">
-          <div class="poolparty-card" id="personName"></div>
-          <div class="form-section poolparty-form-card">
-            <div id="anmeldenForm">
-              <div class="row">
-                <div class="sm-12 md-6 col">
-                  <div class="form-group">
-                    <label for="itemInput">🎒 Mitbringen</label>
-                    <select id="itemInput" class="input-block">
-                      <option selected disabled>Bitte ausw&auml;hlen</option>
-                    </select>
-                  </div>
+          <div class="feature-wall">
+            <figure class="polaroid feature reveal" style="--r: -3deg">
+              <img src="img/2026/small/img16.jpg" srcset="img/2026/small/img16.jpg 1x, img/2026/medium/img16.jpg 2x" width="452" height="600" alt="Don't Tell The Others live auf der Bühne" loading="lazy" />
+              <figcaption><b>Don't Tell The Others</b><span>live auf der Bühne</span></figcaption>
+              <span class="sticker sticker--pink" style="--sr: 10deg">Beste Pool&shy;party&shy;band</span>
+            </figure>
+            <figure class="polaroid feature reveal" style="--r: 2.5deg">
+              <img src="img/2026/small/img3.jpg" srcset="img/2026/small/img3.jpg 1x, img/2026/medium/img3.jpg 2x" width="452" height="600" alt="Der Pool leuchtet nachts blau-violett unter den Traversen" loading="lazy" />
+              <figcaption><b>Der Pool</b><span>nachts in Neon</span></figcaption>
+            </figure>
+            <figure class="polaroid feature reveal" style="--r: -1.5deg">
+              <img src="img/2024/small/img9.jpg" srcset="img/2024/small/img9.jpg 1x, img/2024/medium/img9.jpg 2x" width="337" height="600" alt="Barkeeper im Hawaiihemd mit zwei Cocktails an der Bar" loading="lazy" />
+              <figcaption><b>Die Bar</b><span>Cocktails!</span></figcaption>
+              <span class="sticker sticker--yellow" style="--sr: -12deg">Prost!</span>
+            </figure>
+            <figure class="polaroid feature reveal" style="--r: 3.5deg">
+              <img src="img/2026/small/img10.jpg" srcset="img/2026/small/img10.jpg 1x, img/2026/medium/img10.jpg 2x" width="452" height="600" alt="Gäste tanzen mit hochgerissenen Armen auf der Wiese" loading="lazy" />
+              <figcaption><b>Die Tanzfläche</b><span>Arme hoch!</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Facts: Sonnenuntergang ===== -->
+      <section class="scene scene--sunset" id="facts" aria-labelledby="facts-title">
+        <div class="scene-inner">
+          <h2 class="section-title" id="facts-title"><span>Facts</span></h2>
+
+          <div class="facts-board">
+            <article class="fact fact--where reveal" style="--r: -1.2deg">
+              <span class="pin" aria-hidden="true"></span>
+              <h3>Wo &amp; Parken</h3>
+              <p class="fact-big">Kolpingwiese Ramsen<br /><span>Klosterhof 7, 67305 Ramsen</span></p>
+              <p>
+                Direkt gegenüber neben der Kirche parken frühe Gäste und Aufbauhelfer. Alle anderen parken
+                <a href="https://goo.gl/maps/6Jr2paPszKuscUEZ9" target="_blank" rel="noopener noreferrer">hier</a>: Nach 3&nbsp;Minuten Fußweg seid ihr perfekt auf Temperatur, um direkt in den Pool zu springen.
+              </p>
+            </article>
+
+            <article class="fact fact--guests reveal" style="--r: 1.4deg">
+              <span class="pin" aria-hidden="true"></span>
+              <h3>Wer?</h3>
+              <p class="stamp">Nur geladene Gäste</p>
+              <p>
+                Das hier ist <b>keine öffentliche Party</b>. Jeder Gast wurde <b>persönlich</b> von den Gastgebern eingeladen. Partner und eigene Kinder sind natürlich willkommen.
+              </p>
+            </article>
+
+            <article class="fact fact--mode reveal" style="--r: -0.6deg">
+              <span class="tape tape--fact" aria-hidden="true"></span>
+              <h3>Modus: Jederbringtwasmitparty!</h3>
+              <div class="deal">
+                <div class="deal-col">
+                  <h4>Wir stellen</h4>
+                  <ul class="scribble-list">
+                    <li>Location + Pool</li>
+                    <li>Sound + Licht</li>
+                    <li>Band &amp; DJ</li>
+                    <li>den ein oder anderen Gag</li>
+                  </ul>
                 </div>
-                <div class="sm-12 md-6 col">
-                  <div class="form-group">
-                    <label for="peopleInput">👥 Anzahl Personen</label>
-                    <select id="peopleInput" class="input-block">
-                      <option selected disabled>Bitte ausw&auml;hlen</option>
-                      <option value="1">1 Person</option>
-                      <option value="2">2 Personen</option>
-                    </select>
-                  </div>
+                <span class="deal-plus" aria-hidden="true">+</span>
+                <div class="deal-col">
+                  <h4>Ihr bringt</h4>
+                  <ul class="scribble-list">
+                    <li>Getränke</li>
+                    <li>Salate, Essensbausteine, Nachtisch</li>
+                    <li>Stimmung</li>
+                  </ul>
                 </div>
-                <div class="sm-12 md-12 col">
-                  <div class="form-group">
-                    <label for="musicInput">🎵 Liedwunsch (optional, bitte genau EIN Song, keine Playlists, keine DJ-Sets, keine Lebenswerke 😌)</label>
-                    <input
-                      class="input-block"
-                      type="text"
-                      maxlength="100"
-                      placeholder="Ein Song. Wirklich nur einer. 😌"
-                      id="musicInput"
-                    />
+              </div>
+              <p>
+                Über die Anmeldung muss jeder nur <b>eine</b> Sache mitbringen, und trotzdem ist genug für alle da. Ein leckeres Abendessen gibt’s auch: Dieses Jahr gibt es was Besonderes. Vielleicht erratet ihr’s.
+              </p>
+            </article>
+
+            <div class="fact-stack">
+              <article class="fact fact--warning reveal" style="--r: 1.8deg">
+                <span class="pin pin--blue" aria-hidden="true"></span>
+                <h3>Achtung: Straf-Bierkasten</h3>
+                <p>
+                  Nach der Anmeldung bekommt ihr eine Bestätigungsmail. Wer trotzdem vergisst, was er mitbringen soll, schuldet uns einen Straf-Bierkasten.
+                </p>
+                <p class="stamp stamp--tilt">Gefüllt.</p>
+              </article>
+
+              <article class="fact fact--tent reveal" style="--r: -2deg">
+                <span class="pin pin--green" aria-hidden="true"></span>
+                <h3>Zelten?</h3>
+                <p>Zelten vor Ort ist möglich. Bitte kurz anmelden.</p>
+              </article>
+
+              <article class="fact fact--secret reveal" style="--r: 1deg">
+                <span class="pin pin--violet" aria-hidden="true"></span>
+                <h3>Und sonst?</h3>
+                <p>Alles Weitere verraten wir noch nicht. Wir lassen uns schon was einfallen.</p>
+              </article>
+            </div>
+          </div>
+
+          <!-- Anmeldung + Volunteers (nur sichtbar, wenn REGISTRATION_OPEN) -->
+          <div class="only-active registration-wrap">
+            <div class="event-registration reg-card" id="anmeldung">
+              <h2 class="section-title section-title--small"><span>Anmeldung</span></h2>
+              <p>Hier könnt ihr euch für die Poolparty anmelden. Das geht ganz einfach:</p>
+              <ol>
+                <li class="hideForUser">Klickt den „Anmelden“-Button</li>
+                <li class="hideForUser">Meldet euch mit euren Nutzerdaten an</li>
+                <li>Tragt ein, was ihr mitbringt</li>
+                <li>Optional: Musikwunsch äußern</li>
+                <li>Fertig!</li>
+              </ol>
+
+              <div class="hideForGuest">
+                <div class="poolparty-card" id="personName"></div>
+                <div class="form-section poolparty-form-card">
+                  <div id="anmeldenForm">
+                    <div class="row">
+                      <div class="sm-12 md-6 col">
+                        <div class="form-group">
+                          <label for="itemInput">🎒 Mitbringen</label>
+                          <select id="itemInput" class="input-block">
+                            <option selected disabled>Bitte auswählen</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="sm-12 md-6 col">
+                        <div class="form-group">
+                          <label for="peopleInput">👥 Anzahl Personen</label>
+                          <select id="peopleInput" class="input-block">
+                            <option selected disabled>Bitte auswählen</option>
+                            <option value="1">1 Person</option>
+                            <option value="2">2 Personen</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="sm-12 md-12 col">
+                        <div class="form-group">
+                          <label for="musicInput">🎵 Liedwunsch (optional, bitte genau EIN Song, keine Playlists, keine DJ-Sets, keine Lebenswerke 😌)</label>
+                          <input
+                            class="input-block"
+                            type="text"
+                            maxlength="100"
+                            placeholder="Ein Song. Wirklich nur einer. 😌"
+                            id="musicInput"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-actions">
+                      <button
+                        class="btn-large btn-block btn-cta"
+                        type="submit"
+                        id="submitRegistration"
+                      >
+                        🏊 Zur Party anmelden
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div class="form-actions">
-                <button
-                  class="btn-large btn-block btn-cta"
-                  type="submit"
-                  id="submitRegistration"
-                >
-                  🏊 Zur Party anmelden
-                </button>
+              <div class="row hideForUser">
+                <div class="col-12">
+                  <div class="form-group">
+                    <button class="btn-large btn-block btn-cta" onclick="cloudAuth()">
+                      Anmelden
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <p class="reg-fineprint">
+                Wir weisen darauf hin, dass nach der Anmeldung euer Name und euer mitgebrachtes Item gespeichert werden. Diese sensiblen Daten werden wir natürlich gewinnbringend an Google verhökern.
+                Außerdem gibt es während der Party Fotos und Videos für diese Seite. Keine Sorge, wir veröffentlichen nichts Peinliches – das heben wir für eure Hochzeiten auf.
+              </p>
+
+              <!-- Volunteers -->
+              <h2 class="section-title section-title--small" id="volunteers"><span>Volunteers</span></h2>
+              <p>
+                Der Aufbau braucht Zeit, darum suchen wir helfende Hände für Freitag/Samstagmorgen (Aufbau) und Sonntag (Abbau). Wer Lust und Zeit hat, trägt sich hier nach der Anmeldung mit seiner möglichen Einsatzzeit ein. Wir melden uns dann. Wenn es doch nicht klappt, sagt bitte wieder ab.
+              </p>
+              <div class="form-section poolparty-form-card hideForGuest" id="volunteerForm" style="display: none !important">
+                <h3 class="volunteer-title">🙌 Helfer werden</h3>
+                <p class="volunteer-subtitle">Du möchtest beim Auf- oder Abbau helfen? Trag dich hier ein!</p>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="durationInput">⏰ Wann kannst du helfen?</label>
+                      <input
+                        class="input-block"
+                        type="text"
+                        placeholder="z.B. Freitag 14:00 - 18:00"
+                        id="durationInput"
+                        pattern=".{3,512}"
+                        required
+                        title="3 bis 512 Zeichen"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button
+                    class="btn-large btn-block btn-cta"
+                    type="submit"
+                    id="submitVolunteer"
+                  >
+                    🙋 Als Helfer eintragen
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="horizon" aria-hidden="true"><div class="horizon-sun"></div></div>
+      </section>
 
-        <div class="row hideForUser">
-          <div class="col-12">
-            <div class="form-group">
-              <button class="btn-large btn-block btn-cta" onclick="cloudAuth()">
-                Anmelden
-              </button>
-            </div>
+      <!-- ===== Recap: Neon-Nacht ===== -->
+      <section class="scene scene--night" id="Recap" aria-labelledby="recap-title">
+        <div class="stars" aria-hidden="true"></div>
+        <div class="string-lights string-lights--night" aria-hidden="true"></div>
+        <div class="scene-inner">
+          <h2 class="section-title section-title--neon" id="recap-title"><span>Recap</span></h2>
+          <p class="night-lead">9 Sommer, 136 Fotos, 6 Aftermovies. 2027 wird Nummer&nbsp;10.</p>
+
+          <div class="year-wall" role="navigation" aria-label="Zu einem Jahr springen">
+            <a class="year-tile reveal" href="#jahr-2026" style="--year: #ff2d87; --r: -3deg"><img src="img/2026/small/img14.jpg" width="300" height="226" alt="" loading="lazy" /><span>2026</span></a>
+            <a class="year-tile reveal" href="#jahr-2025" style="--year: #e0e722; --r: 2deg"><img src="img/2025/small/img2.jpg" width="225" height="300" alt="" loading="lazy" /><span>2025</span></a>
+            <a class="year-tile reveal" href="#jahr-2024" style="--year: #ff0000; --r: -1deg"><img src="img/2024/small/img11.jpg" width="169" height="300" alt="" loading="lazy" /><span>2024</span></a>
+            <a class="year-tile reveal" href="#jahr-2023" style="--year: #d800ff; --r: 3deg"><img src="img/2023/small/img4.jpg" width="400" height="531" alt="" loading="lazy" /><span>2023</span></a>
+            <a class="year-tile reveal" href="#jahr-2022" style="--year: #51fcf8; --r: -2deg"><img src="img/2022/small/img2.jpg" width="400" height="300" alt="" loading="lazy" /><span>2022</span></a>
+            <a class="year-tile reveal" href="#jahr-2021" style="--year: #f5601d; --r: 1.5deg"><img src="img/2021/small/img7.jpg" width="400" height="265" alt="" loading="lazy" /><span>2021</span></a>
+            <a class="year-tile reveal" href="#jahr-2020" style="--year: #6be607; --r: -2.5deg"><img src="img/2020/small/img13.jpg" width="400" height="265" alt="" loading="lazy" /><span>2020</span></a>
+            <a class="year-tile reveal" href="#jahr-2019" style="--year: #ffb8d5; --r: 2deg"><img src="img/2019/small/img10.jpg" width="400" height="265" alt="" loading="lazy" /><span>2019</span></a>
+            <a class="year-tile reveal" href="#jahr-2018" style="--year: #e5e0d8; --r: -1.5deg"><img src="img/2018/small/img5.jpg" width="400" height="533" alt="" loading="lazy" /><span>2018</span></a>
           </div>
-        </div>
-        Wir weisen darauf hin, dass nach der Anmeldung euer Name und euer mitgebrachtes Item gespeichert werden. Diese sensiblen Daten werden wir nat&uuml;rlich gewinnbringend an Google verh&ouml;kern.<br />
-        Au&szlig;erdem gibt es w&auml;hrend der Party Fotos und Videos f&uuml;r diese Seite. Keine Sorge, wir ver&ouml;ffentlichen nichts Peinliches &ndash; das heben wir f&uuml;r eure Hochzeiten auf.
 
-        <!-- Volunteers -->
-
-        <a name="volunteers"></a>
-        <h2 class="col background-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 297 297">
-            <path
-              d="M47.156 188.376c0 2.861 1.109 14.855 9.212 29.09 6.86 12.052 19.88 26.147 43.843 29.262v40.243c0 5.538 4.49 10.029 10.029 10.029 5.538 0 10.028-4.491 10.028-10.029v-49.644c0-5.538-4.49-10.029-10.028-10.029-16.487 0-28.643-6.465-36.128-19.216-5.521-9.402-6.922-17.345-6.922-20.844v-82.294c0-1.782 0-6.519 8.237-6.519 8.235 0 8.235 4.736 8.235 6.519v34.548c0 2.736 1.117 5.354 3.095 7.246a9.982 9.982 0 0 0 7.374 2.773c.024-.011 5.862.022 13.244 4.191 11.333 6.402 20.478 19.249 26.445 37.151 1.752 5.255 7.432 8.097 12.686 6.344 5.255-1.752 8.095-7.432 6.343-12.686-12.976-38.932-35.79-50.37-49.128-53.701V38.037c0-2.17 0-5.803 8.236-5.803 8.235 0 8.235 3.633 8.235 5.803v54.73c0 5.539 4.491 10.029 10.029 10.029s10.028-4.49 10.028-10.029V25.86c0-2.17 0-5.803 8.236-5.803 8.235 0 8.235 3.633 8.235 5.803v66.907c0 5.539 4.491 10.029 10.029 10.029s10.029-4.49 10.029-10.029v-54.73c0-2.17 0-5.803 8.235-5.803 8.236 0 8.236 3.633 8.236 5.803v71.278c0 5.538 4.491 10.029 10.029 10.029 5.539 0 10.029-4.491 10.029-10.029V71.849c0-1.782 0-6.519 8.236-6.519s8.244 4.736 8.244 6.519v116.402c.011.177.717 18.087-9.919 29.341-6.086 6.441-15.135 9.706-26.894 9.706-5.539 0-10.029 4.491-10.029 10.029v49.644c0 5.538 4.49 10.029 10.029 10.029 5.538 0 10.028-4.491 10.028-10.029v-40.253c12.868-1.712 23.415-6.855 31.443-15.35 15.825-16.745 15.516-40.586 15.391-43.899V71.849c0-15.647-11.636-26.577-28.294-26.577-2.912 0-5.667.342-8.236.977v-8.211c0-15.469-11.371-25.86-28.295-25.86-3.986 0-7.66.583-10.954 1.667C169.732 5.253 160.514 0 148.487 0c-12.028 0-21.245 5.253-25.575 13.844-3.294-1.084-6.968-1.667-10.954-1.667-16.924 0-28.295 10.392-28.295 25.86v41.307c-2.569-.635-5.324-.976-8.235-.976-16.66 0-28.295 10.93-28.295 26.577-.001-.001.023 61.792.023 83.431z"
-            />
-          </svg>
-          Volunteers
-        </h2>
-        Da der Aufbau Zeit braucht, suchen wir helfende H&auml;nde f&uuml;r Freitag/Samstag morgen (Aufbau) und Sonntag (Abbau). Wer Lust und Zeit hat, kann sich hier nach der Anmeldung eintragen und die m&ouml;gliche Einsatzzeit angeben. Wir melden uns dann. Wenn es doch nicht klappt, sagt bitte wieder ab.
-        <div class="form-section poolparty-form-card hideForGuest" id="volunteerForm" style="display: none !important">
-          <h3 class="volunteer-title">🙌 Helfer werden</h3>
-          <p class="volunteer-subtitle">Du m&ouml;chtest beim Auf- oder Abbau helfen? Trag dich hier ein!</p>
-          <div class="row">
-            <div class="col-12">
-              <div class="form-group">
-                <label for="durationInput">⏰ Wann kannst du helfen?</label>
-                <input
-                  class="input-block"
-                  type="text"
-                  placeholder="z.B. Freitag 14:00 - 18:00"
-                  id="durationInput"
-                  pattern=".{3,512}"
-                  required
-                  title="3 bis 512 Zeichen"
-                />
+          <div class="years">
+            <article class="year" id="jahr-2026" style="--year: #ff2d87">
+              <div class="year-side">
+                <h3 class="year-num">2026</h3>
+                <div class="aftermovie-card aftermovie-card--pending reveal" style="--r: -2deg">
+                  <span class="aftermovie-pending-icon" aria-hidden="true">🎬</span>
+                  <b>Aftermovie folgt</b>
+                  <span>Hier landet er, sobald er fertig ist.</span>
+                </div>
+                <aside class="thanks reveal" id="danke" style="--r: 1deg" aria-labelledby="danke-title">
+                  <h4 id="danke-title">Danke für 2026!</h4>
+                  <ul>
+                    <li>an alle, die zum Gelingen der Poolparty beigetragen haben.</li>
+                    <li>an die Helfer beim Auf- und Abbau, bei DJ, LJ, Grillmeister und Barkeeper.</li>
+                    <li>an Don't Tell The Others, die beste Poolpartyband.</li>
+                    <li>an jeden, bei dem ich das ganze Zeug leihen durfte.</li>
+                    <li>an die Kolpingsfamilie Ramsen für die tolle Location.</li>
+                    <li>an alle Nachbarn, die uns geduldig ertragen haben. Und auch an die, die das nicht getan haben.</li>
+                    <li>an euch, die ihr gekommen seid und eine super Stimmung gemacht habt.</li>
+                    <li>an den, der uns das Wetter gespendet hat.</li>
+                  </ul>
+                </aside>
               </div>
-            </div>
+              <div class="year-gallery"><div id="photos2026" class="photos" aria-label="Poolparty 2026 Fotos"></div></div>
+            </article>
+
+            <article class="year" id="jahr-2025" style="--year: #e0e722">
+              <div class="year-side">
+                <h3 class="year-num">2025</h3>
+                <a class="aftermovie-card reveal" style="--r: 2deg" href="https://youtu.be/zFf4oeP4Xw0" target="_blank" rel="noopener noreferrer">
+                  <span class="aftermovie-thumb"><img src="img/2025/aftermovie2025.jpg" width="946" height="546" alt="Poolparty 2025 Aftermovie" loading="lazy" /><span class="play" aria-hidden="true"></span></span>
+                  <b>Aftermovie ansehen</b>
+                </a>
+              </div>
+              <div class="year-gallery"><div id="photos2025" class="photos" aria-label="Poolparty 2025 Fotos"></div></div>
+            </article>
+
+            <article class="year" id="jahr-2024" style="--year: #ff0000">
+              <div class="year-side">
+                <h3 class="year-num">2024</h3>
+                <a class="aftermovie-card reveal" style="--r: -1.5deg" href="https://youtu.be/mhI5xlCdWws" target="_blank" rel="noopener noreferrer">
+                  <span class="aftermovie-thumb"><img src="img/2024/aftermovie2024.jpg" width="946" height="546" alt="Poolparty 2024 Aftermovie" loading="lazy" /><span class="play" aria-hidden="true"></span></span>
+                  <b>Aftermovie ansehen</b>
+                </a>
+              </div>
+              <div class="year-gallery"><div id="photos2024" class="photos" aria-label="Poolparty 2024 Fotos"></div></div>
+            </article>
+
+            <article class="year" id="jahr-2023" style="--year: #d800ff">
+              <div class="year-side">
+                <h3 class="year-num">2023</h3>
+                <a class="aftermovie-card reveal" style="--r: 1.5deg" href="https://youtu.be/ShR5ks7eQFM" target="_blank" rel="noopener noreferrer">
+                  <span class="aftermovie-thumb"><img src="img/2023/aftermovie2023.jpg" width="640" height="237" alt="Poolparty 2023 Aftermovie" loading="lazy" /><span class="play" aria-hidden="true"></span></span>
+                  <b>Aftermovie ansehen</b>
+                </a>
+              </div>
+              <div class="year-gallery"><div id="photos2023" class="photos" aria-label="Poolparty 2023 Fotos"></div></div>
+            </article>
+
+            <article class="year" id="jahr-2022" style="--year: #51fcf8">
+              <div class="year-side">
+                <h3 class="year-num">2022</h3>
+                <a class="aftermovie-card reveal" style="--r: -2deg" href="https://youtu.be/lGLU5Dvm_Ls" target="_blank" rel="noopener noreferrer">
+                  <span class="aftermovie-thumb"><img src="img/2022/aftermovie2022.jpg" width="640" height="305" alt="Poolparty 2022 Aftermovie" loading="lazy" /><span class="play" aria-hidden="true"></span></span>
+                  <b>Aftermovie ansehen</b>
+                </a>
+              </div>
+              <div class="year-gallery"><div id="photos2022" class="photos" aria-label="Poolparty 2022 Fotos"></div></div>
+            </article>
+
+            <article class="year" id="jahr-2021" style="--year: #f5601d">
+              <div class="year-side">
+                <h3 class="year-num">2021</h3>
+                <a class="aftermovie-card reveal" style="--r: 2deg" href="https://youtu.be/ZCvVEFKuC_o" target="_blank" rel="noopener noreferrer">
+                  <span class="aftermovie-thumb"><img src="img/2021/aftermovie2021.jpg" width="640" height="360" alt="Poolparty 2021 Aftermovie" loading="lazy" /><span class="play" aria-hidden="true"></span></span>
+                  <b>Aftermovie ansehen</b>
+                </a>
+              </div>
+              <div class="year-gallery"><div id="photos2021" class="photos" aria-label="Poolparty 2021 Fotos"></div></div>
+            </article>
+
+            <article class="year" id="jahr-2020" style="--year: #6be607">
+              <div class="year-side">
+                <h3 class="year-num">2020</h3>
+                <a class="aftermovie-card reveal" style="--r: -1deg" href="https://youtu.be/6Qai_0gckB4" target="_blank" rel="noopener noreferrer">
+                  <span class="aftermovie-thumb"><img src="img/2020/aftermovie2020.jpg" width="640" height="386" alt="Poolparty 2020 Aftermovie" loading="lazy" /><span class="play" aria-hidden="true"></span></span>
+                  <b>Aftermovie ansehen</b>
+                </a>
+              </div>
+              <div class="year-gallery"><div id="photos2020" class="photos" aria-label="Poolparty 2020 Fotos"></div></div>
+            </article>
+
+            <article class="year" id="jahr-2019" style="--year: #ffb8d5">
+              <div class="year-side">
+                <h3 class="year-num">2019</h3>
+              </div>
+              <div class="year-gallery"><div id="photos2019" class="photos" aria-label="Poolparty 2019 Fotos"></div></div>
+            </article>
+
+            <article class="year" id="jahr-2018" style="--year: #e5e0d8">
+              <div class="year-side">
+                <h3 class="year-num">2018</h3>
+                <p class="year-note">Hier fing alles an.</p>
+              </div>
+              <div class="year-gallery"><div id="photos2018" class="photos" aria-label="Poolparty 2018 Fotos"></div></div>
+            </article>
           </div>
-
-          <div class="form-actions">
-            <button
-              class="btn-large btn-block btn-cta"
-              type="submit"
-              id="submitVolunteer"
-            >
-              🙋 Als Helfer eintragen
-            </button>
-          </div>
         </div>
-      </div>
-
-      <!-- Recap -->
-      <a name="Recap"></a>
-
-      <h2 class="col background-secondary" style="background-color: var(--primary-color)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
-          <g>
-            <path
-              d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"
-            />
-            <path
-              d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"
-            />
-          </g>
-        </svg>
-        Recap 2026
-      </h2>
-      <div class="aftermovie-section recap-placeholder-section">
-        <div class="aftermovie-header" style="background-color: color-mix(in srgb, var(--primary-color) 50%, var(--white));">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="var(--primary-color)" class="aftermovie-icon" style="color:var(--primary-color);">
-            <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
-          </svg>
-          <h3>Aftermovie 2026</h3>
-        </div>
-        <div class="recap-placeholder-card">
-          <div class="recap-placeholder-icon">🎬</div>
-          <h4>Aftermovie folgt</h4>
-          <p>Hier landet der Aftermovie, sobald er fertig ist.</p>
-        </div>
-      </div>
-
-      <div id="photos2026" class="photos" aria-label="Poolparty 2026 Fotos"></div>
-
-      <div class="recap-thanks">
-        <a name="danke"></a>
-        <h2 class="col background-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 121.7 121.7">
-            <path
-              d="M61 122A61 61 0 1161 0a61 61 0 010 122zM61 6a55 55 0 100 110A55 55 0 0061 6z"
-            />
-            <path
-              d="M61 100c-10 0-19-7-19-16h6c0 6 6 10 13 10 6 0 12-4 12-10h6c0 9-8 16-18 16zM46 66h-6c0-5-3-10-8-10s-8 5-8 10h-6c0-9 6-16 14-16s14 7 14 16zM104 66h-6c0-5-4-10-8-10s-9 5-9 10h-6c0-9 7-16 15-16s14 7 14 16z"
-            />
-          </svg>
-          Danke für 2026
-        </h2>
-
-        <br />
-        Danke an alle, die zum Gelingen der Poolparty beigetragen haben.<br />
-        <br />
-        Danke an die Helfer beim Auf- und Abbau, bei DJ, LJ, Grillmeister,
-        Baarkeeper.<br />
-        <br />
-        Danke an Dont Tell The Others, die beste Poolpartyband.<br />
-        <br />
-        Danke an jeden, bei dem ich das ganze Zeug leihen durfte.<br />
-        <br />
-        Danke an die Kolpingsfamilie Ramsen, f&uuml;r die tolle Location.<br />
-        <br />
-        Danke an alle Nachbarn, die uns geduldig ertragen haben. Und auch denen,
-        die dies nicht getan haben.<br />
-        <br />
-        Danke an euch, die ihr gekommen seid und eine super Stimmung gemacht
-        habt.<br />
-        <br />
-        Danke an den, der uns das Wetter gespendet hat.<br />
-      </div>
-
-
-      <h2 class="col background-secondary" style="background-color: #E0E722">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
-          <g>
-            <path
-              d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"
-            />
-            <path
-              d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"
-            />
-          </g>
-        </svg>
-        Recap 2025
-      </h2>
-      <div class="aftermovie-section">
-        <div class="aftermovie-header" style="background-color: color-mix(in srgb, #E0E722 50%, var(--white));">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#E0E722" class="aftermovie-icon" style="color:#E0E722;">
-            <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
-          </svg>
-          <h3>Aftermovie 2025</h3>
-        </div>
-        <a class="aftermovie-link" href="https://youtu.be/zFf4oeP4Xw0" target="_blank" rel="noopener noreferrer">
-          <div class="aftermovie-thumbnail">
-            <img src="img/2025/aftermovie2025.jpg" alt="Poolparty 2025 Aftermovie" />
-            <div class="play-overlay">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div id="photos2025" class="photos"></div>
-
-      <h2 class="col background-secondary" style="background-color: #ff0000">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
-          <g>
-            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
-            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
-          </g>
-        </svg>
-        Recap 2024
-      </h2>
-      <div class="aftermovie-section">
-        <div class="aftermovie-header">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ff0000" class="aftermovie-icon" style="color:#ff0000;">
-            <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
-          </svg>
-          <h3>Aftermovie 2024</h3>
-        </div>
-        <a class="aftermovie-link" href="https://youtu.be/mhI5xlCdWws" target="_blank" rel="noopener noreferrer">
-          <div class="aftermovie-thumbnail">
-            <img src="img/2024/aftermovie2024.jpg" alt="Poolparty 2024 Aftermovie" />
-            <div class="play-overlay">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div id="photos2024" class="photos"></div>
-
-      <h2 class="col background-secondary" style="background-color: #d800ff">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
-          <g>
-            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
-            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
-          </g>
-        </svg>
-        Recap 2023
-      </h2>
-      <div class="aftermovie-section">
-        <div class="aftermovie-header">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#d800ff" class="aftermovie-icon" style="color:#d800ff;">
-            <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
-          </svg>
-          <h3>Aftermovie 2023</h3>
-        </div>
-        <a class="aftermovie-link" href="https://youtu.be/ShR5ks7eQFM" target="_blank" rel="noopener noreferrer">
-          <div class="aftermovie-thumbnail">
-            <img src="img/2023/aftermovie2023.jpg" alt="Poolparty 2023 Aftermovie" />
-            <div class="play-overlay">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div id="photos2023" class="photos"></div>
-
-      <h2 class="col background-secondary" style="background-color: #51fcf8">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
-          <g>
-            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
-            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
-          </g>
-        </svg>
-        Recap 2022
-      </h2>
-      <div class="aftermovie-section">
-        <div class="aftermovie-header">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#51fcf8" class="aftermovie-icon" style="color:#51fcf8;">
-            <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
-          </svg>
-          <h3>Aftermovie 2022</h3>
-        </div>
-        <a class="aftermovie-link" href="https://youtu.be/lGLU5Dvm_Ls" target="_blank" rel="noopener noreferrer">
-          <div class="aftermovie-thumbnail">
-            <img src="img/2022/aftermovie2022.jpg" alt="Poolparty 2022 Aftermovie" />
-            <div class="play-overlay">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div id="photos2022" class="photos"></div>
-
-      <h2 class="col background-secondary" style="background-color: #f5601d">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
-          <g>
-            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
-            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
-          </g>
-        </svg>
-        Recap 2021
-      </h2>
-      <div class="aftermovie-section">
-        <div class="aftermovie-header">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#f5601d" class="aftermovie-icon" style="color:#f5601d;">
-            <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
-          </svg>
-          <h3>Aftermovie 2021</h3>
-        </div>
-        <a class="aftermovie-link" href="https://youtu.be/ZCvVEFKuC_o" target="_blank" rel="noopener noreferrer">
-          <div class="aftermovie-thumbnail">
-            <img src="img/2021/aftermovie2021.jpg" alt="Poolparty 2021 Aftermovie" />
-            <div class="play-overlay">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div id="photos2021" class="photos"></div>
-
-      <h2 class="col background-secondary" style="background-color: #6be607">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
-          <g>
-            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
-            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
-          </g>
-        </svg>
-        Recap 2020
-      </h2>
-      <div class="aftermovie-section">
-        <div class="aftermovie-header">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6be607" class="aftermovie-icon" style="color:#6be607;">
-            <path d="m9.5 16.5 7-4.5-7-4.5v9ZM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/>
-          </svg>
-          <h3>Aftermovie 2020</h3>
-        </div>
-        <a class="aftermovie-link" href="https://youtu.be/6Qai_0gckB4" target="_blank" rel="noopener noreferrer">
-          <div class="aftermovie-thumbnail">
-            <img src="img/2020/aftermovie2020.jpg" alt="Poolparty 2020 Aftermovie" />
-            <div class="play-overlay">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div id="photos2020" class="photos"></div>
-
-      <h2 class="col background-secondary">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
-          <g>
-            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
-            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
-          </g>
-        </svg>
-        Recap 2019
-      </h2>
-      <div id="photos2019" class="photos"></div>
-
-      <h2 class="col background-secondary">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62.811 62.811">
-          <g>
-            <path d="M11.695 36.028l-.831 1.64a1 1 0 0 0 .524 1.382l1.709.676.026 1.838a1 1 0 0 0 1.107.98l1.827-.196.878 1.616a.998.998 0 0 0 1.436.354l1.526-1.023 1.527 1.023c.233.157.523.207.796.141.272-.067.505-.247.64-.494l.878-1.617 1.828.196a1 1 0 0 0 1.106-.98l.025-1.838 1.71-.676a.999.999 0 0 0 .524-1.383l-.832-1.64 1.2-1.394a.998.998 0 0 0-.179-1.467l-1.499-1.065.416-1.791a1 1 0 0 0-.839-1.217l-1.822-.248-.465-1.778a.998.998 0 0 0-1.309-.687l-1.728.627-1.238-1.359c-.379-.416-1.1-.416-1.479 0l-1.237 1.359-1.729-.627a1 1 0 0 0-1.309.687l-.464 1.778-1.822.248a1 1 0 0 0-.839 1.216l.416 1.791-1.498 1.065a1.002 1.002 0 0 0-.179 1.467l1.199 1.396zm2.774-1.123a5.436 5.436 0 0 1 5.429-5.43 5.436 5.436 0 0 1 5.43 5.43 5.436 5.436 0 0 1-5.43 5.43 5.435 5.435 0 0 1-5.429-5.43z"/>
-            <path d="M59.811 5.899h-46.76a3 3 0 0 0-3 3v7.166H3a3 3 0 0 0-3 3v34.848a3 3 0 0 0 3 3h46.76a3 3 0 0 0 3-3v-7.166h7.052a3 3 0 0 0 3-3V8.899a3 3 0 0 0-3.001-3zM46.76 22.065v13.471c-3.5-3.779-8.816-4.439-14.469-4.633a.98.98 0 0 0-1.013.795c-.1.477.158.955.61 1.134 2.692 1.067 4.26 2.342 4.932 4.011 1.266 3.144-1.037 5.846-3.394 7.205-4.367 2.519-9.939 2.81-13.749 2.81-.798 0-1.587-.015-2.359-.038-4.066-.12-8.033-.679-11.318-1.242V22.065h40.76zm10.051 18.682H52.76V19.065a3 3 0 0 0-3-3H16.052v-4.166h40.76v28.848z"/>
-          </g>
-        </svg>
-        Recap 2018
-      </h2>
-      <div id="photos2018" class="photos"></div>
-    </div>
+      </section>
+    </main>
 
     <!-- Modal -->
     <input class="modal-state" id="confirmModal" type="checkbox" />
@@ -743,10 +586,13 @@
       </div>
     </div>
 
-    <div id="palm-wrapper">
+    <footer id="palm-wrapper" data-water-zone>
+      <canvas class="water-canvas" data-water="night" aria-hidden="true"></canvas>
+      <div class="footer-inner">
+        <p class="footer-shout">Wir sehen uns auf der Kolpingwiese.</p>
       <svg
         version="1.1"
-        class="padding-none"
+        class="padding-none palm" aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
         x="0px"
@@ -786,14 +632,16 @@ c0.526-0.559,0.853-1.195,1.115-1.852C14.427,11.544,13.946,12.058,13.396,12.382z"
           />
         </g>
       </svg>
+        <span class="footer-tag"
+          >&copy; <a href="https://jupeters.de">JP</a> &amp;
+          <a href="https://lmf.logge.top">LMF</a> 2026 &middot;
+          <a href="https://jupeters.de/impressum.html">Impressum</a></span
+        >
+      </div>
+    </footer>
 
-      <span
-        >&copy; <a href="https://jupeters.de">JP</a> &
-        <a href="https://lmf.logge.top">LMF</a> 2026</span
-      >
-    </div>
-
-    <script type="module" src="js/main.js?v=20261108-preview-2027"></script>
+    <script type="module" src="js/main.js?v=20261109-party"></script>
+    <script type="module" src="js/party.js?v=20261109-party"></script>
     <script src="js/fslightbox.min.js"></script>
 
     <!-- Ackee Analytics -->

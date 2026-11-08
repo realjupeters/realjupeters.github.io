@@ -42,10 +42,12 @@ The site:
 │   ├── colors.css          # design system: CSS variables for colors, spacing, fonts, wobbly borders
 │   ├── main.css            # all of index.html / login.html / forgot-password.html
 │   ├── anniversary.css     # 2027 event-page accents, separate from historical recap colours
+│   ├── party.css           # landing-page party scrapbook (day-to-night scenes, polaroids, facts board, recap wall)
 │   ├── admin.css           # admin dashboard
 │   └── login.css           # login splash (legacy, kept for fallback)
 ├── js/
 │   ├── main.js             # landing page logic (auth UI glue, registration flow, gallery)
+│   ├── party.js            # landing-page effects (countdown, WebGL water light, string lights, tilt, reveal, gallery toggles)
 │   ├── admin.js            # admin dashboard (PoolpartyAdmin class)
 │   ├── fslightbox.min.js   # vendored gallery lightbox
 │   └── api/                # the only place that talks to the backend
