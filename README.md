@@ -41,6 +41,7 @@ The site:
 ├── css/
 │   ├── colors.css          # design system: CSS variables for colors, spacing, fonts, wobbly borders
 │   ├── main.css            # all of index.html / login.html / forgot-password.html
+│   ├── anniversary.css     # 2027 event-page accents, separate from historical recap colours
 │   ├── admin.css           # admin dashboard
 │   └── login.css           # login splash (legacy, kept for fallback)
 ├── js/
