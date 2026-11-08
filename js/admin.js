@@ -162,7 +162,7 @@ class PoolpartyAdmin {
             return;
         }
         if (!emailValue.includes('@') || !emailValue.includes('.')) {
-            this.showNotification('Bitte eine g&uuml;ltige E-Mail-Adresse eingeben.', 'error');
+            this.showNotification('Bitte eine gültige E-Mail-Adresse eingeben.', 'error');
             return;
         }
         if (passwordValue.length < 8) {
@@ -222,7 +222,7 @@ class PoolpartyAdmin {
                 console.log(`✅ ${section} loaded: ${this.state.data[section].length} items`);
             } catch (error) {
                 console.warn(`⚠️ Failed to load ${section}:`, error);
-                this.showNotification(`Fehler beim Laden von ${section}: ${error.message}`, 'error');
+                this.showNotification(`Fehler beim Laden der ${this.pluralLabel(section)}: ${error.message}`, 'error');
                 this.state.data[section] = [];
             } finally {
                 this.setLoading(section, false);
@@ -259,7 +259,7 @@ class PoolpartyAdmin {
         // Update registration header with total people count
         const totalPeople = this.state.data.registration.reduce((sum, reg) => sum + (reg.people || 0), 0);
         const header = document.querySelector('#content2 h3');
-        if (header) header.textContent = `Registration Management (${totalPeople} People)`;
+        if (header) header.textContent = `Anmeldungen (${totalPeople} Personen)`;
         
         // Hide music loading state
         this.setLoading('music', false);
@@ -418,7 +418,7 @@ class PoolpartyAdmin {
 
     createStatusBadge(verified) {
         return `<span class="status-badge ${verified ? 'status-verified' : 'status-unverified'}">
-            ${verified ? 'Verified' : 'Unverified'}
+            ${verified ? 'Bestätigt' : 'Unbestätigt'}
         </span>`;
     }
 
@@ -505,19 +505,12 @@ class PoolpartyAdmin {
         headers.forEach(header => {
             const existing = header.querySelector('.sort-indicator');
             if (existing) existing.remove();
-            header.style.cursor = 'pointer';
         });
         
         // Add indicator to current column
         if (headers[columnIndex]) {
             const indicator = document.createElement('span');
             indicator.className = 'sort-indicator';
-            indicator.style.cssText = `
-                margin-left: 4px;
-                font-size: 0.8em;
-                color: var(--primary-color);
-                font-weight: bold;
-            `;
             
             const direction = this.state.sortState[section].direction;
             indicator.textContent = direction === 'asc' ? '↑' : '↓';
@@ -535,16 +528,8 @@ class PoolpartyAdmin {
             // Skip action columns (usually the last column)
             const columns = this.columnMapping[section];
             if (index < columns.length) {
-                header.style.cursor = 'pointer';
-                // Sort is handled by event delegation via data-action="sort"
-                
-                // Add hover effect
-                header.addEventListener('mouseenter', () => {
-                    header.style.backgroundColor = 'var(--primary-alpha-10)';
-                });
-                header.addEventListener('mouseleave', () => {
-                    header.style.backgroundColor = '';
-                });
+                // Sort is handled by event delegation via data-action="sort";
+                // Zeiger und Hover kommen aus backstage.css.
             }
         });
         
@@ -631,7 +616,7 @@ class PoolpartyAdmin {
 
     // 🗑️ Delete Operations
     showDeleteConfirm(type, id, name) {
-        const confirmed = confirm(`${type === 'account' ? 'Account' : type === 'registration' ? 'Anmeldung' : type === 'item' ? 'Item' : 'Volunteer'} "${name}" wirklich löschen?`);
+        const confirmed = confirm(`${type === 'account' ? 'Konto' : type === 'registration' ? 'Anmeldung' : type === 'item' ? 'Mitbringsel' : 'Helfer'} „${name}“ wirklich löschen?`);
         if (confirmed) this.deleteItem(type, id);
     }
 
@@ -658,7 +643,7 @@ class PoolpartyAdmin {
             this.renderTable(type);
             if (type === 'registration') this.renderTable('music');
             
-            this.showNotification(`${type === 'account' ? 'Account' : type === 'registration' ? 'Anmeldung' : type === 'item' ? 'Item' : 'Volunteer'} gelöscht`, 'success');
+            this.showNotification(`${type === 'account' ? 'Konto' : type === 'registration' ? 'Anmeldung' : type === 'item' ? 'Mitbringsel' : 'Helfer'} gelöscht`, 'success');
         } catch (error) {
             this.showNotification(`Fehler beim Löschen`, 'error');
         }
@@ -669,21 +654,21 @@ class PoolpartyAdmin {
         const count = this.state.data[type].length;
         
         if (count === 0) {
-            this.showNotification(`Keine ${type}s zum Löschen`, 'info');
+            this.showNotification(`Keine ${this.pluralLabel(type)} zum Löschen`, 'info');
             return;
         }
 
         // Enhanced confirmation dialog
-        const message = `⚠️ ACHTUNG: Alle ${count} ${type === 'registration' ? 'Anmeldungen' : 'Volunteers'} werden permanent gel&ouml;scht!\n\n` +
-                       `Das kann nicht r&uuml;ckg&auml;ngig gemacht werden.\n\n` +
-                       `Tippe "DELETE ALL" zum Best&auml;tigen:`;
+        const message = `⚠️ ACHTUNG: Alle ${count} ${this.pluralLabel(type)} werden endgültig gelöscht!\n\n` +
+                       `Das kann nicht rückgängig gemacht werden.\n\n` +
+                       `Tippe „ALLE LÖSCHEN“ zum Bestätigen:`;
         
         const userInput = prompt(message);
         
-        if (userInput === "DELETE ALL") {
+        if (userInput === 'ALLE LÖSCHEN') {
             await this.bulkDeleteItems(type);
         } else if (userInput !== null) {
-            this.showNotification('Bulk-L&ouml;schung abgebrochen - Falscher Best&auml;tigungstext', 'info');
+            this.showNotification('Löschen abgebrochen: Bestätigungstext stimmt nicht.', 'info');
         }
     }
 
@@ -692,14 +677,14 @@ class PoolpartyAdmin {
         const totalCount = items.length;
         
         if (totalCount === 0) {
-            this.showNotification(`Keine ${type}s zum Löschen`, 'info');
+            this.showNotification(`Keine ${this.pluralLabel(type)} zum Löschen`, 'info');
             return;
         }
 
         console.log(`🗑️ Starting bulk delete of ${totalCount} ${type}(s)...`);
         
         // Show progress notification
-        this.showNotification(`Lösche ${totalCount} ${type}(s)... Bitte warten.`, 'info');
+        this.showNotification(`Lösche ${totalCount} ${this.pluralLabel(type)} … bitte warten.`, 'info');
         
         const deleteFns = {
             registration: adminApi.deleteRegistration,
@@ -751,7 +736,7 @@ class PoolpartyAdmin {
 
         // Show results
         if (errorCount === 0) {
-            this.showNotification(`✅ Alle ${successCount} ${type}(s) gelöscht!`, 'success');
+            this.showNotification(`Alle ${successCount} ${this.pluralLabel(type)} gelöscht.`, 'success');
         } else {
             const message = `⚠️ Bulk delete completed with ${errorCount} errors:\n` +
                           `• Successful: ${successCount}\n` +
@@ -771,7 +756,7 @@ class PoolpartyAdmin {
         const name = input.value.trim();
         
         if (name.length < 3 || name.length > 512) {
-            this.showNotification('Item-Name muss 3-512 Zeichen haben', 'error');
+            this.showNotification('Die Bezeichnung braucht 3 bis 512 Zeichen.', 'error');
             return;
         }
 
@@ -779,9 +764,9 @@ class PoolpartyAdmin {
             await adminApi.createItem(name);
             input.value = '';
             await this.loadItems();
-            this.showNotification('Item hinzugef&uuml;gt', 'success');
+            this.showNotification('Mitbringsel hinzugefügt.', 'success');
         } catch (error) {
-            this.showNotification('Item hinzufügen fehlgeschlagen', 'error');
+            this.showNotification('Mitbringsel konnte nicht hinzugefügt werden.', 'error');
         }
     }
 
@@ -819,7 +804,7 @@ class PoolpartyAdmin {
             .filter((email, index, self) => self.indexOf(email) === index); // Remove duplicates
         
         if (emailAddresses.length === 0) {
-            this.showNotification('Keine g&uuml;ltigen E-Mail-Adressen gefunden.', 'warning');
+            this.showNotification('Keine gültigen E-Mail-Adressen gefunden.', 'warning');
             return;
         }
         
@@ -863,7 +848,7 @@ Das Poolparty Team`);
             .filter((email, index, self) => self.indexOf(email) === index); // Remove duplicates
         
         if (emailAddresses.length === 0) {
-            this.showNotification('Keine g&uuml;ltigen E-Mail-Adressen gefunden.', 'warning');
+            this.showNotification('Keine gültigen E-Mail-Adressen gefunden.', 'warning');
             return;
         }
         
@@ -1097,6 +1082,18 @@ Das Poolparty Team`);
         });
     }
 
+    // Deutsche Mehrzahl für Meldungen
+    pluralLabel(type) {
+        return {
+            account: 'Konten',
+            registration: 'Anmeldungen',
+            item: 'Mitbringsel',
+            volunteer: 'Helfer',
+            music: 'Songwünsche',
+            audit: 'Protokolleinträge',
+        }[type] || type;
+    }
+
     // 🕰️ Debounce utility
     debounce(func, wait) {
         let timeout;
@@ -1222,7 +1219,7 @@ Das Poolparty Team`);
                 document.getElementById('mailDraftHint').textContent = 'Noch keine Entwürfe. Klicke "Neu" um einen anzulegen.';
             }
         } catch (err) {
-            this.showNotification(`Fehler beim Laden der Drafts: ${err.message}`, 'error');
+            this.showNotification(`Fehler beim Laden der Entwürfe: ${err.message}`, 'error');
         }
     }
 
@@ -1362,7 +1359,7 @@ Das Poolparty Team`);
     newMailDraft() {
         const name = prompt('Name für den neuen Entwurf:', 'Neuer Entwurf');
         if (!name) return;
-        const subject = prompt('Betreff der E-Mail:', '🏊 Poolparty 2026');
+        const subject = prompt('Betreff der E-Mail:', '🏊 Poolparty 2027');
         if (!subject) return;
         const emptyHtml = '<!DOCTYPE html><html><body><p>Hier schreiben...</p></body></html>';
         adminApi
@@ -1394,7 +1391,7 @@ Das Poolparty Team`);
             // Also keep the visible source textarea in sync
             document.getElementById('mailHtmlSource').value = updated.html;
             this.setMailStatus('✅ Gespeichert');
-            this.showNotification('Draft gespeichert', 'success');
+            this.showNotification('Entwurf gespeichert', 'success');
             await this.refreshMailDrafts();
         } catch (err) {
             this.showNotification(`Fehler beim Speichern: ${err.message}`, 'error');

@@ -1,94 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Poolparty 2026</title>
+    <title>Admin · JP Poolparty</title>
+    <meta name="robots" content="noindex">
 
-    <!-- CSS Imports -->
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap">
+    <link rel="stylesheet" href="css/scrapbook.css?v=20261110">
+    <link rel="stylesheet" href="css/backstage.css?v=20261110">
 
-    <!-- Theme Color Detection Script -->
-    <script>
-        // Auto-detect if primary color is light or dark and adjust contrast
-        function updatePrimaryContrast() {
-            const primaryColor = getComputedStyle(document.documentElement)
-                .getPropertyValue('--primary-color').trim();
-            
-            // Convert color to RGB
-            const temp = document.createElement('div');
-            temp.style.color = primaryColor;
-            document.body.appendChild(temp);
-            const rgb = getComputedStyle(temp).color.match(/\d+/g);
-            document.body.removeChild(temp);
-            
-            if (rgb) {
-                // Calculate luminance
-                const luminance = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255;
-                
-                // Set contrast color
-                document.documentElement.style.setProperty(
-                    '--primary-contrast', 
-                    luminance > 0.5 ? '#000000' : '#ffffff'
-                );
-            }
-        }
-        
-        // Run on load
-        document.addEventListener('DOMContentLoaded', updatePrimaryContrast);
-        
-        // Allow easy theme color changing
-        window.setThemeColor = function(color) {
-            document.documentElement.style.setProperty('--primary-color', color);
-            updatePrimaryContrast();
-        };
-    </script>
-
-    <!-- Favicon -->
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#fdfbf7">
     <meta name="api-base" content="https://jpcore.logge.top">
 </head>
 
-<body>
-    <div class="admin-container fade-in">
-        <div class="admin-header">
+<body class="backstage">
+    <div class="admin-container">
+        <header class="admin-header">
             <a href="./" class="back-link">
-                <svg viewBox="0 0 24 24" width="16" height="16">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
                     <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.42-1.41L7.83 13H20v-2z"/>
                 </svg>
-                Back to Main
+                Zur Startseite
             </a>
-            <h1>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 238.1 238.1">
-                    <path d="M205 99c-1-3-4-5-7-5h-62l30-84a8 8 0 00-13-8L34 131a7 7 0 006 13h40a7 7 0 100-15H57l82-89-21 59a8 8 0 007 10h56l-82 89 21-59a7 7 0 00-7-10c-4 0-7 2-7 6l-34 93a7 7 0 0013 8l119-129c2-2 2-6 1-8z" />
-                </svg>
-                Poolparty Admin Panel
-            </h1>
-        </div>
+            <h1>Poolparty-Admin</h1>
+        </header>
 
-        <!-- Stats Overview -->
+        <!-- Statistik -->
         <div class="stats-grid">
             <div class="stat-card admin-only-panel">
                 <div class="stat-value" id="totalAccounts">-</div>
-                <div class="stat-label">Total Accounts</div>
+                <div class="stat-label">Konten</div>
             </div>
             <div class="stat-card admin-only-panel">
                 <div class="stat-value" id="totalRegistrations">-</div>
-                <div class="stat-label">Registrations</div>
+                <div class="stat-label">Anmeldungen</div>
             </div>
             <div class="stat-card admin-only-panel">
                 <div class="stat-value" id="totalPeople">-</div>
-                <div class="stat-label">Total People</div>
+                <div class="stat-label">Personen</div>
             </div>
             <div class="stat-card admin-only-panel">
                 <div class="stat-value" id="totalItems">-</div>
-                <div class="stat-label">Items</div>
+                <div class="stat-label">Mitbringsel</div>
             </div>
             <div class="stat-card admin-only-panel">
                 <div class="stat-value" id="totalVolunteers">-</div>
-                <div class="stat-label">Volunteers</div>
+                <div class="stat-label">Helfer</div>
             </div>
             <div class="stat-card dj-panel">
                 <div class="stat-value" id="totalMusic">-</div>
@@ -96,9 +57,9 @@
             </div>
         </div>
 
-        <!-- Enhanced Tabs -->
+        <!-- Tabs -->
         <div class="enhanced-tabs">
-            <!-- Radio buttons as direct children -->
+            <!-- Radio-Buttons als direkte Kinder, die Tab-Leiste hängt per :checked daran -->
             <input id="tab1" type="radio" name="tabs" checked>
             <input id="tab2" type="radio" name="tabs">
             <input id="tab3" type="radio" name="tabs">
@@ -109,41 +70,41 @@
             <input id="tab8" type="radio" name="tabs">
 
             <div class="tab-header">
-                <label for="tab1" class="admin-only-panel">👥 Accounts</label>
-                <label for="tab2" class="admin-only-panel">📝 Registrations</label>
-                <label for="tab3" class="admin-only-panel">📦 Items</label>
-                <label for="tab4" class="admin-only-panel">🙋 Volunteers</label>
-                <label for="tab5">🎵 Music</label>
-                <label for="tab6" class="admin-only-panel">➕ Register User</label>
-                <label for="tab7" class="admin-only-panel">📧 Mails</label>
-                <label for="tab8" class="admin-only-panel">📜 Logs</label>
+                <label for="tab1" class="admin-only-panel">Konten</label>
+                <label for="tab2" class="admin-only-panel">Anmeldungen</label>
+                <label for="tab3" class="admin-only-panel">Mitbringsel</label>
+                <label for="tab4" class="admin-only-panel">Helfer</label>
+                <label for="tab5">Songwünsche</label>
+                <label for="tab6" class="admin-only-panel">Konto anlegen</label>
+                <label for="tab7" class="admin-only-panel">Mails</label>
+                <label for="tab8" class="admin-only-panel">Protokoll</label>
             </div>
 
             <div class="content tab-content admin-only-panel" id="content1">
-                <h3>Account Management</h3>
+                <h3>Konten verwalten</h3>
                 <div class="search-filter-bar">
-                    <input type="text" class="search-input" placeholder="Search accounts..." id="accountSearch">
-                    <select class="filter-select" id="accountFilter">
-                        <option value="">All Accounts</option>
-                        <option value="verified">Verified Only</option>
-                        <option value="unverified">Unverified Only</option>
+                    <input type="search" class="search-input" placeholder="Konten durchsuchen …" id="accountSearch" aria-label="Konten durchsuchen">
+                    <select class="filter-select" id="accountFilter" aria-label="Konten filtern">
+                        <option value="">Alle Konten</option>
+                        <option value="verified">Nur bestätigte</option>
+                        <option value="unverified">Nur unbestätigte</option>
                     </select>
-                    <button class="btn btn-primary" id="emailAllAccounts" style="margin-left: auto;">
-                        📧 Email All Accounts
-                    </button>
+                    <div class="bar-actions">
+                        <button class="btn btn-primary" id="emailAllAccounts">Mail an alle Konten</button>
+                    </div>
                 </div>
-                <div class="loading" id="accountLoading">Loading accounts...</div>
+                <div class="loading" id="accountLoading">Lade Konten …</div>
                 <div class="enhanced-table-wrapper">
                     <table class="enhanced-table" id="accountTableContainer" style="display: none;">
                         <thead>
                             <tr>
                                 <th data-action="sort" data-table="accountTable" data-column="0">ID</th>
                                 <th data-action="sort" data-table="accountTable" data-column="1">Name</th>
-                                <th data-action="sort" data-table="accountTable" data-column="2">Email</th>
+                                <th data-action="sort" data-table="accountTable" data-column="2">E-Mail</th>
                                 <th data-action="sort" data-table="accountTable" data-column="3">Status</th>
-                                <th data-action="sort" data-table="accountTable" data-column="4">Roles</th>
-                                <th data-action="sort" data-table="accountTable" data-column="5">Last Active</th>
-                                <th>Actions</th>
+                                <th data-action="sort" data-table="accountTable" data-column="4">Rollen</th>
+                                <th data-action="sort" data-table="accountTable" data-column="5">Zuletzt aktiv</th>
+                                <th>Aktionen</th>
                             </tr>
                         </thead>
                         <tbody id="accountTable"></tbody>
@@ -152,26 +113,24 @@
             </div>
 
             <div class="content tab-content admin-only-panel" id="content2">
-                <h3>Registration Management</h3>
+                <h3>Anmeldungen</h3>
                 <div class="search-filter-bar">
-                    <input type="text" class="search-input" placeholder="Search registrations..." id="registrationSearch">
-                    <button class="btn btn-primary" id="emailAllRegistered" style="margin-left: auto; margin-right: 10px;">
-                        📧 Email All Registered
-                    </button>
-                    <button class="btn btn-danger" id="deleteAllRegistrations">
-                        🗑️ Delete All Registrations
-                    </button>
+                    <input type="search" class="search-input" placeholder="Anmeldungen durchsuchen …" id="registrationSearch" aria-label="Anmeldungen durchsuchen">
+                    <div class="bar-actions">
+                        <button class="btn btn-primary" id="emailAllRegistered">Mail an alle Angemeldeten</button>
+                        <button class="btn btn-danger" id="deleteAllRegistrations">Alle Anmeldungen löschen</button>
+                    </div>
                 </div>
-                <div class="loading" id="registrationLoading">Loading registrations...</div>
+                <div class="loading" id="registrationLoading">Lade Anmeldungen …</div>
                 <div class="enhanced-table-wrapper">
                     <table class="enhanced-table" id="registrationTableContainer" style="display: none;">
                         <thead>
                             <tr>
                                 <th data-action="sort" data-table="registrationTable" data-column="0">ID</th>
                                 <th data-action="sort" data-table="registrationTable" data-column="1">Name</th>
-                                <th data-action="sort" data-table="registrationTable" data-column="2">People Count</th>
-                                <th data-action="sort" data-table="registrationTable" data-column="3">Last Activity</th>
-                                <th>Actions</th>
+                                <th data-action="sort" data-table="registrationTable" data-column="2">Personen</th>
+                                <th data-action="sort" data-table="registrationTable" data-column="3">Letzte Änderung</th>
+                                <th>Aktionen</th>
                             </tr>
                         </thead>
                         <tbody id="registrationTable"></tbody>
@@ -180,35 +139,35 @@
             </div>
 
             <div class="content tab-content admin-only-panel" id="content3">
-                <h3>Item Management</h3>
+                <h3>Mitbringsel</h3>
                 <div class="add-item-form">
-                    <h4>Add New Item</h4>
+                    <h4>Neues Mitbringsel</h4>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="addItemInput">Item Name</label>
-                            <input type="text" class="form-control" placeholder="Enter item name..." id="addItemInput">
+                            <label for="addItemInput">Bezeichnung</label>
+                            <input type="text" class="form-control" placeholder="z. B. Nudelsalat" id="addItemInput">
                         </div>
-                        <button class="btn btn-primary" id="addItem">Add Item</button>
+                        <button class="btn btn-primary" id="addItem">Hinzufügen</button>
                     </div>
                 </div>
                 <div class="search-filter-bar">
-                    <input type="text" class="search-input" placeholder="Search items..." id="itemSearch">
-                    <select class="filter-select" id="itemFilter">
-                        <option value="">All Items</option>
-                        <option value="assigned">Assigned</option>
-                        <option value="unassigned">Unassigned</option>
+                    <input type="search" class="search-input" placeholder="Mitbringsel durchsuchen …" id="itemSearch" aria-label="Mitbringsel durchsuchen">
+                    <select class="filter-select" id="itemFilter" aria-label="Mitbringsel filtern">
+                        <option value="">Alle</option>
+                        <option value="assigned">Vergeben</option>
+                        <option value="unassigned">Frei</option>
                     </select>
                 </div>
-                <div class="loading" id="itemLoading">Loading items...</div>
+                <div class="loading" id="itemLoading">Lade Mitbringsel …</div>
                 <div class="enhanced-table-wrapper">
                     <table class="enhanced-table" id="itemTableContainer" style="display: none;">
                         <thead>
                             <tr>
                                 <th data-action="sort" data-table="itemTable" data-column="0">ID</th>
-                                <th data-action="sort" data-table="itemTable" data-column="1">Item Name</th>
-                                <th data-action="sort" data-table="itemTable" data-column="2">Assigned To</th>
-                                <th data-action="sort" data-table="itemTable" data-column="3">Last Activity</th>
-                                <th>Actions</th>
+                                <th data-action="sort" data-table="itemTable" data-column="1">Mitbringsel</th>
+                                <th data-action="sort" data-table="itemTable" data-column="2">Vergeben an</th>
+                                <th data-action="sort" data-table="itemTable" data-column="3">Letzte Änderung</th>
+                                <th>Aktionen</th>
                             </tr>
                         </thead>
                         <tbody id="itemTable"></tbody>
@@ -217,23 +176,23 @@
             </div>
 
             <div class="content tab-content admin-only-panel" id="content4">
-                <h3>Volunteer Management</h3>
+                <h3>Helfer</h3>
                 <div class="search-filter-bar">
-                    <input type="text" class="search-input" placeholder="Search volunteers..." id="volunteerSearch">
-                    <button class="btn btn-danger" id="deleteAllVolunteers" style="margin-left: auto;">
-                        🗑️ Delete All Volunteers
-                    </button>
+                    <input type="search" class="search-input" placeholder="Helfer durchsuchen …" id="volunteerSearch" aria-label="Helfer durchsuchen">
+                    <div class="bar-actions">
+                        <button class="btn btn-danger" id="deleteAllVolunteers">Alle Helfer löschen</button>
+                    </div>
                 </div>
-                <div class="loading" id="volunteerLoading">Loading volunteers...</div>
+                <div class="loading" id="volunteerLoading">Lade Helfer …</div>
                 <div class="enhanced-table-wrapper">
                     <table class="enhanced-table" id="volunteerTableContainer" style="display: none;">
                         <thead>
                             <tr>
                                 <th data-action="sort" data-table="volunteerTable" data-column="0">ID</th>
                                 <th data-action="sort" data-table="volunteerTable" data-column="1">Name</th>
-                                <th data-action="sort" data-table="volunteerTable" data-column="2">Duration</th>
-                                <th data-action="sort" data-table="volunteerTable" data-column="3">Last Activity</th>
-                                <th>Actions</th>
+                                <th data-action="sort" data-table="volunteerTable" data-column="2">Zeitraum</th>
+                                <th data-action="sort" data-table="volunteerTable" data-column="3">Letzte Änderung</th>
+                                <th>Aktionen</th>
                             </tr>
                         </thead>
                         <tbody id="volunteerTable"></tbody>
@@ -244,9 +203,9 @@
             <div class="content tab-content" id="content5">
                 <h3>Songwünsche</h3>
                 <div class="search-filter-bar">
-                    <input type="text" class="search-input" placeholder="Search music requests..." id="musicSearch">
+                    <input type="search" class="search-input" placeholder="Songwünsche durchsuchen …" id="musicSearch" aria-label="Songwünsche durchsuchen">
                 </div>
-                <div class="loading" id="musicLoading">Loading music requests...</div>
+                <div class="loading" id="musicLoading">Lade Songwünsche …</div>
                 <div class="enhanced-table-wrapper">
                     <table class="enhanced-table" id="musicTableContainer" style="display: none;">
                         <thead>
@@ -261,30 +220,31 @@
                 </div>
             </div>
 
-            <div class="content tab-content admin-only-panel" id="content6"><h3>User Registration</h3>
-                <form id="registerUserForm">
+            <div class="content tab-content admin-only-panel" id="content6">
+                <h3>Konto anlegen</h3>
+                <form id="registerUserForm" class="register-form">
                     <div class="form-group">
                         <label for="registerName">Name</label>
-                        <input type="text" id="registerName" placeholder="Enter name" required>
+                        <input type="text" id="registerName" placeholder="Vor- und Nachname" required>
                     </div>
                     <div class="form-group">
-                        <label for="registerEmail">Email</label>
-                        <input type="email" id="registerEmail" placeholder="Enter email" required>
+                        <label for="registerEmail">E-Mail</label>
+                        <input type="email" id="registerEmail" placeholder="name@example.com" required>
                     </div>
                     <div class="form-group">
-                        <label for="registerPassword">Password</label>
-                        <input type="password" id="registerPassword" placeholder="Enter password" required>
+                        <label for="registerPassword">Passwort</label>
+                        <input type="password" id="registerPassword" placeholder="mindestens 8 Zeichen" autocomplete="new-password" required>
                     </div>
                     <div class="form-group">
-                        <label for="registerRole">Role (Optional)</label>
-                        <input type="text" id="registerRole" placeholder="Enter role (e.g., admin)">
+                        <label for="registerRole">Rolle (optional)</label>
+                        <input type="text" id="registerRole" placeholder="z. B. admin oder dj">
                     </div>
-                    <button type="submit" class="btn btn-primary" id="registerUserBtn">Register User</button>
+                    <button type="submit" class="btn btn-primary" id="registerUserBtn">Konto anlegen</button>
                 </form>
             </div>
 
             <div class="content tab-content admin-only-panel" id="content7">
-                <h3>Mail Drafts</h3>
+                <h3>Mail-Entwürfe</h3>
                 <div class="mail-layout">
                     <aside class="mail-sidebar">
                         <div class="mail-sidebar-header">
@@ -292,43 +252,43 @@
                             <button type="button" class="btn btn-primary btn-sm" id="mailNewBtn">+ Neu</button>
                         </div>
                         <ul id="mailDraftList" class="mail-draft-list"></ul>
-                        <div class="mail-sidebar-hint" id="mailDraftHint">Lade Entwürfe…</div>
+                        <div class="mail-sidebar-hint" id="mailDraftHint">Lade Entwürfe …</div>
                     </aside>
 
                     <section class="mail-editor-pane" id="mailEditorPane" hidden>
                         <div class="mail-form-grid">
                             <div class="form-group">
                                 <label for="mailNameInput">Interner Name</label>
-                                <input type="text" id="mailNameInput" placeholder="Save the Date 2026 (Teaser)">
+                                <input type="text" id="mailNameInput" placeholder="Save the Date 2027 (Teaser)">
                             </div>
                             <div class="form-group">
                                 <label for="mailSubjectInput">Betreff (wird an Empfänger gesendet)</label>
-                                <input type="text" id="mailSubjectInput" placeholder="🏊 Save the Date: Poolparty 2026 💦">
+                                <input type="text" id="mailSubjectInput" placeholder="🏊 Save the Date: Poolparty 2027 💦">
                             </div>
                         </div>
 
                         <div class="mail-editor-modes">
-                            <button type="button" class="btn btn-sm mail-mode-btn active" data-mail-mode="visual">Visual (Quill)</button>
-                            <button type="button" class="btn btn-sm mail-mode-btn" data-mail-mode="source">HTML Source</button>
+                            <button type="button" class="btn btn-sm mail-mode-btn active" data-mail-mode="visual">Editor</button>
+                            <button type="button" class="btn btn-sm mail-mode-btn" data-mail-mode="source">HTML-Quelltext</button>
                             <span class="mail-editor-status" id="mailEditorStatus"></span>
                         </div>
 
                         <div id="mailQuillHost" class="mail-quill-host"></div>
-                        <textarea id="mailHtmlSource" class="mail-html-source" hidden spellcheck="false"></textarea>
+                        <textarea id="mailHtmlSource" class="mail-html-source" hidden spellcheck="false" aria-label="HTML-Quelltext"></textarea>
 
                         <div class="mail-preview-wrap">
                             <div class="mail-preview-header">
-                                <span>Live-Preview</span>
-                                <button type="button" class="btn btn-sm" id="mailPreviewRefresh">↻ Refresh</button>
+                                <span>Live-Vorschau</span>
+                                <button type="button" class="btn btn-sm" id="mailPreviewRefresh">↻ Aktualisieren</button>
                             </div>
-                            <iframe id="mailPreviewFrame" class="mail-preview-frame" title="Mail Preview"></iframe>
+                            <iframe id="mailPreviewFrame" class="mail-preview-frame" title="Mail-Vorschau"></iframe>
                         </div>
 
                         <div class="mail-actions">
-                            <button type="button" class="btn btn-primary" id="mailSaveBtn">💾 Speichern</button>
-                            <button type="button" class="btn" id="mailTestBtn">📤 Test an mich</button>
-                            <button type="button" class="btn btn-danger" id="mailSendAllBtn">📬 An ALLE senden</button>
-                            <button type="button" class="btn btn-danger" id="mailDeleteBtn">🗑️ Draft löschen</button>
+                            <button type="button" class="btn btn-primary" id="mailSaveBtn">Speichern</button>
+                            <button type="button" class="btn" id="mailTestBtn">Test an mich</button>
+                            <button type="button" class="btn btn-danger" id="mailSendAllBtn">An ALLE senden</button>
+                            <button type="button" class="btn btn-danger btn-outline" id="mailDeleteBtn">Entwurf löschen</button>
                         </div>
                         <p class="mail-sendinfo" id="mailSendInfo"></p>
                     </section>
@@ -340,17 +300,17 @@
             </div>
 
             <div class="content tab-content admin-only-panel" id="content8">
-                <h3>Audit Logs</h3>
+                <h3>Protokoll</h3>
                 <div class="search-filter-bar">
-                    <input type="text" class="search-input" placeholder="Search logs..." id="auditSearch">
+                    <input type="search" class="search-input" placeholder="Protokoll durchsuchen …" id="auditSearch" aria-label="Protokoll durchsuchen">
                 </div>
-                <div class="loading" id="auditLoading">Loading audit logs...</div>
+                <div class="loading" id="auditLoading">Lade Protokoll …</div>
                 <div class="enhanced-table-wrapper">
                     <table class="enhanced-table" id="auditTableContainer" style="display: none;">
                         <thead>
                             <tr>
                                 <th data-action="sort" data-table="auditTable" data-column="0">Zeit</th>
-                                <th data-action="sort" data-table="auditTable" data-column="1">Event</th>
+                                <th data-action="sort" data-table="auditTable" data-column="1">Ereignis</th>
                                 <th data-action="sort" data-table="auditTable" data-column="2">Nachricht</th>
                                 <th data-action="sort" data-table="auditTable" data-column="3">IP</th>
                             </tr>
@@ -366,16 +326,16 @@
         <div class="account-modal-card" role="dialog" aria-modal="true" aria-labelledby="accountEditTitle">
             <button type="button" class="account-modal-close" id="accountEditClose" aria-label="Schließen">×</button>
             <div class="account-modal-header">
-                <span class="account-modal-kicker">👤 Account bearbeiten</span>
-                <h2 id="accountEditTitle">Userverwaltung</h2>
-                <p>Name, E-Mail und Rollen sauber ändern. E-Mail-Änderungen setzen die Verifizierung zurück.</p>
+                <span class="account-modal-kicker">Konto bearbeiten</span>
+                <h2 id="accountEditTitle">Kontoverwaltung</h2>
+                <p>Name, E-Mail und Rollen sauber ändern. E-Mail-Änderungen setzen die Bestätigung zurück.</p>
             </div>
             <form id="accountEditForm" class="account-edit-form">
                 <input type="hidden" id="accountEditId">
                 <div class="account-form-grid">
                     <label class="account-field">
                         <span>Name</span>
-                        <input type="text" id="accountEditName" placeholder="z.B. Julian Peters" required>
+                        <input type="text" id="accountEditName" placeholder="Vor- und Nachname" required>
                     </label>
                     <label class="account-field">
                         <span>E-Mail</span>
@@ -384,7 +344,7 @@
                 </div>
                 <div class="account-role-box">
                     <span class="account-role-label">Rollen</span>
-                    <label class="role-chip"><input type="checkbox" value="user" name="accountEditRole"> User</label>
+                    <label class="role-chip"><input type="checkbox" value="user" name="accountEditRole"> Nutzer</label>
                     <label class="role-chip"><input type="checkbox" value="admin" name="accountEditRole"> Admin</label>
                     <label class="role-chip"><input type="checkbox" value="dj" name="accountEditRole"> DJ</label>
                 </div>
