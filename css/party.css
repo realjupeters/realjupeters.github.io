@@ -70,9 +70,10 @@ html { scroll-padding-top: 88px; }
   padding-inline: max(clamp(1rem, 2.5vw, 2rem), calc(50% - 640px + 2rem));
 }
 
-/* main.css setzt mobile Menülinks auf display:block und hebelt so .only-active aus */
-.party-page .collapsible-body a.only-active,
-.party-page .collapsible-body li.only-active { display: var(--display-active); }
+/* main.css setzt mobile Menülinks auf display:block und blendet so „Anmeldung“/„Volunteers“
+   auch bei geschlossener Anmeldung ein. Nur diesen Zustand korrigieren; die hideFor*-Regeln
+   aus main.css (Login/Logout/Admin) bleiben unangetastet. */
+html:not([style*="--display-active: initial"]) .collapsible-body a.only-active { display: none; }
 
 /* ===== Gemeinsame Bausteine ===== */
 .tape {
