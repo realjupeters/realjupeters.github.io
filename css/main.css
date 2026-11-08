@@ -636,8 +636,7 @@ h3 {
 }
 
 /* ===== Logo Styling ===== */
-object[data="jpLogo.svg"],
-object[data="kolpingLogo.svg"] {
+.event-logo {
   display: block;
   margin: auto;
   height: 200px;
@@ -646,8 +645,7 @@ object[data="kolpingLogo.svg"] {
   transition: var(--transition);
 }
 
-object[data="jpLogo.svg"]:hover,
-object[data="kolpingLogo.svg"]:hover {
+.event-logo:hover {
   transform: rotate(-2deg) scale(1.05);
 }
 
@@ -1636,8 +1634,7 @@ ol li {
     height: 1.5rem;
   }
 
-  object[data="jpLogo.svg"],
-  object[data="kolpingLogo.svg"] {
+  .event-logo {
     height: 140px;
   }
 

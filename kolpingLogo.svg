@@ -6,6 +6,21 @@
   viewBox="0 0 200 200"
 >
   <defs>
+    <!-- Anniversary palette: the seven original recap colours, top to bottom. -->
+    <linearGradient id="kolping-rainbow" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="200" color-interpolation="sRGB"><stop offset="0%" stop-color="#FF0000"/>
+    <stop offset="7%" stop-color="#FF0000"/>
+    <stop offset="20%" stop-color="#F5601D"/>
+    <stop offset="23%" stop-color="#F5601D"/>
+    <stop offset="34%" stop-color="#E0E722"/>
+    <stop offset="38%" stop-color="#E0E722"/>
+    <stop offset="49%" stop-color="#6BE607"/>
+    <stop offset="53%" stop-color="#6BE607"/>
+    <stop offset="64%" stop-color="#51FCF8"/>
+    <stop offset="68%" stop-color="#51FCF8"/>
+    <stop offset="79%" stop-color="#D800FF"/>
+    <stop offset="83%" stop-color="#D800FF"/>
+    <stop offset="96%" stop-color="#FF2D87"/>
+    <stop offset="100%" stop-color="#FF2D87"/></linearGradient>
     <style>
       <![CDATA[
       #Kolping_Logo {
@@ -45,6 +60,6 @@
       ]]>
     </style>
   </defs>
-  <path fill="#ff2d87" d="M0,0H200V200H0" />
+  <path fill="url(#kolping-rainbow)" d="M0,0H200V200H0" />
   <path d="M0,0H60V200H0M60,100 200,0V200" />
 </svg> 
