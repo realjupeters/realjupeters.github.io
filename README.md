@@ -39,12 +39,10 @@ The site:
 ├── jpLogo.svg              # JP brand logo
 ├── kolpingLogo.svg         # Kolpingwerk co-host logo
 ├── css/
-│   ├── colors.css          # design system: CSS variables for colors, spacing, fonts, wobbly borders
-│   ├── main.css            # all of index.html / login.html / forgot-password.html
-│   ├── anniversary.css     # 2027 event-page accents, separate from historical recap colours
-│   ├── party.css           # landing-page party scrapbook (day-to-night scenes, polaroids, facts board, recap wall)
-│   ├── admin.css           # admin dashboard
-│   └── login.css           # login splash (legacy, kept for fallback)
+│   ├── scrapbook.css       # shared design system: tokens, fonts, nav + mobile menu, buttons, forms, modal, toasts, visibility rules
+│   ├── party.css           # landing page only (day-to-night scenes, registration, galleries, lightbox)
+│   ├── auth.css            # login / password / verify pages
+│   └── backstage.css       # admin dashboard (tabs, tables, mail editor, account dialog)
 ├── js/
 │   ├── main.js             # landing page logic (auth UI glue, registration flow, gallery)
 │   ├── party.js            # landing-page effects (countdown, WebGL water light, string lights, tilt, reveal, gallery toggles)
@@ -110,7 +108,9 @@ To point this static-served frontend at a specific backend, drop a meta tag into
 
 ## Design system
 
-CSS variables in [`css/colors.css`](css/colors.css) define the entire palette + spacing + typography + the signature wobbly border-radius values. To roll the site over for a new event year, change `--primary-color`, `--accent`, `--postit`, the SVG accent fill in `jpLogo.svg` and `kolpingLogo.svg`, and the `Poolparty 20XX` strings in `index.html`. Historical recap sections keep their own year-specific colors via inline overrides at the bottom of `main.css`.
+Every page loads [`css/scrapbook.css`](css/scrapbook.css) plus one page stylesheet. Its `:root` block holds the palette, fonts, wobbly radii, shadows and the `--anniversary-gradient`. To roll the site over for a new event year, change the colours there, the SVG accent fill in `jpLogo.svg` and `kolpingLogo.svg`, and the `Poolparty 20XX` strings in `index.html`. Recap years set their accent colour inline via `--year` on each `article.year`.
+
+Visibility is driven by hide-only rules in `scrapbook.css`: `.only-active` / `.only-inactive` follow `REGISTRATION_OPEN` in `js/main.js`, `.hideForGuest` / `.hideForUser` / `.hideForNonAdmin` follow the `signedIn` / `admin` classes on `<body>`. Classes can be combined freely; an element is hidden as soon as one rule applies.
 
 ## Adding a new gallery year
 
