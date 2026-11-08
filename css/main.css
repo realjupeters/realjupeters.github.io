@@ -350,6 +350,32 @@ h1.caption {
   line-height: 1.1;
 }
 
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  h1.caption {
+    /* Same top-to-bottom colour stops as both anniversary logos. */
+    background-image: linear-gradient(
+      to bottom,
+      #FF0000 0%, #FF0000 7%,
+      #F5601D 20%, #F5601D 23%,
+      #E0E722 34%, #E0E722 38%,
+      #6BE607 49%, #6BE607 53%,
+      #51FCF8 64%, #51FCF8 68%,
+      #D800FF 79%, #D800FF 83%,
+      #FF2D87 96%, #FF2D87 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@media (forced-colors: active) {
+  h1.caption {
+    background-image: none;
+    color: CanvasText;
+  }
+}
+
 /* Event preview is public while registration remains closed. */
 .event-summary {
   text-align: center;
