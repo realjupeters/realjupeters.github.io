@@ -4,8 +4,8 @@
 
 /* ===== CSS Variables ===== */
 :root {
-  --display-active: block;
-  --display-inactive: none;
+  --display-active: none;
+  --display-inactive: block;
 }
 
 /* ===== Reset ===== */
@@ -348,6 +348,33 @@ h1.caption {
   transform: rotate(-2deg);
   position: relative;
   line-height: 1.1;
+}
+
+/* Event preview is public while registration remains closed. */
+.event-summary {
+  text-align: center;
+  margin: 0.5rem auto 2rem;
+  line-height: 1.5;
+}
+
+.event-summary p {
+  margin: 0.35rem 0;
+}
+
+.event-anniversary {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.event-date {
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  font-weight: 700;
+}
+
+.event-summary .event-registration-note {
+  margin-top: 0.9rem;
+  color: var(--pencil);
 }
 
 /* animated exclamation mark removed per request */

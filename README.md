@@ -1,14 +1,16 @@
-# jp-site (JP Poolparty 2026)
+# jp-site (JP Poolparty 2027)
 
 > The official site for **JP Poolparty** — an annual event in Ramsen, Germany. Static, hand-drawn, vanilla-JS, no build step.
 
-🌐 **Production**: <https://poolparty.jupeters.de> · 📅 **Save the date**: Samstag, 27. Juni 2026 · 📍 Kolpingwiese Ramsen
+🌐 **Production**: <https://poolparty.jupeters.de> · 📅 **Save the date**: Samstag, 17. Juli 2027 ab 16 Uhr · 📍 Kolpingwiese Ramsen
 
 The backend that powers login, registration, and the admin dashboard lives at [`LoggeL/jpCore`](https://github.com/LoggeL/jpCore).
 
 ## What it is
 
-A single landing page (`index.html`) for the upcoming event plus an admin dashboard (`admin.html`) and the auth pages (`login.html`, `forgot-password.html`, `reset-password.html`). The visual language is hand-drawn paper — wobbly borders, hard-offset shadows, sticky-note headings, the [Kalam](https://fonts.google.com/specimen/Kalam) and [Patrick Hand](https://fonts.google.com/specimen/Patrick+Hand) typefaces. Each event year picks a primary color; **2026 is bright pink `#ff2d87`**.
+A single landing page (`index.html`) for the upcoming event plus an admin dashboard (`admin.html`) and the auth pages (`login.html`, `forgot-password.html`, `reset-password.html`). The visual language is hand-drawn paper — wobbly borders, hard-offset shadows, sticky-note headings, the [Kalam](https://fonts.google.com/specimen/Kalam) and [Patrick Hand](https://fonts.google.com/specimen/Patrick+Hand) typefaces. Each event year picks a primary color; the 2027 anniversary logos use a vertical gradient of all seven recap colors, with pink `#ff2d87` retained as the page accent.
+
+The site currently previews the 2027 anniversary. Event details are public; registration and volunteer forms remain closed (`REGISTRATION_OPEN = false` in `js/main.js`). The date is confirmed in Google Calendar; the existing 16:00 start and other arrangements carry over.
 
 The site:
 

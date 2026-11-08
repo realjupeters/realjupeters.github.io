@@ -10,10 +10,10 @@ import {
 } from './api/poolparty.js';
 import { ApiError } from './api/client.js';
 
-// ===== Active / inactive toggle =====
-const ACTIVE = false;
+// ===== Registration availability (event details stay public) =====
+const REGISTRATION_OPEN = false;
 
-if (ACTIVE) {
+if (REGISTRATION_OPEN) {
   document.documentElement.style.setProperty('--display-active', 'initial');
   document.documentElement.style.setProperty('--display-inactive', 'none');
 } else {
@@ -52,7 +52,7 @@ window.handleLogout = async function handleLogout() {
 };
 
 // ===== Page bootstrap (auth + poolparty state) =====
-if (ACTIVE) {
+if (REGISTRATION_OPEN) {
   (async () => {
     let user;
     try {
