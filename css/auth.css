@@ -1,0 +1,119 @@
+/* =====================================================================
+   Login- und Passwortseiten
+   Baut auf scrapbook.css auf: ein Zettel auf Sonnenuntergangshimmel.
+   ===================================================================== */
+body.auth-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background-color: #ffad5e;
+  background-image:
+    radial-gradient(rgba(45, 45, 45, 0.1) 1.2px, transparent 1.5px),
+    linear-gradient(180deg, #9fdff5 0%, #ffe6a6 34%, #ffad5e 66%, #f2557f 100%);
+  background-size: 22px 22px, 100% 100%;
+  background-attachment: scroll, fixed;
+}
+
+.auth-main {
+  flex: 1;
+  display: grid;
+  place-items: start center;
+  padding: clamp(2.8rem, 8vw, 4.5rem) var(--gutter) 4rem;
+}
+
+.auth-card {
+  position: relative;
+  width: min(100%, 500px);
+  padding: 2.4rem clamp(1.2rem, 6vw, 2.4rem) 2rem;
+  background-color: #fffdf8;
+  background-image: linear-gradient(rgba(45, 93, 161, 0.08) 1px, transparent 1px);
+  background-size: 100% 34px;
+  border: 3px solid var(--ink);
+  border-radius: var(--wobbly-md);
+  box-shadow: 9px 9px 0 var(--ink);
+  rotate: -0.6deg;
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  width: 130px;
+  height: 30px;
+  translate: -50% 0;
+  rotate: -3deg;
+  background: repeating-linear-gradient(45deg, rgba(255, 45, 135, 0.5) 0 7px, rgba(255, 255, 255, 0.6) 7px 14px);
+  border: 1px solid rgba(45, 45, 45, 0.15);
+}
+
+.auth-card h1.caption {
+  margin: 0.2rem 0 1.4rem;
+  font-size: clamp(2.6rem, 11vw, 3.4rem);
+  -webkit-text-stroke-width: 1.5px;
+  filter: drop-shadow(3px 3px 0 var(--ink));
+}
+
+.auth-intro {
+  margin: 0 0 1.4rem;
+  font-size: 1.15rem;
+  line-height: 1.45;
+}
+
+.auth-card .form-group { margin-bottom: 1.3rem; }
+
+.auth-card .form-actions { margin-top: 1.6rem; }
+
+/* Rückmeldungen: Farbe setzt das Seitenskript inline */
+.auth-message {
+  margin: 1rem 0 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.35;
+  background: #fff;
+}
+
+.auth-warning {
+  margin: 0 0 1rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.35;
+  color: var(--error);
+}
+
+.auth-status {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.auth-links {
+  margin: 1.6rem 0 0;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.auth-links a,
+.auth-help a {
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 2px dashed currentColor;
+}
+
+.auth-help {
+  margin: 0.9rem 0 0;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--text-soft);
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  .auth-card { box-shadow: 6px 6px 0 var(--ink); rotate: 0deg; }
+}
+
+@media (forced-colors: active) {
+  body.auth-page { background: Canvas; }
+}

@@ -32,7 +32,7 @@
 
   /* Alte Namen bleiben gültig, Login-/Passwortseiten setzen sie per JS */
   --primary-color: var(--pink);
-  --accent: var(--pink);
+  --accent: var(--pink-deep);
 
   /* Bedeutungen */
   --success: #2e7d32;

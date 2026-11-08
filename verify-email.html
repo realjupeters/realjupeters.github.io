@@ -4,30 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>E-Mail bestätigen · Poolparty 2026</title>
-    <link rel="stylesheet" href="css/main.css" />
+    <title>E-Mail bestätigen · JP Poolparty</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&display=swap" />
+    <link rel="stylesheet" href="css/scrapbook.css?v=20261110" />
+    <link rel="stylesheet" href="css/auth.css?v=20261110" />
     <meta name="theme-color" content="#fdfbf7" />
     <meta name="api-base" content="https://jpcore.logge.top" />
   </head>
-  <body>
-    <nav class="border split-nav fixed">
+  <body class="auth-page">
+    <nav class="split-nav">
       <div class="nav-brand">
         <h3><a href="/">JP Poolparty</a></h3>
       </div>
     </nav>
 
-    <div class="paper">
-      <div class="row flex-center">
+    <main class="auth-main">
+    <div class="auth-card">
         <h1 class="caption">E-Mail bestätigen</h1>
-      </div>
 
       <div class="form-section">
-        <p id="verifyStatus" style="font-size:1.05rem; text-align:center;">
+        <p id="verifyStatus" class="auth-status">
           Deine E-Mail wird bestätigt…
         </p>
-        <div id="verifyMessage" class="alert" style="display:none;font-weight:bold;margin-top:1rem;"></div>
+        <div id="verifyMessage" class="alert auth-message" role="status" style="display:none"></div>
       </div>
     </div>
+    </main>
 
     <script type="module">
       import { verifyEmail } from './js/api/auth.js';
