@@ -6,6 +6,17 @@
 :root {
   --display-active: none;
   --display-inactive: block;
+  /* Same top-to-bottom colour stops as both anniversary logos. */
+  --anniversary-gradient: linear-gradient(
+    to bottom,
+    #FF0000 0%, #FF0000 7%,
+    #F5601D 20%, #F5601D 23%,
+    #E0E722 34%, #E0E722 38%,
+    #6BE607 49%, #6BE607 53%,
+    #51FCF8 64%, #51FCF8 68%,
+    #D800FF 79%, #D800FF 83%,
+    #FF2D87 96%, #FF2D87 100%
+  );
 }
 
 /* ===== Reset ===== */
@@ -352,20 +363,12 @@ h1.caption {
 
 @supports ((background-clip: text) or (-webkit-background-clip: text)) {
   h1.caption {
-    /* Same top-to-bottom colour stops as both anniversary logos. */
-    background-image: linear-gradient(
-      to bottom,
-      #FF0000 0%, #FF0000 7%,
-      #F5601D 20%, #F5601D 23%,
-      #E0E722 34%, #E0E722 38%,
-      #6BE607 49%, #6BE607 53%,
-      #51FCF8 64%, #51FCF8 68%,
-      #D800FF 79%, #D800FF 83%,
-      #FF2D87 96%, #FF2D87 100%
-    );
+    background-image: var(--anniversary-gradient);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    -webkit-text-stroke: 1.25px var(--pencil);
+    paint-order: stroke fill;
   }
 }
 
@@ -373,6 +376,7 @@ h1.caption {
   h1.caption {
     background-image: none;
     color: CanvasText;
+    -webkit-text-stroke: 0;
   }
 }
 
@@ -436,6 +440,22 @@ h2:hover {
 
 h2.background-secondary {
   background: var(--postit);
+  color: var(--pencil);
+}
+
+/* Only current-event headings opt in; recap headings keep their year colours. */
+h2.background-secondary.anniversary-band {
+  background-image: var(--anniversary-gradient);
+}
+
+.anniversary-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.1rem 0.65rem;
+  background: var(--paper);
+  border: 2px solid var(--pencil);
+  border-radius: var(--wobbly-sm);
   color: var(--pencil);
 }
 
